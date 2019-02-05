@@ -13,7 +13,7 @@ from .exceptions import InvalidArgumentError, OperationFailedException
 from .common_utils import (get_user_home_dir, is_valid_url, copy_file, hash_, rm_files, 
                            guess_filename_from_url, add_to_path, find_patterns_in_str, os_name, 
                            make_dir, file_exists)
-from .html import HTML
+from .htmlm import HTML
 from .log_adapter import get_logger
 from .decorators import task_runner
 

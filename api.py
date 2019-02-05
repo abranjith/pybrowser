@@ -15,7 +15,7 @@ from .elements.file import File
 from .constants import CONSTANTS
 from .downloader import download_driver
 from .requester import Requester
-from .html import HTML
+from .htmlm import HTML
 from .common_utils import (hash_, get_unique_filename_from_url, get_user_home_dir, make_dir, dir_filename,
                            os_name, os_bits, set_winreg_fromlocalmachine)  
 from .log_adapter import get_logger
