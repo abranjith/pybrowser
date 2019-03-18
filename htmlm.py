@@ -8,6 +8,8 @@ from .external.parse import findall
 from .external.htmlrenderer import render_html
 from .constants import CONSTANTS
 
+LINESEP = os.linesep
+
 class HTML(object):
 
     def __init__(self, content=None, url=None, encoding="utf-8", print_style=False, print_js=True, 
@@ -44,14 +46,12 @@ class HTML(object):
         s = self.lxmltree.text_content()
         #TODO: might need a performance fix in future
         if isinstance(s, str):
-            s = "\n".join([t.strip() for t in s.split("\n") if t and t.strip()])
-        return s
-
-    
+            s = LINESEP.join([t.strip() for t in s.split(LINESEP) if t and t.strip()])
+        return s 
     
     @property
     def elements(self):
-        return Elements(self.lxmltree)
+        return Elements(self.lxmltree, self.encoding)
     
     def search(self, template, use_text=False):
         """Search the :class:`Element <Element>` for the given Parse template.
@@ -98,8 +98,9 @@ class HTML(object):
     
 class Elements(object):
 
-    def __init__(self, lxmltree):
+    def __init__(self, lxmltree, encoding):
         self.lxmltree = lxmltree
+        self.encoding = encoding
 
     def find_by_id(self, id_):
         if not (id_ and self.lxmltree):

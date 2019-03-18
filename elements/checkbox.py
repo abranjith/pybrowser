@@ -1,24 +1,21 @@
 __author__ = 'Ranjith'
-from selenium.common.exceptions import *
-from .utils import find_element_for_locator
 from .actions import Action
 
 class Checkbox(Action):
 
-    def __init__(self, driver, locator=None, element=None, wait_time=30):
-        self.driver = driver
-        if element is None:
-            element = find_element_for_locator(driver, locator, wait_time)
-        super().__init__(element)
-        
+    def __init__(self, driver, locator=None, element=None, wait_time=10, visible=False):
+        super().__init__(driver, locator, element, wait_time, visible)
+
+    @property    
     def check(self):
         if not self.is_checked:
-            self.element.click()
+            self.click()
         return self
     
+    @property
     def uncheck(self):
         if self.is_checked:
-            self.element.click()
+            self.click()
         return self
     
     @property

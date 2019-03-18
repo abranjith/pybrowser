@@ -30,7 +30,7 @@ class ElementTests(unittest.TestCase):
         srch_btn.submit()
         # srch_btn.click()
         time.sleep(10)
-        driver.close()
+        driver.close
         driver.quit()
 
     def test2(self):
@@ -52,7 +52,7 @@ class ElementTests(unittest.TestCase):
         h = driver.window_handles
         for i in h:
             print(i)
-        b.close()
+        b.close
 
 if __name__ == "__main__":   
     unittest.main()

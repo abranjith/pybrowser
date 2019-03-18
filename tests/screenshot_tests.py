@@ -13,36 +13,36 @@ class ElementTests(unittest.TestCase):
 
         bro.goto("https://www.google.com/")
 
-        v = bro.button("name=btnK").name
+        v = bro.button("name:=btnK").name
         print(v)
-        bro.input("name=q").enter("sachin")
-        bro.button("name=btnK").click()
+        bro.input("name:=q").enter("sachin")
+        bro.button("name:=btnK").click()
         time.sleep(3)
         bro.take_screenshot()
         time.sleep(1)
 
-        bro.input("name=q").enter("virat kohli").click()
+        bro.input("name:=q").enter("virat kohli").click()
         time.sleep(3)
         bro.take_screenshot("C:\\Users\\Ranjith\\screenshots\\koli")
         time.sleep(1)
 
-        bro.input("name=q").enter("ab de villiers").click()
+        bro.input("name:=q").enter("ab de villiers").click()
         time.sleep(3)
         bro.take_screenshot("C:\\Users\\Ranjith\\screenshots\\")
         time.sleep(1)
 
-        bro.input("name=q").enter("dhoni").click()
+        bro.input("name:=q").enter("dhoni").click()
         time.sleep(3)
         bro.take_screenshot("googly_dhoni")
         time.sleep(1)
 
-        bro.input("name=q").enter("ganguly").click()
+        bro.input("name:=q").enter("ganguly").click()
         time.sleep(3)
         bro.take_screenshot("googly_ganguly.png")
         time.sleep(1)
 
         #print(bro.html().links)
-        bro.close()
+        bro.close
 
 if __name__ == "__main__":
     unittest.main()

@@ -64,8 +64,6 @@ class Downloader(object):
         self.filehash = None
         self.downloaded_files = None
         self.asynch = asynch
-        #decorate download function for ability to run in background
-        self.download = task_runner(background=self.asynch)(self.download)
 
     def _downloadhook(self, blocknum, blocksize, totalsize):
         readsofar = blocknum * blocksize
@@ -81,6 +79,7 @@ class Downloader(object):
     
     def _can_proceed(self):
         if not self.overwrite_existing:
+            #print("self.unzip_fullfilename - " + self.unzip_fullfilename)
             if file_exists(self.unzip_fullfilename) or file_exists(self.download_fullfilename):
                 return False
         return True
@@ -100,7 +99,8 @@ class Downloader(object):
             return
         add_to_path(self.to_dir)
 
-    #@task_runner(background=self.asynch) #can't use instance variable here
+    #decorate download function for ability to run in background
+    @task_runner
     def download(self):
         if self._can_proceed():
             filename, headers = None, None
@@ -124,7 +124,7 @@ class Downloader(object):
             if self.download_ok:
                 self.downloaded_files = [self.download_fullfilename]
                 if self.unzip:
-                    print("unzipping")
+                    #print("unzipping")
                     self._unzip()      
             else:
                 raise OperationFailedException(f"Download from {self.from_url} failed")
@@ -155,17 +155,28 @@ class WebdriverDownloader(Downloader):
         return default_dir
     
     @staticmethod
-    def latest_chrome_version():
-        LATEST_VERSION_PATTERN = r'Latest Release:ChromeDriver (\d+\.\d+)'
+    def latest_chrome_version(use_default=True):
+        v = CHROME_CONSTANTS.VERSION
+        if v:
+            return str(v).strip()
+        #get from chromium website
+        LATEST_VERSION_PATTERN = r'Latest Release:.*ChromeDriver ([\d+\.+]+)'
         plain_text = ""
         with HTTPSession() as session:
             h = session.get(CHROME_CONSTANTS.HOME_URL)
             r = HTML(h.text)
+            r.render()
             plain_text = str(r.text).encode('ascii', errors='ignore').decode()
-        #print(str(r.text).encode('ascii', errors='ignore').decode())
         v = find_patterns_in_str(LATEST_VERSION_PATTERN, plain_text, first=True)
+        if (not v) and use_default:
+            v = CHROME_CONSTANTS.DEFAULT_VERSION
         if not v:
-            raise OperationFailedException("Unable to pull latest available Chromdriver version")
+            message = """
+            Unable to pull latest available Chromedriver version. Check,
+                1. Your internet connection
+                2. If internet is fine, contact implementor. Perhaps requires logic change
+            """
+            raise OperationFailedException(message)
         return str(v).strip()
     
     @staticmethod
@@ -176,8 +187,13 @@ class WebdriverDownloader(Downloader):
     @classmethod
     def download_chrome(cls, to_dir=None, version=None, download_filename=None, overwrite_existing=True,
                         asynch=False, unzip=True, add_to_ospath=False):
-        version = version or WebdriverDownloader.latest_chrome_version()
         filename = CHROME_CONSTANTS.FILENAME.format(WebdriverDownloader._OSMAP[os_name()])
+        if (not overwrite_existing) and file_exists(filename):
+            return
+        if version:
+            version = str(version)
+        version = version or WebdriverDownloader.latest_chrome_version()
+        #print("version " + str(version))
         if not download_filename:
             download_filename = filename
         url = CHROME_CONSTANTS.DOWNLOAD_URL.format(version, filename)
@@ -191,8 +207,9 @@ class WebdriverDownloader(Downloader):
     def download_ie(cls, to_dir=None, version=None, download_filename=None, overwrite_existing=True,
                         asynch=False, unzip=True, add_to_ospath=False):
         #TODO: automatically determine version
-        if not version:
-            version = IE_CONSTANTS.VERSION
+        if version:
+            version = str(version)
+        version = version or str(IE_CONSTANTS.VERSION)
         filename = IE_CONSTANTS.FILENAME.format(version)
         if not download_filename:
             download_filename = filename

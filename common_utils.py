@@ -174,7 +174,7 @@ def find_patterns_in_str(p, s, first=False):
         return empty()
     pc = re.compile(p)
     l = re.findall(pc, s)
-    if not l or len(l) == 0:
+    if not l:
         return empty()
     if first:
         return l[0]

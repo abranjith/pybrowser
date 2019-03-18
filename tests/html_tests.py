@@ -62,7 +62,7 @@ class ElementTests(unittest.TestCase):
             print(r)
       
     def tearDown(self):
-        #self.bro.close()
+        #self.bro.close
         pass
 
 if __name__ == "__main__":
