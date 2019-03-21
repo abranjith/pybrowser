@@ -45,7 +45,7 @@ class Action(object):
         else:
             self._try_key_send()
         self._wait_after_click(before_source, wait_time, hook)
-        return self
+        return self._dispatch()
     
     def _try_key_send(self):
         try:
@@ -76,7 +76,7 @@ class Action(object):
         before_source = self._driver.page_source
         self.element.submit()
         self._wait_after_click(before_source, wait_time, hook)
-        return self
+        return self._dispatch()
 
     @cached_property
     def tag_name(self):
@@ -123,7 +123,7 @@ class Action(object):
     @property
     def if_found(self):
         self._if_found = True
-        return self
+        return self._dispatch()
     
     @property
     def is_displayed(self):
@@ -136,7 +136,7 @@ class Action(object):
     @property
     def if_displayed(self):
         self._if_displayed = True
-        return self
+        return self._dispatch()
     
     @property
     def if_visible(self):
@@ -149,7 +149,7 @@ class Action(object):
     @property
     def if_enabled(self):
         self._if_enabled = True
-        return self
+        return self._dispatch()
     
     @property
     def is_stale(self):
@@ -163,7 +163,7 @@ class Action(object):
     @property
     def if_stale(self):
         self._if_stale = True
-        return self
+        return self._dispatch()
 
     def wait_for_staleness(self, wait_time=None):
         wait_time = wait_time or self.wait_time
@@ -171,7 +171,7 @@ class Action(object):
             wait_until_stale(self._driver, self.element, wait_time)
         except Exception as e:
             self.logger.error(f"wait_for_staleness - {str(e)}")
-        return self
+        return self._dispatch()
     
     @property
     def refresh(self):
@@ -181,7 +181,7 @@ class Action(object):
         #delete cached attributes via cached_property
         for attr in CACHED_ATTRS:
             del self.__dict__[attr]
-        return self
+        return self._dispatch()
     
     @property
     def highlight(self):
@@ -199,4 +199,9 @@ class Action(object):
             sleep(DURATION1)
             self._driver.execute_script(highlight_script, self.element, STYLE, current_style)
             sleep(DURATION2)
+        return self._dispatch()
+    
+    def _dispatch(self):
+        if hasattr(self, "_deco_clazz"):
+            return self._deco_clazz
         return self

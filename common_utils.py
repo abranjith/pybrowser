@@ -12,8 +12,12 @@ try:
     from urllib.parse import urlparse, unquote
 except ImportError:
     from urlparse import urlparse, unquote
+from .constants import CONSTANTS
 
 def get_user_home_dir(user=None):
+    home_dir = CONSTANTS.DIR_PATH
+    if home_dir and os.path.isdir(home_dir):
+        return os.path.abspath(home_dir)
     if user:
         home_dir = os.path.expanduser(f"~{user}")
         if os.path.isdir(home_dir):

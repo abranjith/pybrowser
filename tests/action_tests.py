@@ -37,7 +37,7 @@ class ListenerTests(unittest.TestCase):
             print(btn.action_obj.__dict__)
             print("btn.id", btn.id)
             btn.refresh
-            print("post refresh", print(btn.action_obj.__dict__))
+            print("post refresh", btn.action_obj.__dict__)
             
 
 if __name__ == "__main__":

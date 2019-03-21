@@ -7,6 +7,8 @@ class CONSTANTS():
     IE_DRIVER = "IE_DRIVER"
     FIREFOX_DRIVER = "FIREFOX_DRIVER"
     DEFAULT_LOGGER = os.environ.get('DEFAULT_LOGGER_NAME') or "pybrowser"
+    DEFAULT_LOGGER_PATH = os.environ.get('DEFAULT_LOGGER_PATH')
+    DIR_PATH = os.environ.get('PYBROWSER_HOME_DIR_PATH')
     DIR_NAME = os.environ.get('PYBROWSER_DIR_NAME') or "pybrowser_files"
     HTML_DIR = os.environ.get('HTML_DIR_NAME') or "html"
     SCREENSHOTS_DIR = os.environ.get('SCREENSHOTS_DIR_NAME') or "screenshots"

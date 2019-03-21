@@ -13,7 +13,10 @@ def _default_handler(level=logging.DEBUG):
     MAX_SIZE_BYTES = 1000000
     BACKUP_COUNT = 2
     filename = f"{_DEFAULT_LOGGER}.log"
-    p = os.path.abspath(os.path.dirname(sys.argv[0]))
+    default_path = os.path.dirname(sys.argv[0])
+    given_path = CONSTANTS.DEFAULT_LOGGER_PATH
+    final_path = given_path or default_path
+    p = os.path.abspath(final_path)
     p = os.path.join(p, filename)
     h = RotatingFileHandler(p, maxBytes=MAX_SIZE_BYTES, backupCount=BACKUP_COUNT)
     h.setLevel(level)
