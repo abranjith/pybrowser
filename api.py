@@ -338,6 +338,11 @@ class Browser(object):
     
     @property
     def response_code(self):
+        if self._driver:
+            script = "new Response().status;"
+            resp = self.execute_script(script)
+            if resp:
+                return int(resp)
         if not self._content_session.response:
             self._do_get()  # assuming get !
         return self._content_session.response_code
@@ -348,17 +353,21 @@ class Browser(object):
             self._do_get()  # assuming get !
         return self._content_session.response_encoding
 
-    def get(self, url=None, headers=None, cookies=None, **kwargs):
+    def get(self, url=None, future=False, headers=None, cookies=None, **kwargs):
         self._url = url = url or (self._driver.current_url if self._driver else self._url)
         if not url:
             raise InvalidArgumentError("url is mandatory, please navigate to a url first or provide one")
-        return self._content_session.get(url=url, headers=None, cookies=None, **kwargs)
+        return self._content_session.get(url=url, future=future, headers=headers, cookies=cookies, **kwargs)
     
-    def post(self, url=None, body=None, headers=None, cookies=None, **kwargs):
+    def post(self, url=None, future=False, body=None, headers=None, cookies=None, **kwargs):
         self._url = url = url or (self._driver.current_url if self._driver else self._url)
         if not url:
             raise InvalidArgumentError("url is mandatory, please navigate to a url first or provide one")
-        return self._content_session.post(url=url, body=body, headers=None, cookies=None, **kwargs)
+        return self._content_session.post(url=url, future=future, body=body, headers=headers, cookies=cookies, **kwargs)
+    
+    @property
+    def requests_session(self):
+        return self._content_session.req_session
     
     def take_screenshot(self, filename=None):
         if self._driver and self._driver.current_url:

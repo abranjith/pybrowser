@@ -1,0 +1,44 @@
+.. pybrowser documentation master file, created by
+   sphinx-quickstart on Sat Mar 23 16:21:35 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to pybrowser's documentation!
+=====================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+About the project
+*****************
+**pybrowser** is an attempt to simplify browser automation designed keeping end user in mind. Here is an example of usage,
+
+.. code-block:: python
+
+    from pybrowser import Browser 
+    with Browser(browser_name=Browser.CHROME) as b:
+        b.goto("https://www.google.com/")
+        b.input("name:=q").enter("news")
+        b.button("name:=btnK").click()
+        b.take_screenshot()
+
+Features
+********
+*   Browser as an object exposed to user
+*   Uses Selenium and Requests under the hood
+*   Exposes specific HTML elements and corresponding functionalities
+*   Takes care of downloading corresponding browser drivers and adding to the path
+*   Special interface to submit HTML forms
+*   Cached element attributes
+*   Access to response code and header information
+*   Non browser mode support to directly deal with HTML pages & HTTP methods
+*   HTML rendering support
+*   Default exception handler
+     
+Indices and tables
+******************
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

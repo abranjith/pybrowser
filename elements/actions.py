@@ -173,6 +173,11 @@ class Action(object):
             self.logger.error(f"wait_for_staleness - {str(e)}")
         return self._dispatch()
     
+    def wait(self, wait_time=None):
+        wait_time = wait_time or self.wait_time
+        sleep(wait_time)
+        return self._dispatch()
+    
     @property
     def refresh(self):
         CACHED_ATTRS = ['tag_name', 'id', 'name', 'type', 'css_classes', 'value', 'text', 'href']   # i don't like this either!
