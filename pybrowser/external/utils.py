@@ -34,7 +34,7 @@ class cached_property(property):
         if obj is None:
             return self
         value = obj.__dict__.get(self.__name__, _missing)
-        print("cached_prop value before func call", value)
+        #print("cached_prop value before func call", value)
         if value is _missing:
             value = self.func(obj)
             obj.__dict__[self.__name__] = value
