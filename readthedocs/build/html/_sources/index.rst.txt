@@ -50,9 +50,12 @@ much simpler in terms of design as well as usage ! It is also lighweight and doe
 
 **Installation**
 ----------------
-**pybrowser** is not in pypi yet. If you use `pipenv <https://pipenv.readthedocs.io/en/latest/>`_ , it can be installed with below command,
+**pybrowser** is not in pypi yet. 
+
+If you use `pipenv <https://pipenv.readthedocs.io/en/latest/>`_ , it can be installed with below command,
 
     ``pipenv install -e git+https://github.com/abranjith/pybrowser.git#egg=pybrowser``
+
 
 With pip,
     ``pip install git+https://github.com/abranjith/pybrowser#egg=pybrowser``
