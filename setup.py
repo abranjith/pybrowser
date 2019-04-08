@@ -10,7 +10,7 @@ import os
 from setuptools import setup
 
 # Package meta-data.
-NAME = 'pybrowser-ranjith'
+NAME = 'pybrowser'
 DESCRIPTION = 'Another Browser Automation API'
 URL = 'https://github.com/abranjith/pybrowser'
 EMAIL = 'abranjith@gmail.com'
@@ -40,8 +40,8 @@ setup(
     url=URL,
     python_requires='>=3.7.0',
     # If your package is a single module, use this instead of 'packages':
-    py_modules=['pybrowser'],
-
+    #py_modules=['pybrowser'],
+    packages=['pybrowser'],
     install_requires=REQUIRED,
     include_package_data=True,
     license='MIT',

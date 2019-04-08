@@ -54,7 +54,11 @@ much simpler in terms of design as well as usage ! It is also lighweight and doe
 
     ``pipenv install -e git+https://github.com/pybrowser/pybrowser.git#egg=pybrowser``
 
-Feel free to clone/ fork and play around
+With pip,
+    ``pip install git+https://github.com/abranjith/pybrowser#egg=pybrowser``
+
+Virtualenv is highly recommended.
+Feel free to clone/ fork and play around.
 
 **Requirements**
 ----------------
