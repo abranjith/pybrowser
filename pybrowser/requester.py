@@ -23,7 +23,7 @@ class Requester(object):
             self.future = executor.submit(self.req_session.get, url, headers=headers, cookies=cookies, **kwargs)
             return self
     
-    def post(self, url, future=False, body, headers=None, cookies=None, **kwargs):
+    def post(self, url, future=False, body=None, headers=None, cookies=None, **kwargs):
         if not future: 
             self.response = self.req_session.post(url, data=body, headers=headers, cookies=cookies, **kwargs)
             return self.response
@@ -35,23 +35,29 @@ class Requester(object):
     def result(self):
         if self.future:
             self.response = self.future.result()
-        return self.response
+        return self
     
     @property
-    def html(self):
+    def is_request_done(self):
+        if self.future:
+            return self.future.done()
+        return True
+    
+    def content(self, raw=False):
         if not self.response:
             return
-        return self.response.text
+        return self.response.content if raw else self.response.text
     
     @property
     def json(self):
         if not self.response:
             return
+        json_ = ""
         try:
-            json = self.response.json()
-            return json
-        except Exception as e:
-            return    
+            json_ = self.response.json()
+        except:
+            pass
+        return json_    
     
     @property
     def response_headers(self):
@@ -74,3 +80,5 @@ class Requester(object):
     def close(self):
         if self.req_session:
             self.req_session.close()
+        if self.response and hasattr(self.response, "close"):
+            self.response.close()

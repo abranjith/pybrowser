@@ -1,7 +1,7 @@
 import unittest
 import os
 import sys
-sys.path.append("..")
+sys.path.append("..\\pybrowser")
 from pybrowser.downloader import download_url, webdriver_downloader
 
 class DownloaderTests(unittest.TestCase):

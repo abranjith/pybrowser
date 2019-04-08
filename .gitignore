@@ -2,3 +2,4 @@ README
 *.log
 __pycache__/
 .vscode/
+reqs.txt

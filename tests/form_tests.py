@@ -1,10 +1,11 @@
 __author__ = 'Ranjith'
 
 import unittest
-import sys
-sys.path.append("..")
-from pybrowser import Browser
 import time
+import sys
+sys.path.append("..\\pybrowser")
+
+from pybrowser import Browser
 
 class FormTests(unittest.TestCase):
 

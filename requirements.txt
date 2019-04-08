@@ -1,0 +1,15 @@
+-i https://pypi.org/simple
+appdirs==1.4.3
+certifi==2019.3.9
+chardet==3.0.4
+cssselect==1.0.3
+idna==2.8
+lxml==4.3.3
+pyee==5.0.0
+pyppeteer==0.0.25
+pyquery==1.4.0
+requests==2.21.0
+selenium==3.141.0
+tqdm==4.31.1
+urllib3==1.24.1
+websockets==7.0

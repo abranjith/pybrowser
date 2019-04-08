@@ -7,9 +7,10 @@ name = "pypi"
 selenium = "*"
 requests = "*"
 pyppeteer = "*"
-sphinx = "*"
+pyquery = "*"
 
 [dev-packages]
+sphinx = "*"
 
 [requires]
 python_version = "3.7"

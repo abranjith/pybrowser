@@ -2,17 +2,18 @@ import os
 
 #Webdriver constants
 class CONSTANTS():
-    DOWNLOAD_DIR_NAME = os.environ.get('DRIVERS_DOWNLOAD_DIR_NAME') or ".browserdrivers"
+    DOWNLOAD_DIR_NAME = os.environ.get('DRIVERS_DOWNLOAD_DIR_NAME') or "browserdrivers"
     CHROME_DRIVER = "CHROME_DRIVER"
     IE_DRIVER = "IE_DRIVER"
     FIREFOX_DRIVER = "FIREFOX_DRIVER"
     DEFAULT_LOGGER = os.environ.get('DEFAULT_LOGGER_NAME') or "pybrowser"
     DEFAULT_LOGGER_PATH = os.environ.get('DEFAULT_LOGGER_PATH')
     DIR_PATH = os.environ.get('PYBROWSER_HOME_DIR_PATH')
-    DIR_NAME = os.environ.get('PYBROWSER_DIR_NAME') or "pybrowser_files"
+    DIR_NAME = os.environ.get('PYBROWSER_DIR_NAME') or "pybrowser"
     HTML_DIR = os.environ.get('HTML_DIR_NAME') or "html"
     SCREENSHOTS_DIR = os.environ.get('SCREENSHOTS_DIR_NAME') or "screenshots"
-    PYPPETEER_HOME = os.environ.get('PYPPETEER_DIR_NAME') or "puppeteer"
+    PYPPETEER_DIR = os.environ.get('PYPPETEER_DIR_NAME') or "puppeteer"
+    PYPPETEER_HOME = os.environ.get('PYPPETEER_HOME')
 #Chrome constants
 class CHROME_CONSTANTS():
     #HOME_URL = "http://chromedriver.chromium.org/downloads"

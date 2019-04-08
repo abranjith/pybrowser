@@ -6,6 +6,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.event_firing_webdriver import EventFiringWebElement
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.common.action_chains import ActionChains
 from .utils import find_element_for_locator, exec_func, wait_until_stale, wait_until
 from ..external.utils import cached_property
 from ..decorators import action_wrapper
@@ -170,7 +171,7 @@ class Action(object):
         try:
             wait_until_stale(self._driver, self.element, wait_time)
         except Exception as e:
-            self.logger.error(f"wait_for_staleness - {str(e)}")
+            self.logger.error(f"Exception in wait_for_staleness - {str(e)}")
         return self._dispatch()
     
     def wait(self, wait_time=None):
@@ -205,6 +206,30 @@ class Action(object):
             self._driver.execute_script(highlight_script, self.element, STYLE, current_style)
             sleep(DURATION2)
         return self._dispatch()
+    
+    @property
+    def double_click(self):
+        if not self.element:
+            return
+        ac = ActionChains(self._driver)
+        ac.double_click(on_element=self.element).perform()
+    
+    @property
+    def move_to_element(self):
+        if not self.element:
+            return
+        ac = ActionChains(self._driver)
+        ac.move_to_element(self.element).perform()
+    
+    def drag_and_drop_at(self, to_element=None, to_locator=None, wait_time=10, visible=False):
+        if not (to_element or to_locator):
+            return
+        if to_element is None:
+            to_element = find_element_for_locator(self._driver, to_locator, wait_time, visible=visible, ignore_exception=False)
+        if to_element is None:
+            return
+        ac = ActionChains(self._driver)
+        ac.drag_and_drop(self.element, to_element).perform()
     
     def _dispatch(self):
         if hasattr(self, "_deco_clazz"):

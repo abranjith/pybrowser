@@ -4,6 +4,7 @@ import os
 import sys
 from functools import lru_cache
 from .constants import CONSTANTS
+from .common_utils import get_user_home_dir, make_dir
 
 _CURRENT_LOGGER = None
 _DEFAULT_LOGGER = CONSTANTS.DEFAULT_LOGGER
@@ -13,7 +14,7 @@ def _default_handler(level=logging.DEBUG):
     MAX_SIZE_BYTES = 1000000
     BACKUP_COUNT = 2
     filename = f"{_DEFAULT_LOGGER}.log"
-    default_path = os.path.dirname(sys.argv[0])
+    default_path = _get_default_path()
     given_path = CONSTANTS.DEFAULT_LOGGER_PATH
     final_path = given_path or default_path
     p = os.path.abspath(final_path)
@@ -22,6 +23,13 @@ def _default_handler(level=logging.DEBUG):
     h.setLevel(level)
     h.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
     return h
+
+def _get_default_path():
+    default_path = CONSTANTS.DIR_PATH or get_user_home_dir()
+    #default_path = default_path or os.path.dirname(sys.argv[0])
+    default_path = os.path.join(default_path, CONSTANTS.DIR_NAME, "logs")
+    make_dir(default_path)
+    return default_path
 
 def _logger_has_handler(logger):
     level = logger.getEffectiveLevel()

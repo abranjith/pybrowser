@@ -149,8 +149,9 @@ class WebdriverDownloader(Downloader):
     @staticmethod
     def default_download_directory():
         dir_name = CONSTANTS.DOWNLOAD_DIR_NAME
-        home_dir = get_user_home_dir()
-        default_dir = os.path.join(home_dir, dir_name)
+        start_dir = CONSTANTS.DIR_PATH or get_user_home_dir()
+        #home_dir = get_user_home_dir()
+        default_dir = os.path.join(start_dir, CONSTANTS.DIR_NAME, dir_name)
         make_dir(default_dir)
         return default_dir
     

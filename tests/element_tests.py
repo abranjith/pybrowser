@@ -1,6 +1,6 @@
 import unittest
 import sys
-sys.path.append("..")
+sys.path.append("..\\pybrowser")
 from pybrowser import Browser
 
 class ElementTests(unittest.TestCase):

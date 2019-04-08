@@ -37,7 +37,7 @@ class Browser(object):
     SAFARI = "safari"
 
     def __init__(self, browser_name=None, incognito=False, headless=False, browser_options=None, 
-                 screenshot_on_exception=True, silent_fail=False, wait_time=10, proxy=None):
+                 proxy=None, screenshot_on_exception=True, silent_fail=False, wait_time=10):
         self.screenshot_on_exception = screenshot_on_exception
         #TODO: this currently has no effect. Once on_exception is handled in selenium api, will start to work
         self.silent_fail = silent_fail
@@ -139,12 +139,12 @@ class Browser(object):
         if self._driver is None:
             return
         try:
-            self.maximize_window()
+            self.maximize_window
             self.execute_script("document.body.style.zoom='100%'")
             self.switch_to.window(self._driver.current_window_handle)
         except Exception as e:
             self.logger.warning(str(e))
-            print(str(e))
+            #print(str(e))
 
     @property
     def driver(self):
@@ -167,6 +167,7 @@ class Browser(object):
         self._set_url_and_hash()
         return self
 
+    @property
     def back(self):
         if self._driver is None:
             return
@@ -174,6 +175,7 @@ class Browser(object):
         self._set_url_and_hash()
         return self
 
+    @property
     def forward(self):
         if self._driver is None:
             return
@@ -181,6 +183,7 @@ class Browser(object):
         self._set_url_and_hash()
         return self
     
+    @property
     def refresh(self):
         if self._driver is None:
             return
@@ -188,18 +191,21 @@ class Browser(object):
         self._set_url_and_hash()
         return self
     
+    @property
     def maximize_window(self):
         if self._driver is None:
             return
         self._driver.maximize_window()
         return self
     
+    @property
     def minimize_window(self):
         if self._driver is None:
             return
         self._driver.minimize_window()
         return self
     
+    @property
     def fullscreen_window(self):
         if self._driver is None:
             return
@@ -274,10 +280,36 @@ class Browser(object):
     
     @property
     def cookies(self):
-        if self._driver is None:
-            return
-        return self._driver.get_cookies()
+        if self._driver:
+            return self._driver.get_cookies()
+        if not self._content_session.response:
+            self._do_get()  # assuming get !
+        resp = self._content_session.response
+        cookies = []
+        if resp:
+            cookies_jar = resp.cookies
+            names = self._cookie_attr_names()
+            if cookies_jar:
+                for c in cookies_jar:
+                    cookies.append(self._get_dict_for_attrs(c, names))
+        return cookies
+    
+    def _cookie_attr_names(self):
+        attr_names = ("version", "name", "value",
+                "port", "port_specified",
+                "domain", "domain_specified", "domain_initial_dot",
+                "path", "path_specified",
+                "secure", "expires", "discard", "comment", "comment_url"
+                )
+        return attr_names
+    
+    def _get_dict_for_attrs(self, obj, attr_names):
+        d = {}
+        for name in attr_names:
+            d[name] = getattr(obj, name)
+        return d
    
+    @property
     def delete_all_cookies(self):
         if self._driver is None:
             return
@@ -310,9 +342,10 @@ class Browser(object):
             return HTML(self._driver.page_source, url=self._driver.current_url, print_style=print_style, 
                         print_js=print_js, remove_tags=remove_tags)
         self._do_get(url=url)
-        return HTML(self._content_session.html, url=self._url, print_style=print_style, 
+        return HTML(self._content_session.content(), url=self._url, print_style=print_style, 
                     print_js=print_js, remove_tags=remove_tags)
     
+    #TODO add encoding
     def content(self, raw=False):
         if self._driver:
             c = self._driver.page_source or ""
@@ -332,6 +365,13 @@ class Browser(object):
 
     @property
     def response_headers(self):
+        ''' #doesn't work !
+        if self._driver:
+            script = "new Response().headers.entries();"
+            resp = self.execute_script(script)
+            if resp:
+                return str(resp)
+        '''
         if not self._content_session.response:
             self._do_get()  # assuming get !
         return self._content_session.response_headers
@@ -353,17 +393,17 @@ class Browser(object):
             self._do_get()  # assuming get !
         return self._content_session.response_encoding
 
-    def get(self, url=None, future=False, headers=None, cookies=None, **kwargs):
+    def get(self, url=None, asynch=False, headers=None, cookies=None, **kwargs):
         self._url = url = url or (self._driver.current_url if self._driver else self._url)
         if not url:
             raise InvalidArgumentError("url is mandatory, please navigate to a url first or provide one")
-        return self._content_session.get(url=url, future=future, headers=headers, cookies=cookies, **kwargs)
+        return self._content_session.get(url=url, future=asynch, headers=headers, cookies=cookies, **kwargs)
     
-    def post(self, url=None, future=False, body=None, headers=None, cookies=None, **kwargs):
+    def post(self, url=None, asynch=False, body=None, headers=None, cookies=None, **kwargs):
         self._url = url = url or (self._driver.current_url if self._driver else self._url)
         if not url:
             raise InvalidArgumentError("url is mandatory, please navigate to a url first or provide one")
-        return self._content_session.post(url=url, future=future, body=body, headers=headers, cookies=cookies, **kwargs)
+        return self._content_session.post(url=url, future=asynch, body=body, headers=headers, cookies=cookies, **kwargs)
     
     @property
     def requests_session(self):
@@ -394,7 +434,6 @@ class Browser(object):
     def execute_script(self, script):
         if self._driver and self._driver.current_url and script:
             return self._driver.execute_script(script)
-        return
     
     def wait_for_page_load(self, wait_time=None):
         def _wait(driver):

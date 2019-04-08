@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import sys
-sys.path.append("..")
+sys.path.append("..\\pybrowser")
 from pybrowser import Browser
 
 class ElementTests(unittest.TestCase):

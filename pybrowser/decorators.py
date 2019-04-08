@@ -32,7 +32,6 @@ def action_wrapper(action_clazz):
             self.action_obj._deco_clazz = self      #i know, lol
 
         def __getattr__(self, name):
-            print("__getattr__", name)
             attr = None
             try:
                 attr = self.action_obj.__getattribute__(name)
@@ -65,7 +64,6 @@ def action_wrapper(action_clazz):
             if (not self.action_obj._if_found) and (not self.action_obj._element_found):
                 get_logger().error("action_wrapper._exception_handler : Element not found to perform the action")
                 raise NoSuchElementException("Element not found to perform the action")
-            print("exception_handler:", self.action_obj._if_found, self.action_obj._element_found)
             if self.action_obj._if_found:
                 self.action_obj._if_found = False   #reset flag
                 if not self.action_obj._element_found:
@@ -73,17 +71,14 @@ def action_wrapper(action_clazz):
             return True
         
         def _enabled_handler(self):
-            print("_enabled_handler")
             self.action_obj._if_enabled = False    #reset flag
             return True if self.action_obj.is_enabled else False
 
         def _displayed_handler(self):
-            print("_displayed_handler")
             self.action_obj._if_displayed = False    #reset flag
             return True if self.action_obj.is_displayed else False
         
         def _stale_handler(self):
-            print("_stale_handler")
             self.action_obj._if_stale = False    #reset flag
             return True if self.action_obj.is_stale else False
     

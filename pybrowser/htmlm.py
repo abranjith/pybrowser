@@ -90,7 +90,7 @@ class HTML(object):
         return os.path.join(d, f)
     
     def render(self, script=None, text=False):
-        result, content = render_html(url=self.url, html=self.content, get_text=text, script=script, reload=False)
+        result, content = render_html(url=self.url, html=self.content, get_text=text, script=script, reload_=False)
         if content:
             self.content = content
         #script execution results
