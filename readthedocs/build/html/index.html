@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Welcome to pybrowser’s documentation! &#8212; pybrowser 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -61,33 +59,40 @@ much simpler in terms of design as well as usage ! It is also lighweight and doe
 <div class="section" id="features">
 <h2><strong>Features</strong><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Browser as an object with simple interface to interact with webpage elements</li>
-<li>Exposes specific HTML elements and corresponding functionalities</li>
-<li>Special interface to submit HTML forms</li>
-<li>Cached element attributes</li>
-<li>Takes care of downloading corresponding browser drivers, adding to the path and other such overheads</li>
-<li>In built support for handling page/element wait times, staleness of elements and other such issues due to dynamic nature of webpages</li>
-<li>Access to response code and header information</li>
-<li>Ability to run browser in headless/incognito/with proxy and all the good stuff</li>
-<li>Non browser mode support to directly deal with HTML pages &amp; HTTP methods</li>
-<li>HTML rendering support</li>
-<li>Default exception handler</li>
-<li>Uses Selenium and Requests under the hood</li>
+<li><p>Browser as an object with simple interface to interact with webpage elements</p></li>
+<li><p>Exposes specific HTML elements and corresponding functionalities</p></li>
+<li><p>Special interface to submit HTML forms</p></li>
+<li><p>Cached element attributes</p></li>
+<li><p>Takes care of downloading corresponding browser drivers, adding to the path and other such overheads</p></li>
+<li><p>In built support for handling page/element wait times, staleness of elements and other such issues due to dynamic nature of webpages</p></li>
+<li><p>Access to response code and header information</p></li>
+<li><p>Ability to run browser in headless/incognito/with proxy and all the good stuff</p></li>
+<li><p>Non browser mode support to directly deal with HTML pages &amp; HTTP methods</p></li>
+<li><p>HTML rendering support</p></li>
+<li><p>Default exception handler</p></li>
+<li><p>Uses Selenium and Requests under the hood</p></li>
 </ul>
 <div class="section" id="installation">
 <h3><strong>Installation</strong><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p><strong>pybrowser</strong> is not in pypi yet. If you use <a class="reference external" href="https://pipenv.readthedocs.io/en/latest/">pipenv</a> , it can be installed with below command,</p>
 <blockquote>
-<div><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">git+https://github.com/pybrowser/pybrowser.git#egg=pybrowser</span></code></div></blockquote>
-<p>Feel free to clone/ fork and play around</p>
+<div><p><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">git+https://github.com/abranjith/pybrowser.git#egg=pybrowser</span></code></p>
+</div></blockquote>
+<dl class="simple">
+<dt>With pip,</dt><dd><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/abranjith/pybrowser#egg=pybrowser</span></code></p>
+</dd>
+</dl>
+<p>Virtualenv is highly recommended.
+Feel free to clone/ fork and play around.</p>
 </div>
 <div class="section" id="requirements">
 <h3><strong>Requirements</strong><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>python 3.7+</li>
-<li>selenium</li>
-<li>requests</li>
-<li>pyppeteer</li>
+<li><p>python 3.7+</p></li>
+<li><p>selenium</p></li>
+<li><p>requests</p></li>
+<li><p>pyppeteer</p></li>
+<li><p>pyquery</p></li>
 </ul>
 <p>Note: Although, I have mentioned as python 3.7 or above, you should be able to get it to run with 3.6 also,
 but not prior to that. For versions of other packages refer Pipfile or requirements file</p>
@@ -106,13 +111,13 @@ To use as a typical browser,</p>
 </div>
 <p>Browser supports multiple options as explained below,</p>
 <ul class="simple">
-<li>browser_name - name of the browser such as Browser.IE, Browser.CHROME etc</li>
-<li>incognito - when set to True, will start browser in incognito mode</li>
-<li>headless - when set to True, will start browser in headless mode (you won’t see the GUI)</li>
-<li>browser_options - dict of options that you would provide to webdriver of corresponding browser</li>
-<li>proxy - proxy url to use before starting browser</li>
-<li>screenshot_on_exception - when set to True, takes screenshot when an exception occurs in webdriver</li>
-<li>wait_time - wait time in seconds to be used in finding elements etc</li>
+<li><p>browser_name - name of the browser such as Browser.IE, Browser.CHROME etc</p></li>
+<li><p>incognito - when set to True, will start browser in incognito mode</p></li>
+<li><p>headless - when set to True, will start browser in headless mode (you won’t see the GUI)</p></li>
+<li><p>browser_options - dict of options that you would provide to webdriver of corresponding browser</p></li>
+<li><p>proxy - proxy url to use before starting browser</p></li>
+<li><p>screenshot_on_exception - when set to True, takes screenshot when an exception occurs in webdriver</p></li>
+<li><p>wait_time - wait time in seconds to be used in finding elements etc</p></li>
 </ul>
 <p>Below sections explain the functionalities exposed by Browser.</p>
 </div>
@@ -121,7 +126,7 @@ To use as a typical browser,</p>
 <p>One of the key functionality provided by Browser object is access to your favorite browser as mentioned above.
 You can automate pretty much all of the activities you can do with you browser plus much more. Here are some examples,</p>
 <ul>
-<li><p class="first"><strong>Navigation</strong></p>
+<li><p><strong>Navigation</strong></p>
 <p>Navigate just like how you would do in a regular browser.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
@@ -131,7 +136,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Access to important properties</strong></p>
+<li><p><strong>Access to important properties</strong></p>
 <p>Access various properties of the browser/page like current url, page title, cookies, response data etc.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
@@ -150,17 +155,17 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>More advanced actions on browser</strong></p>
+<li><p><strong>More advanced actions on browser</strong></p>
 <p>You can perform a bunch of actions with the browser apart from accessing properties and general navigation.</p>
 <ul>
-<li><p class="first"><strong>Change driver</strong></p>
+<li><p><strong>Change driver</strong></p>
 <p>If you don’t like the underlying selenium webdriver, provide your own</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">your_custom_driver</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Change window size</strong></p>
+<li><p><strong>Change window size</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">maximize_window</span>
@@ -169,7 +174,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Switch to (from Selenium)</strong></p>
+<li><p><strong>Switch to (from Selenium)</strong></p>
 <p>You can switch to some other window, alert, frame etc. For more refer Selenium documentation <a class="reference external" href="https://selenium-python.readthedocs.io/navigating.html/">here</a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
@@ -180,7 +185,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Cookies</strong></p>
+<li><p><strong>Cookies</strong></p>
 <p>Add / delete/ get cookies</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
@@ -191,7 +196,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>JSON</strong></p>
+<li><p><strong>JSON</strong></p>
 <p>If the response is JSON, get json.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
@@ -199,7 +204,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>HTML</strong></p>
+<li><p><strong>HTML</strong></p>
 <p>Get hold of HTML and do more with it. More on this in below section</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
@@ -207,14 +212,14 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Underlying requests session</strong></p>
+<li><p><strong>Underlying requests session</strong></p>
 <p>Requests is an awesome python library for anything HTTP. More on that <a class="reference external" href="http://docs.python-requests.org/en/master/user/advanced/#session-objects">requests-session</a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">requests_session</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Take screenshot</strong></p>
+<li><p><strong>Take screenshot</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="c1">#guesses path</span>
@@ -228,14 +233,14 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Execute javascript on browser</strong></p>
+<li><p><strong>Execute javascript on browser</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&quot;valid javascript for browser&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Close (ofcourse)</strong></p>
+<li><p><strong>Close (ofcourse)</strong></p>
 <p>Closes all underlying sessions</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#with context manager no need to call close explicitly. Close is</span>
 <span class="c1">#called automatically  (**recommended**)</span>
@@ -250,10 +255,10 @@ You can automate pretty much all of the activities you can do with you browser p
 </li>
 </ul>
 </li>
-<li><p class="first"><strong>Work with page elements</strong></p>
+<li><p><strong>Work with page elements</strong></p>
 <p>In a web page, access various elements and perform actions on them. Here are the various elements available,</p>
 <ul>
-<li><p class="first"><strong>Input</strong></p>
+<li><p><strong>Input</strong></p>
 <p>Represents any input element such as text, textarea, input type text etc where user can enter some text.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
@@ -262,7 +267,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Button</strong></p>
+<li><p><strong>Button</strong></p>
 <p>Represents any button element such as button, input type button.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
@@ -271,7 +276,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Link</strong></p>
+<li><p><strong>Link</strong></p>
 <p>Represents any element with a href (typically link to another resource).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com&quot;</span><span class="p">)</span>
@@ -279,7 +284,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Radio</strong></p>
+<li><p><strong>Radio</strong></p>
 <p>Represents a radio button.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://www.w3schools.com/php/php_form_complete.asp&quot;</span><span class="p">)</span>
@@ -290,7 +295,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Checkbox</strong></p>
+<li><p><strong>Checkbox</strong></p>
 <p>Represents a checkbox.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/checkboxes&quot;</span><span class="p">)</span>
@@ -301,7 +306,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Select</strong></p>
+<li><p><strong>Select</strong></p>
 <p>Represents any dropdown with one or many options to select from.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/checkboxes&quot;</span><span class="p">)</span>
@@ -314,7 +319,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>File</strong></p>
+<li><p><strong>File</strong></p>
 <p>Represents a file element which is typically used to upload or download files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/download&quot;</span><span class="p">)</span>
@@ -324,7 +329,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Form</strong></p>
+<li><p><strong>Form</strong></p>
 <p>Represents a HTML form.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">form_data</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;id:=username&quot;</span><span class="p">,</span> <span class="s2">&quot;tomsmith&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;id:=password&quot;</span><span class="p">,</span> <span class="s2">&quot;SuperSecretPassword!&quot;</span><span class="p">)]</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
@@ -333,7 +338,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Element</strong></p>
+<li><p><strong>Element</strong></p>
 <p>Represents any element which doesn’t belong to any of the categories above</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/add_remove_elements/&quot;</span><span class="p">)</span>
@@ -344,7 +349,7 @@ You can automate pretty much all of the activities you can do with you browser p
 </li>
 </ul>
 </li>
-<li><p class="first"><strong>Common actions on elements</strong></p>
+<li><p><strong>Common actions on elements</strong></p>
 <p>Even though above section describes most of the actions, below is a consolidation of some common ones.
 These are common, which means these can be applied on any element.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
@@ -367,7 +372,7 @@ These are common, which means these can be applied on any element.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Access various properties of page elements</strong></p>
+<li><p><strong>Access various properties of page elements</strong></p>
 <p>Once you identify an element per above bullet point, you can access various properties of the element such as tag_name, id etc. Below are some examples.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
@@ -386,7 +391,7 @@ These are common, which means these can be applied on any element.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Non-HTML properties of page elements</strong></p>
+<li><p><strong>Non-HTML properties of page elements</strong></p>
 <p>Apart from the HTML properties there are some properties which essentially represent meta data around the element such as below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
@@ -401,12 +406,12 @@ These are common, which means these can be applied on any element.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Common problems and solutions</strong></p>
+<li><p><strong>Common problems and solutions</strong></p>
 <p>Browser automation is hard, specially given the dynamic nature of today’s webpages. There are issues with page load, elements
 getting refreshed in the background, lazy loading and so on. <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> comes with a toolkit to handle some of the most
 common issues that can occur during browser automation.</p>
 <ul>
-<li><p class="first"><strong>Wait for page load</strong></p>
+<li><p><strong>Wait for page load</strong></p>
 <p>When you visit a page, even though Selenium waits for the page load by default, I have experienced issues with this
 behavior. So here are couple of ways to tackle that issue.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
@@ -418,7 +423,7 @@ behavior. So here are couple of ways to tackle that issue.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Element related</strong></p>
+<li><p><strong>Element related</strong></p>
 <p>Some of the common issues with element are element not found, not enabled, element going stale after finding etc.
 <code class="docutils literal notranslate"><span class="pre">pybrowser's</span></code> toolkit provides some interesting interfaces to handle such issues.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
@@ -458,7 +463,7 @@ are flags available to precheck corresponding condition. And then there are prop
 <code class="docutils literal notranslate"><span class="pre">if_found</span></code>, <code class="docutils literal notranslate"><span class="pre">if_displayed</span></code>, <code class="docutils literal notranslate"><span class="pre">if_visible</span></code>, <code class="docutils literal notranslate"><span class="pre">if_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">if_stale</span></code> provide ways to conditionally
 perform actions on elements you are dealing with.</p>
 </li>
-<li><p class="first"><strong>Post click</strong></p>
+<li><p><strong>Post click</strong></p>
 <p>This issue is kind of similar to page load. When user clicks on an element (like a link or a button etc), even though
 Selenium waits for page to be ready post the action, there have been issues with that. To resolve this issue, <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> provides an
 interface where user can provide a hook function (should be callable) to which webdriver instance would be passed and user can
@@ -486,11 +491,11 @@ in-built which should work most of the times.</p>
 <p><strong>pybrowser</strong> is much more than browser automation. One of the idea behind <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> was to make it an interface to all things
 HTTP. So with that in mind, you can do the following with <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code></p>
 <ul>
-<li><p class="first"><strong>Access HTML &amp; parse</strong></p>
+<li><p><strong>Access HTML &amp; parse</strong></p>
 <p>You saw an example of accessing HTML object above via browser. You don’t have to open a browser (such as Chrome) for that.
 Instead directly get html for the url and play around with that.</p>
 <ul>
-<li><p class="first"><strong>Get HTML directly</strong></p>
+<li><p><strong>Get HTML directly</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#note that even though you are using Browser(), you don&#39;t provide any</span>
 <span class="c1">#browser and hence no browser is opened</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
@@ -500,7 +505,7 @@ Instead directly get html for the url and play around with that.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Search in HTML</strong></p>
+<li><p><strong>Search in HTML</strong></p>
 <p>You can search in html for a specific template like below.
 More on string formatting <a class="reference external" href="https://docs.python.org/3/library/string.html#format-string-syntax">format-string</a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
@@ -526,7 +531,7 @@ More on string formatting <a class="reference external" href="https://docs.pytho
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Find elements</strong></p>
+<li><p><strong>Find elements</strong></p>
 <p>Search for HTML elements by their attributes</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
@@ -542,11 +547,11 @@ More on string formatting <a class="reference external" href="https://docs.pytho
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Render</strong></p>
+<li><p><strong>Render</strong></p>
 <p>If your HTML contains javascript that needs rendering then use this. You can also evaluate your own javascript</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This uses <a class="reference external" href="https://developers.google.com/web/tools/puppeteer/">puppeteer</a> from Google which basically uses headless chrome and requires it’s own version of chromium. So using render for the first time downloads chromium to PYPPETEER_HOME. Make sure there is right access to this folder</p>
+<p class="admonition-title">Warning</p>
+<p>This uses <a class="reference external" href="https://developers.google.com/web/tools/puppeteer/">puppeteer</a> from Google which basically uses headless chrome and requires it’s own version of chromium. So using render for the first time downloads chromium to PYPPETEER_HOME. Make sure there is right access to this folder</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">bro</span><span class="p">:</span>
     <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;() =&gt; {</span>
@@ -562,7 +567,7 @@ More on string formatting <a class="reference external" href="https://docs.pytho
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Save</strong></p>
+<li><p><strong>Save</strong></p>
 <p>You can of course save the HTML</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://google.com&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">html</span><span class="p">()</span>
@@ -579,7 +584,7 @@ More on string formatting <a class="reference external" href="https://docs.pytho
 </li>
 </ul>
 </li>
-<li><p class="first"><strong>Requests - Yes !</strong></p>
+<li><p><strong>Requests - Yes !</strong></p>
 <p><a class="reference external" href="http://docs.python-requests.org/en/master/">Requests</a> has become synonym for anything HTTP
 in python community. So how can we not use requests in <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> ? So we do. Two of the most common HTTP methods,
 GET and POST are supported out of the box (with asynchronous). And since <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> isn’t restrictive, you get access to requests-session
@@ -616,24 +621,24 @@ object which can be used to do anything HTTP.</p>
 <p>Below are some of the environment variables that can be set via <code class="docutils literal notranslate"><span class="pre">os.environ[name]=value</span></code>. Defaults are assumed in case one is
 not provided</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code> : Path under which all files will be stored. Default is user home</li>
-<li><code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code> : pybrowser main directory name. Default is <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">DRIVERS_DOWNLOAD_DIR_NAME</span></code> : directory name where webdriver files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is browserdrivers</li>
-<li><code class="docutils literal notranslate"><span class="pre">HTML_DIR_NAME</span></code> : directory name where HTML files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is html</li>
-<li><code class="docutils literal notranslate"><span class="pre">SCREENSHOTS_DIR_NAME</span></code> : directory name where screenshots will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is screenshots</li>
-<li><code class="docutils literal notranslate"><span class="pre">PYPPETEER_DIR_NAME</span></code> : directory name where puppeteer files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is puppeteer</li>
-<li><code class="docutils literal notranslate"><span class="pre">PYPPETEER_HOME</span></code> : Path where all puppeteer files would go. If this is present <code class="docutils literal notranslate"><span class="pre">PYPPETEER_DIR_NAME</span></code> has no significance</li>
-<li><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOGGER_PATH</span></code> : Path under which log files will be stored. Default is under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOGGER_NAME</span></code> : Name for the logger to use. Default is pybrowser</li>
-<li><code class="docutils literal notranslate"><span class="pre">CHROME_HOME_URL</span></code> : Home page URL for chromedriver</li>
-<li><code class="docutils literal notranslate"><span class="pre">CHROME_DOWNLOAD_URL</span></code> : Download URL for chromedriver with placeholder for dynamic values such as version and filename</li>
-<li><code class="docutils literal notranslate"><span class="pre">CHROME_FILENAME</span></code> : Chromedriver filename with placeholder for version</li>
-<li><code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_VERSION</span></code> : Specific chromedriver version to use. Default is pulled from <code class="docutils literal notranslate"><span class="pre">CHROME_HOME_URL</span></code> (latest version)</li>
-<li><code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_DEFAULT_VERSION</span></code> : You either provide value for this flag or <code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_VERSION</span></code>. This basically tells the api to use this as fallback in case unable to pull latest from website</li>
-<li><code class="docutils literal notranslate"><span class="pre">IE_HOME_URL</span></code> : Home page URL for IEdriver</li>
-<li><code class="docutils literal notranslate"><span class="pre">IE_DOWNLOAD_URL</span></code> : Download URL for IEdriver with placeholder for dynamic values such as version and filename</li>
-<li><code class="docutils literal notranslate"><span class="pre">IE_FILENAME</span></code> : IEdriver filename with placeholder for version</li>
-<li><code class="docutils literal notranslate"><span class="pre">IEDRIVER_VERSION</span></code> : Specific IEdriver version to use. Default currently is 3.14</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code> : Path under which all files will be stored. Default is user home</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code> : pybrowser main directory name. Default is <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DRIVERS_DOWNLOAD_DIR_NAME</span></code> : directory name where webdriver files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is browserdrivers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HTML_DIR_NAME</span></code> : directory name where HTML files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is html</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCREENSHOTS_DIR_NAME</span></code> : directory name where screenshots will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is screenshots</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PYPPETEER_DIR_NAME</span></code> : directory name where puppeteer files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is puppeteer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PYPPETEER_HOME</span></code> : Path where all puppeteer files would go. If this is present <code class="docutils literal notranslate"><span class="pre">PYPPETEER_DIR_NAME</span></code> has no significance</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOGGER_PATH</span></code> : Path under which log files will be stored. Default is under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOGGER_NAME</span></code> : Name for the logger to use. Default is pybrowser</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHROME_HOME_URL</span></code> : Home page URL for chromedriver</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHROME_DOWNLOAD_URL</span></code> : Download URL for chromedriver with placeholder for dynamic values such as version and filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHROME_FILENAME</span></code> : Chromedriver filename with placeholder for version</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_VERSION</span></code> : Specific chromedriver version to use. Default is pulled from <code class="docutils literal notranslate"><span class="pre">CHROME_HOME_URL</span></code> (latest version)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_DEFAULT_VERSION</span></code> : You either provide value for this flag or <code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_VERSION</span></code>. This basically tells the api to use this as fallback in case unable to pull latest from website</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IE_HOME_URL</span></code> : Home page URL for IEdriver</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IE_DOWNLOAD_URL</span></code> : Download URL for IEdriver with placeholder for dynamic values such as version and filename</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IE_FILENAME</span></code> : IEdriver filename with placeholder for version</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IEDRIVER_VERSION</span></code> : Specific IEdriver version to use. Default currently is 3.14</p></li>
 </ul>
 </div>
 <div class="section" id="logging">
@@ -660,9 +665,9 @@ feature suggestion and/or addition, defect fixes, documentation etc</p>
 <div class="section" id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 </div>
@@ -698,8 +703,6 @@ feature suggestion and/or addition, defect fixes, documentation etc</p>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -720,7 +723,7 @@ feature suggestion and/or addition, defect fixes, documentation etc</p>
       &copy;2019, ranjith.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
