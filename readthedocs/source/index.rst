@@ -54,13 +54,14 @@ much simpler in terms of design as well as usage ! It is also lighweight and doe
 
 If you use `pipenv <https://pipenv.readthedocs.io/en/latest/>`_ , it can be installed with below command,
 
-    ``pipenv install -e git+https://github.com/abranjith/pybrowser.git#egg=pybrowser``
-
+``pipenv install -e git+https://github.com/abranjith/pybrowser.git#egg=pybrowser``
 
 With pip,
-    ``pip install git+https://github.com/abranjith/pybrowser#egg=pybrowser``
 
-Virtualenv is highly recommended.
+``pip install git+https://github.com/abranjith/pybrowser#egg=pybrowser``
+
+`Virtualenv <https://docs.python.org/3/library/venv.html>`_ is highly recommended. Note that, if you are using pipenv, it takes care
+of creating virtualenv for you.
 Feel free to clone/ fork and play around.
 
 **Requirements**
