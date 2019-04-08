@@ -22,19 +22,19 @@ REQUIRED = [
     'requests', 'selenium==3.141.0', 'pyquery==1.4.0', 'pyppeteer==0.0.25'
 ]
 
-here = os.path.abspath(os.path.dirname(__file__))
+#here = os.path.abspath(os.path.dirname(__file__))
 
 # Import the README and use it as the long-description.
 # Note: this will only work if 'README.rst' is present in your MANIFEST.in file!
-with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = '\n' + f.read()
+#with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
+#   long_description = '\n' + f.read()
 
 # Where the magic happens:
 setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
-    long_description=long_description,
+    long_description=DESCRIPTION,
     author=AUTHOR,
     author_email=EMAIL,
     url=URL,
