@@ -41,7 +41,7 @@ setup(
     python_requires='>=3.7.0',
     # If your package is a single module, use this instead of 'packages':
     #py_modules=['pybrowser'],
-    packages=['pybrowser'],
+    packages=['pybrowser', 'pybrowser.elements', 'pybrowser.external'],
     install_requires=REQUIRED,
     include_package_data=True,
     license='MIT',

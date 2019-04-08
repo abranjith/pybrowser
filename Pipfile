@@ -11,6 +11,7 @@ pyquery = "*"
 
 [dev-packages]
 sphinx = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.7"
