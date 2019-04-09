@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-**Welcome to pybrowser's documentation!**
+**Welcome to pybrowser's documentation**
 ==========================================
 
 .. toctree::
@@ -23,6 +23,7 @@ is an example of usage,
         b.input("name:=q").enter("news")
         b.button("name:=btnK").click()
         b.take_screenshot()
+        print(b.html().elements.links())
 
 **Why another browser automation API ?**
 ****************************************
@@ -50,7 +51,7 @@ much simpler in terms of design as well as usage ! It is also lighweight and doe
 
 **Installation**
 ----------------
-**pybrowser** is not in pypi yet. 
+**pybrowser** is not in pypi (the cheeseshop!) yet. 
 
 If you use `pipenv <https://pipenv.readthedocs.io/en/latest/>`_ , it can be installed with below command,
 
@@ -697,6 +698,4 @@ feature suggestion and/or addition, defect fixes, documentation etc
 Indices and tables
 ******************
 
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

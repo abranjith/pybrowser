@@ -15,7 +15,10 @@ class SampleTests(unittest.TestCase):
             print(b.response_code)
             print(b.response_headers)
             print(b.json)
-            print(b.html())
+            b.input("name:=q").enter("news")
+            b.button("name:=btnK").click()
+            b.take_screenshot()
+            print(b.html().elements.links())
 
 if __name__ == "__main__":
     unittest.main()

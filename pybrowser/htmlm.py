@@ -143,6 +143,7 @@ class Elements(object):
                 links_.append((link_key, link))
         return links_
     
+    #TODO: might need some cleaning up in text department
     def _get_element_text_content(self, text, limit=100):
         if isinstance(text, bytes):
             text = text.decode(encoding=self.encoding, errors="ignore")
