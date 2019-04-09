@@ -15,7 +15,8 @@ except ImportError:
 try:
     import winreg
 except ImportError:
-    print("IE not available")
+    # maybe a log entry?
+    pass
 
 from .constants import CONSTANTS
 
