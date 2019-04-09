@@ -1,6 +1,5 @@
 import os
 import platform
-import winreg
 import glob
 import sys
 import shutil
@@ -12,6 +11,12 @@ try:
     from urllib.parse import urlparse, unquote
 except ImportError:
     from urlparse import urlparse, unquote
+
+try:
+    import winreg
+except ImportError:
+    print("IE not available")
+
 from .constants import CONSTANTS
 
 def get_user_home_dir(user=None):
