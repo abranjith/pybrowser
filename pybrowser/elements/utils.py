@@ -21,6 +21,10 @@ def _get_By(locator_type):
             return By.PARTIAL_LINK_TEXT
         elif locator_type.upper() == "TAG_NAME":
             return By.TAG_NAME
+        elif locator_type.upper() == "CLASS_NAME":
+            return By.CLASS_NAME
+        elif locator_type.upper() == "CSS_SELECTOR":
+            return By.CSS_SELECTOR
 
 def get_By_value(locator):
     if locator is None:
@@ -40,7 +44,7 @@ def get_element(driver, by_types, by_value, wait_time, visible=False, ignore_exc
         try:
             ele = _find_element(driver, wait_time, b_type, by_value, visible)
             return ele
-        except Exception as e:
+        except Exception:
             pass
     if not ignore_exception:
         raise NoSuchElementException("Element not found")
@@ -53,7 +57,7 @@ def _find_element(driver, wait_time, by_type, by_value, visible=False):
         func = EC.presence_of_element_located((by_type, by_value))
     try:
         return wait_until(driver, wait_time, func)
-    except Exception as e:
+    except Exception:
         raise NoSuchElementException("Element not found")
 
 def wait_until(driver, wait_time, func):
@@ -79,6 +83,6 @@ def exec_func(f, *args, **kwargs):
     try:
         r = f(*args, **kwargs)
         return (True, r)
-    except Exception as e:
+    except Exception:
         pass
     return (False,)

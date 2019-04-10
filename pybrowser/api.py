@@ -19,11 +19,11 @@ from .constants import CONSTANTS
 from .downloader import download_driver
 from .requester import Requester
 from .htmlm import HTML
-from .common_utils import (hash_, get_unique_filename_from_url, get_user_home_dir, make_dir, dir_filename,
-                           os_name, os_bits, set_winreg_fromlocalmachine, uuid1_as_str)  
 from .log_adapter import get_logger
 from .exceptions import InvalidArgumentError
 from .listeners import ExceptionListener
+from .common_utils import (hash_, get_unique_filename_from_url, get_user_home_dir, make_dir, dir_filename,
+                           os_name, os_bits, set_winreg_fromlocalmachine, uuid1_as_str)  
 
 #TODO: caching driver versions to already downloaded
 #TODO: use selenium servers as utility & hook
@@ -45,9 +45,6 @@ class Browser(object):
         self.headless = headless
         if browser_options and (not isinstance(browser_options, list)):
             browser_options = [browser_options]
-        if browser_name == self.IE and os_name is not "nt":
-            raise ValueError("Internet Explorer is not supported on this platform")
-
         self.more_options = browser_options
         self._driver = None
         self._url = None
@@ -108,10 +105,12 @@ class Browser(object):
     def _create_IE_options(self):
         options = IEOptions()
         args = set()
-        args.add(IEOptions.IGNORE_PROTECTED_MODE_SETTINGS)  #not recommended, ensure correct security settings in IE
+        #not recommended, ensure correct security settings in IE
+        args.add(IEOptions.IGNORE_PROTECTED_MODE_SETTINGS)
         args.add(IEOptions.ENSURE_CLEAN_SESSION)
         args.add(IEOptions.IGNORE_ZOOM_LEVEL)
         args.add(IEOptions.REQUIRE_WINDOW_FOCUS)
+        args.add(IEOptions.PERSISTENT_HOVER)
         if self.more_options:
             args.update(self.more_options)
         for arg in args:
@@ -120,7 +119,11 @@ class Browser(object):
         if self.proxy:
             proxy = { 'proxyType': "manual", 'httpProxy': str(self.proxy)}
             options.set_capability("proxy", proxy)
-        return options if len(args) > 0 else None
+        #adding some more to handle click issue with IE
+        options.set_capability(IEOptions.NATIVE_EVENTS, False)
+        options.set_capability("disable-popup-blocking", True)
+        options.set_capability("unexpectedAlertBehaviour", "accept")
+        return options
     
     def _create_chrome_options(self):
         options = ChromeOptions()

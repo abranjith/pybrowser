@@ -5,11 +5,17 @@ from pybrowser import Browser
 
 class BrowserTests(unittest.TestCase):
     
-    @unittest.skip
+    @unittest.SkipTest
     def test_ie(self):
         print("*"*50)
         with Browser(browser_name=Browser.IE) as b:
-            b.goto("https://the-internet.herokuapp.com/").link("xpath:=//*[@id='content']/ul/li[1]/a").click()
+            e = b.goto("https://the-internet.herokuapp.com/").link("xpath:=//*[@id='content']/ul/li[1]/a")
+            print(e.is_found)
+            print(e.id)
+            print(e.href)
+            e.highlight
+            #e.element.send_keys("")
+            e.click()
             t = b.element("content").text
             print(t)
             self.assertTrue("Also known as split testing" in t)

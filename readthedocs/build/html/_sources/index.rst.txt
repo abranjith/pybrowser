@@ -367,6 +367,25 @@ You can automate pretty much all of the activities you can do with you browser p
                 t = b.element("xpath:=//*[@id='content']/h3").text
                 print(t)
 
+*   **Locator format**
+
+    You might have already observed a rather peculiar choice for providing locator which is of the form,
+    ``locator_type:=locator_value``
+    
+    ``locator_type`` is any of the Selenium allowed valid By types which are,
+    ``ID``, ``NAME``, ``XPATH``, ``LINK_TEXT``, ``PARTIAL_LINK_TEXT``, ``TAG_NAME``, ``CSS_SELECTOR``, ``CLASS_NAME``
+    
+    Note that these are case insensitive. That is ``name:=some_name`` and ``NAME:=some_name`` are one and the same.
+
+    ``locator_value`` on the other hand is the correspodning value for ``locator_type`` used. 
+    ``:=`` is the delimiter used. This has been done instead of just using ``=`` to avoid confusion 
+    that might arrive when ``=`` is part of your locator_value.
+
+    Also note, if the ``locator_type`` is ``ID`` or ``NAME``, you can skip the ``locator_type`` and jsut provide ``locator_value``.
+    For eg, ``b.element("some_id")`` is totally valid
+    Although ``locator_type:=locator_value`` is the recommended syntax.
+
+
 *   **Common actions on elements**
 
     Even though above section describes most of the actions, below is a consolidation of some common ones.
@@ -492,6 +511,7 @@ You can automate pretty much all of the activities you can do with you browser p
         are flags available to precheck corresponding condition. And then there are properties such as
         ``if_found``, ``if_displayed``, ``if_visible``, ``if_enabled``, ``if_stale`` provide ways to conditionally
         perform actions on elements you are dealing with.
+        
     
     *   **Post click**
 

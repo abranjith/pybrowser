@@ -11,13 +11,6 @@ try:
     from urllib.parse import urlparse, unquote
 except ImportError:
     from urlparse import urlparse, unquote
-
-try:
-    import winreg
-except ImportError:
-    # maybe a log entry?
-    pass
-
 from .constants import CONSTANTS
 
 def get_user_home_dir(user=None):
@@ -204,9 +197,17 @@ def os_bits():
     return 64 if machine.endswith("64") else 32
 
 def set_winreg_fromlocalmachine(path, name, value, overwrite=False, dword=True):
+    #needed only for windows
+    if "window" not in os_name().lower():
+            return
+    #ignore and return incase winreg isn't available
+    try:
+        import winreg
+    except ImportError:
+        return
     key_type = winreg.REG_DWORD if dword else winreg.REG_SZ
     try:
-        current_value = get_winreg_fromlocalmachine(path, name)
+        current_value = get_winreg_fromlocalmachine(winreg, path, name)
         if current_value and (not overwrite):
             return current_value
         k = winreg.CreateKeyEx(winreg.HKEY_LOCAL_MACHINE, path, 0, winreg.KEY_CREATE_SUB_KEY | winreg.KEY_WOW64_64KEY)
@@ -214,11 +215,10 @@ def set_winreg_fromlocalmachine(path, name, value, overwrite=False, dword=True):
         with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, path, 0, winreg.KEY_WRITE) as registry_entry:
             winreg.SetValueEx(registry_entry, name, 0, key_type, value)
         return value
-    except (WindowsError, OSError) as e:
-        #print(str(e))
+    except (WindowsError, OSError):
         return None
 
-def get_winreg_fromlocalmachine(path, name):
+def get_winreg_fromlocalmachine(winreg, path, name):
     value = None
     try:
         with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, path, 0, winreg.KEY_READ) as registry_entry:

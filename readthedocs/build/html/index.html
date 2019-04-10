@@ -348,6 +348,19 @@ You can automate pretty much all of the activities you can do with you browser p
 </li>
 </ul>
 </li>
+<li><p><strong>Locator format</strong></p>
+<p>You might have already observed a rather peculiar choice for providing locator which is of the form,
+<code class="docutils literal notranslate"><span class="pre">locator_type:=locator_value</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">locator_type</span></code> is any of the Selenium allowed valid By types which are,
+<code class="docutils literal notranslate"><span class="pre">ID</span></code>, <code class="docutils literal notranslate"><span class="pre">NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">XPATH</span></code>, <code class="docutils literal notranslate"><span class="pre">LINK_TEXT</span></code>, <code class="docutils literal notranslate"><span class="pre">PARTIAL_LINK_TEXT</span></code>, <code class="docutils literal notranslate"><span class="pre">TAG_NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">CSS_SELECTOR</span></code>, <code class="docutils literal notranslate"><span class="pre">CLASS_NAME</span></code></p>
+<p>Note that these are case insensitive. That is <code class="docutils literal notranslate"><span class="pre">name:=some_name</span></code> and <code class="docutils literal notranslate"><span class="pre">NAME:=some_name</span></code> are one and the same.</p>
+<p><code class="docutils literal notranslate"><span class="pre">locator_value</span></code> on the other hand is the correspodning value for <code class="docutils literal notranslate"><span class="pre">locator_type</span></code> used.
+<code class="docutils literal notranslate"><span class="pre">:=</span></code> is the delimiter used. This has been done instead of just using <code class="docutils literal notranslate"><span class="pre">=</span></code> to avoid confusion
+that might arrive when <code class="docutils literal notranslate"><span class="pre">=</span></code> is part of your locator_value.</p>
+<p>Also note, if the <code class="docutils literal notranslate"><span class="pre">locator_type</span></code> is <code class="docutils literal notranslate"><span class="pre">ID</span></code> or <code class="docutils literal notranslate"><span class="pre">NAME</span></code>, you can skip the <code class="docutils literal notranslate"><span class="pre">locator_type</span></code> and jsut provide <code class="docutils literal notranslate"><span class="pre">locator_value</span></code>.
+For eg, <code class="docutils literal notranslate"><span class="pre">b.element(&quot;some_id&quot;)</span></code> is totally valid
+Although <code class="docutils literal notranslate"><span class="pre">locator_type:=locator_value</span></code> is the recommended syntax.</p>
+</li>
 <li><p><strong>Common actions on elements</strong></p>
 <p>Even though above section describes most of the actions, below is a consolidation of some common ones.
 These are common, which means these can be applied on any element.</p>
