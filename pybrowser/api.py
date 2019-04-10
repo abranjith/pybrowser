@@ -45,6 +45,9 @@ class Browser(object):
         self.headless = headless
         if browser_options and (not isinstance(browser_options, list)):
             browser_options = [browser_options]
+        if browser_name == self.IE and os_name is not "nt":
+            raise ValueError("Internet Explorer is not supported on this platform")
+
         self.more_options = browser_options
         self._driver = None
         self._url = None
