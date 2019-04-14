@@ -10,6 +10,8 @@
    :maxdepth: 2
    :caption: Contents:
 
+.. warning:: Please note that if you are switching from previous version (``0.0.1``) to latest (``0.1.0``), there have been some significant changes and also some new features. Refer release notes in `github <https://github.com/abranjith/pybrowser/blob/master/README.md>`_ to know more before upgrading.
+
 **About the project**
 *********************
 **pybrowser** is an attempt to simplify browser automation designed keeping end user in mind. Here 
@@ -22,7 +24,7 @@ is an example of usage,
         b.goto("https://www.google.com/")
         b.input("name:=q").enter("news")
         b.button("name:=btnK").click()
-        b.take_screenshot()
+        screenshot_path = b.take_screenshot()
         print(b.html().elements.links())
 
 **Why another browser automation API ?**
@@ -86,7 +88,7 @@ To use as a typical browser,
 
 .. code-block:: python
     
-    #currently supports - Browser.CHROME and Browser.IE, 
+    #currently supports - Browser.CHROME, Browser.IE and Browser.FIREFOX, 
     #although Chrome is highly recommended
     browser = Browser(browser_name=Browser.CHROME)
 
@@ -96,14 +98,19 @@ Browser supports multiple options as explained below,
 *   incognito - when set to True, will start browser in incognito mode
 *   headless - when set to True, will start browser in headless mode (you won't see the GUI)
 *   browser_options - dict of options that you would provide to webdriver of corresponding browser
-*   proxy - proxy url to use before starting browser
+*   http_proxy - proxy url to use before starting browser
 *   screenshot_on_exception - when set to True, takes screenshot when an exception occurs in webdriver
 *   wait_time - wait time in seconds to be used in finding elements etc
+*   driver_path - If you already have drivers downloaded, just provide the path (directory and not file)
+*   firefox_binary_path - Applicable only for firefox. If not present, default firefox in system is used
+*   firefox_profile_path - Applicable only for firefox. If not present, default firefox profile is used
 
 Below sections explain the functionalities exposed by Browser.
 
 **As a Web Browser**
 --------------------
+.. warning::  Please note using any webbrowser requires corresponding webdriver to be present. So if path to one is not provided via ``driver_path``, it will be downloaded from the web
+
 One of the key functionality provided by Browser object is access to your favorite browser as mentioned above. 
 You can automate pretty much all of the activities you can do with you browser plus much more. Here are some examples,
 
@@ -115,9 +122,9 @@ You can automate pretty much all of the activities you can do with you browser p
 
         with Browser(browser_name=Browser.CHROME) as b:
             b.goto("http://url")
-            b.refresh
-            b.back
-            b.forward
+            b.refresh()
+            b.back()
+            b.forward()
 
 *   **Access to important properties**
 
@@ -159,9 +166,9 @@ You can automate pretty much all of the activities you can do with you browser p
 
             b = Browser(browser_name=Browser.CHROME)
             b.goto("http://url")
-            b.maximize_window
-            b.minimize_window
-            b.fullscreen_window
+            b.maximize_window()
+            b.minimize_window()
+            b.fullscreen_window()
 
     *   **Switch to (from Selenium)**
 
@@ -187,7 +194,7 @@ You can automate pretty much all of the activities you can do with you browser p
             print(b.cookies)
             b.add_cookie({'name' : 'foo', 'value' : 'bar', 'path' : '/', 'secure':True})
             b.delete_cookie('name')
-            b.delete_all_cookies
+            b.delete_all_cookies()
     
     *   **JSON**
 
@@ -220,18 +227,20 @@ You can automate pretty much all of the activities you can do with you browser p
     
     *   **Take screenshot**
 
+        You will get saved path in response.
+
         .. code-block:: python
 
             with Browser(browser_name=Browser.CHROME) as b:
                 b.goto("http://url")
                 #guesses path
-                b.take_screenshot()
+                p = b.take_screenshot()
                 #you can provide filename
-                b.take_screenshot(filename='filename.png')
+                p = b.take_screenshot(filename='filename.png')
                 #complete path without filename
-                b.take_screenshot(filename='/path/to/dir')
+                p = b.take_screenshot(filename='/path/to/dir')
                 #complete path with filename
-                b.take_screenshot(filename='/path/to/dir/filename.png')
+                p = b.take_screenshot(filename='/path/to/dir/filename.png')
     
     *   **Execute javascript on browser**
 
@@ -243,7 +252,7 @@ You can automate pretty much all of the activities you can do with you browser p
     
     *   **Close (ofcourse)**
 
-        Closes all underlying sessions
+        Closes all underlying sessions. Please note you **do not** have to call this explicitly if you are using context manager !
 
         .. code-block:: python
 
@@ -254,7 +263,7 @@ You can automate pretty much all of the activities you can do with you browser p
             #in this case, you will need to call explicitly
             b = Browser(browser_name=Browser.CHROME)
             b.goto("http://url")
-            b.close
+            b.close()
             
 *   **Work with page elements**
 
@@ -269,7 +278,7 @@ You can automate pretty much all of the activities you can do with you browser p
             with Browser(browser_name=Browser.CHROME) as b:
                 b.goto("https://the-internet.herokuapp.com/login")
                 b.input("id:=username").enter("someuser")
-                b.input("id:=password").clear
+                b.input("id:=password").clear()
     
     *   **Button**
 
@@ -303,7 +312,8 @@ You can automate pretty much all of the activities you can do with you browser p
                 radio = b.radio("xpath:=/html/body/form//input[@value='female']")
                 print(radio.is_displayed)
                 print(radio.is_selected)
-                radio.select
+                radio.select()
+                radio.unselect()  #if there is such a thing
 
     *   **Checkbox**
 
@@ -315,8 +325,8 @@ You can automate pretty much all of the activities you can do with you browser p
                 b.goto("https://the-internet.herokuapp.com/checkboxes")
                 check_box = b.checkbox("xpath:=//*[@id='checkboxes']/input[1]")
                 print(check_box.is_checked)
-                check_box.check
-                check_box.uncheck
+                check_box.check()
+                check_box.uncheck()
     
     *   **Select**
 
@@ -327,11 +337,16 @@ You can automate pretty much all of the activities you can do with you browser p
             with Browser(browser_name=Browser.CHROME) as b:
                 b.goto("https://the-internet.herokuapp.com/checkboxes")
                 dropdown = b.select("id:=dropdown")
-                print(dropdown.options)
+                print(dropdown.options_text)
+                print(dropdown.options_value)
+                print(dropdown.options_element)
                 dropdown.select_by_indices(0)
                 dropdown.select_by_visible_texts("Option 1")
-                print(dropdown.all_selected_options)
-                dropdown.deselect_all       #and so on
+                print(dropdown.all_selected_options_text)
+                print(dropdown.all_selected_options_value)
+                print(dropdown.all_selected_options_element)
+                dropdown.deselect_all()
+                #... and so on
     
     *   **File**
 
@@ -341,13 +356,34 @@ You can automate pretty much all of the activities you can do with you browser p
 
             with Browser(browser_name=Browser.CHROME) as b:
                 b.goto("https://the-internet.herokuapp.com/download")
-                b.file("xpath:=//*[@id='content']/div/a[1]").download(directory='/to/dir/')
+                fd = b.file("xpath:=//*[@id='content']/div/a[1]")
+                fd.download(directory='/to/dir/')
+                while not fd.is_download_complete:
+                    time.sleep(1)
+                print(fd.downloaded_files)
                 b.goto("https://the-internet.herokuapp.com/upload")
                 b.file("id:=file-upload").upload(filename='/path/to/valid/file')
+        
+        A note about the download and upload methods -
+
+        ``download`` accepts below parameters,
+            *   ``directory`` - where the file gets downloaded. Default is user home
+            *   ``as_filename`` - file name for the downloaded file. Default is derived based on url
+            *   ``asynch`` - Default is True that means file is downloaded in the background (asynchronous)
+            *   ``unzip`` - Default is False. Set to True to unzip downloaded files 
+            *   ``del_zipfile`` - Default is False. Set to True to delete zip file after unzipping
+            *   ``add_to_ospath`` - Default is False. Set to True to add directory to PATH
+
+        ``download`` also provides below properties to check if download was complete (useful when asynch is True),
+            *   ``is_download_complete`` - True or False
+            *   ``downloaded_files`` - list of downloaded files
+
+        ``upload`` accepts below parameters,
+            *   ``filename`` - has to be a complete path to valid file
 
     *   **Form**
 
-        Represents a HTML form.
+        Represents a HTML form. Please note special interface and method fill_and_submit_form.
 
         .. code-block:: python
 
@@ -402,10 +438,10 @@ You can automate pretty much all of the activities you can do with you browser p
             #just waits for time in seconds 
             e.wait(wait_time=10)
             #physically move to the element 
-            e.move_to_element
+            e.move_to_element()
             #highlights the element, try this out !   
-            e.highlight
-            e.double_click
+            e.highlight()
+            e.double_click()
             #drag element e and drop at element represented by to_locator
             e.drag_and_drop_at(to_locator="id:=to_element")
             #drag element e and drop at another element     
@@ -494,18 +530,18 @@ You can automate pretty much all of the activities you can do with you browser p
                 print(e.if_displayed.text)
                 #true if element is enabled
                 print(e.is_enabled)
-                e.if_enabled.move_to_element
+                e.if_enabled.move_to_element()
                 #true if element has gone stale
                 print(e.is_stale)
                 #if you know element is going to go stale, wait for the same to happen
                 e.wait_for_staleness(wait_time=10)
                 #if element has gone stale, calling refresh finds element again
-                e.if_stale.refresh
+                e.if_stale.refresh()
                 #just waits for give time
                 e.wait(wait_time=10)
                 #since properties of an element is cached, if you wan't to refresh cache,
                 #do below (to find element again)
-                e.refresh
+                e.refresh()
         
         Basically properties such as ``is_found``, ``is_displayed``, ``is_visible``, ``is_enabled``, ``is_stale`` 
         are flags available to precheck corresponding condition. And then there are properties such as
@@ -599,7 +635,8 @@ HTTP. So with that in mind, you can do the following with ``pybrowser``
                 e4 = h.elements.find_by_css_selector("div > a")
                 e5 = h.elements.find_by_xpath("//div/a")
                 #returns list of tuple of link text and url
-                e6 = h.elements.links(containing="some_text", url_only=True)
+                #below returns a list of named_tuple with name and url
+                e6 = h.elements.links(containing="some_text", url_only=True, images=False)  
     
     *   **Render**
 
@@ -630,13 +667,13 @@ HTTP. So with that in mind, you can do the following with ``pybrowser``
             with Browser(browser_name=Browser.CHROME) as b:
                 h = b.goto("http://google.com").html()
                 #guesses path
-                h.save()
+                save_path = h.save()
                 #you can provide filename
-                h.save(filename='filename.html')
+                save_path = h.save(filename='filename.html')
                 #complete path without filename
-                h.save(filename='/path/to/dir')
+                save_path = h.save(filename='/path/to/dir')
                 #complete path with filename
-                h.save(filename='/path/to/dir/filename.html')
+                save_path = h.save(filename='/path/to/dir/filename.html')
 
 *   **Requests - Yes !**
 
@@ -655,7 +692,8 @@ HTTP. So with that in mind, you can do the following with ``pybrowser``
             rt = r.content(raw=False)
             #bytes
             rb = r.content(raw=True)
-            rj = r.json #if json
+            #if json
+            rj = r.json
             rh = r.response_headers
             rc = r.response_code
             re = r.response_encoding
@@ -685,14 +723,14 @@ not provided
 *   ``DEFAULT_LOGGER_PATH`` : Path under which log files will be stored. Default is under ``PYBROWSER_HOME_DIR_PATH``
 *   ``DEFAULT_LOGGER_NAME`` : Name for the logger to use. Default is pybrowser
 *   ``CHROME_HOME_URL`` : Home page URL for chromedriver
-*   ``CHROME_DOWNLOAD_URL`` : Download URL for chromedriver with placeholder for dynamic values such as version and filename
-*   ``CHROME_FILENAME`` : Chromedriver filename with placeholder for version
+*   ``CHROME_DOWNLOAD_URL`` : Download URL for chromedriver. Note that is a complete url upon click should download file
 *   ``CHROMEDRIVER_VERSION`` : Specific chromedriver version to use. Default is pulled from ``CHROME_HOME_URL`` (latest version)
-*   ``CHROMEDRIVER_DEFAULT_VERSION`` : You either provide value for this flag or ``CHROMEDRIVER_VERSION``. This basically tells the api to use this as fallback in case unable to pull latest from website
 *   ``IE_HOME_URL`` : Home page URL for IEdriver
-*   ``IE_DOWNLOAD_URL`` : Download URL for IEdriver with placeholder for dynamic values such as version and filename
-*   ``IE_FILENAME`` : IEdriver filename with placeholder for version
+*   ``IE_DOWNLOAD_URL`` : Download URL for IEdriver. Note that is a complete url upon click should download file
 *   ``IEDRIVER_VERSION`` : Specific IEdriver version to use. Default currently is 3.14
+*   ``FIREFOX_HOME_URL`` : Home page URL for IEdriver
+*   ``FIREFOX_DOWNLOAD_URL`` : Download URL for IEdriver. Note that is a complete url upon click should download file
+*   ``FIREFOXDRIVER_VERSION`` : Specific IEdriver version to use. Default currently is 3.14
 
 **Logging**
 -----------

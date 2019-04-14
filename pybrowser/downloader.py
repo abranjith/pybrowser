@@ -38,13 +38,13 @@ def download_driver(driver_name, version=None, download_filename=None, add_to_os
     else:
         get_logger().error(f"Unable to download {driver_name} driver at this point")
 
-#TODO: return downloaded fullpath
 def download_url(url, to_dir=None, download_filename=None, overwrite_existing=True, asynch=True,
-                 unzip=False, del_zipfile=False, add_to_ospath=False):
+                 unzip=False, del_zipfile=False, add_to_ospath=False, callback=None):
     d = Downloader(from_url=url, to_dir=to_dir, download_filename=download_filename,
                    overwrite_existing=overwrite_existing, asynch=asynch, unzip=unzip,
-                   del_zipfile=del_zipfile, add_to_ospath=add_to_ospath)
-    d.download()
+                   del_zipfile=del_zipfile, add_to_ospath=add_to_ospath, callback=callback)
+    d_files = d.download()
+    return d_files
 
 class Downloader(object):
 
@@ -58,7 +58,7 @@ class Downloader(object):
         return False
 
     def __init__(self, from_url=None, to_dir=None, download_filename=None, unzip_filename=None,
-                 overwrite_existing=True, asynch=False, unzip=True, del_zipfile=True, add_to_ospath=False):
+                 overwrite_existing=True, asynch=False, unzip=True, del_zipfile=True, add_to_ospath=False, callback=None):
         if not is_valid_url(from_url):
             get_logger().error(f"{__class__.__name__}: from_url is mandatory")
             raise InvalidArgumentError("from_url is mandatory and should be a valid url") 
@@ -79,6 +79,7 @@ class Downloader(object):
         self.filehash = None
         self.downloaded_files = None
         self.asynch = asynch
+        self.callback = callback
 
     def _downloadhook(self, blocknum, blocksize, totalsize):
         readsofar = blocknum * blocksize
@@ -163,6 +164,9 @@ class Downloader(object):
         
         if self.add_to_ospath:
             self._add_to_path()
+        if self.callback and callable(self.callback):
+            self.callback(self.downloaded_files)
+        return self.downloaded_files
 
 class WebdriverDownloader(Downloader):
     

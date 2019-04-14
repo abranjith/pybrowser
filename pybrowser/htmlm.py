@@ -1,4 +1,7 @@
 import os
+from collections import namedtuple
+import mimetypes
+import re
 from lxml import html
 from lxml.html.clean import Cleaner
 from .common_utils import (is_valid_url, get_unique_filename_from_url, get_user_home_dir, 
@@ -131,26 +134,43 @@ class Elements(object):
             return
         return self.lxmltree.xpath(selector)
     
-    def links(self, containing=None, url_only=True):
+    def links(self, containing=None, url_only=True, images=False, name_length_limit=60):
         if self.lxmltree is None:
             return
         links_ = []
+        named_link = namedtuple('Link', ['name', 'url'])
         for element, attribute, link, pos in self.lxmltree.iterlinks():
             if containing and containing not in element.text_content():
                 continue
-            link_key = self._get_element_text_content(element.text_content()) or attribute
+            lk = None
+            link_key = self._get_element_text_content(element.text_content(), limit=name_length_limit) or attribute
             if url_only:
                 if is_valid_url(link):
-                    links_.append((link_key, link))
+                    lk = named_link(link_key, link)
             else:
-                links_.append((link_key, link))
+                lk = named_link(link_key, link)
+            if lk and (not images):
+                mt = mimetypes.guess_type(link)
+                typ_ = mt[0] if mt else None
+                typ_ = typ_ or ""
+                lk = None if "image" in typ_ else lk
+            if lk:
+                links_.append(lk)
         return links_
     
     #TODO: might need some cleaning up in text department
     def _get_element_text_content(self, text, limit=100):
+        SPACE = " "
+        BLANK = ""
+        exclude_except_chars = r"[^A-Za-z0-9\s\._-]+"
+        extra_spaces = r"\s+"
         if isinstance(text, bytes):
             text = text.decode(encoding=self.encoding, errors="ignore")
         else:
             text = str(text).encode(encoding=self.encoding, errors='ignore').decode()
-        text = text.strip() if text else ""
+        text = text.strip() if text else BLANK
+        rc = re.compile(exclude_except_chars)
+        text = rc.sub(BLANK, text)
+        rc = re.compile(extra_spaces)
+        text = rc.sub(SPACE, text)
         return text[:limit]

@@ -1,49 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <title>Welcome to pybrowser’s documentation &#8212; pybrowser 0.0.1 documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to pybrowser’s documentation &mdash; pybrowser 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="pybrowser 0.0.1 documentation" href="#" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body role="document">
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="welcome-to-pybrowser-s-documentation">
-<h1><strong>Welcome to pybrowser’s documentation</strong><a class="headerlink" href="#welcome-to-pybrowser-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+<h1><strong>Welcome to pybrowser&#8217;s documentation</strong><a class="headerlink" href="#welcome-to-pybrowser-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound" id="contents">
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Please note that if you are switching from previous version (<code class="docutils literal"><span class="pre">0.0.1</span></code>) to latest (<code class="docutils literal"><span class="pre">0.1.0</span></code>), there have been some significant changes and also some new features. Refer release notes in <a class="reference external" href="https://github.com/abranjith/pybrowser/blob/master/README.md">github</a> to know more before upgrading.</p>
 </div>
 <div class="section" id="about-the-project">
 <h2><strong>About the project</strong><a class="headerlink" href="#about-the-project" title="Permalink to this headline">¶</a></h2>
 <p><strong>pybrowser</strong> is an attempt to simplify browser automation designed keeping end user in mind. Here
 is an example of usage,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pybrowser</span> <span class="kn">import</span> <span class="n">Browser</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pybrowser</span> <span class="kn">import</span> <span class="n">Browser</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://www.google.com/&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;name:=q&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="s2">&quot;news&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;name:=btnK&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">()</span>
+    <span class="n">screenshot_path</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">()</span>
     <span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">html</span><span class="p">()</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">links</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -51,35 +63,35 @@ is an example of usage,</p>
 <div class="section" id="why-another-browser-automation-api">
 <h2><strong>Why another browser automation API ?</strong><a class="headerlink" href="#why-another-browser-automation-api" title="Permalink to this headline">¶</a></h2>
 <p>You might be wondering, there are already enough automation APIs / libraries in the market, why another one ?
-Well, as a starter, <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> isn’t really a library per say, it is merely a toolkit that is an abstraction
+Well, as a starter, <code class="docutils literal"><span class="pre">pybrowser</span></code> isn&#8217;t really a library per say, it is merely a toolkit that is an abstraction
 around the well known <a class="reference external" href="https://selenium-python.readthedocs.io/">Selenium</a> and <a class="reference external" href="http://docs.python-requests.org/en/master/">Requests</a>
-libraries in python. That means, you are not “forced” to do things in a certain way in <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> as done by other libraries.
-Ruby’s <a class="reference external" href="http://watir.com/">watir</a> is the main source of inspiration behind some of the design decissions, but <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> is
-much simpler in terms of design as well as usage ! It is also lighweight and doesn’t add too much overhead when it comes to abstraction.</p>
+libraries in python. That means, you are not &#8220;forced&#8221; to do things in a certain way in <code class="docutils literal"><span class="pre">pybrowser</span></code> as done by other libraries.
+Ruby&#8217;s <a class="reference external" href="http://watir.com/">watir</a> is the main source of inspiration behind some of the design decissions, but <code class="docutils literal"><span class="pre">pybrowser</span></code> is
+much simpler in terms of design as well as usage ! It is also lighweight and doesn&#8217;t add too much overhead when it comes to abstraction.</p>
 </div>
 <div class="section" id="features">
 <h2><strong>Features</strong><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Browser as an object with simple interface to interact with webpage elements</p></li>
-<li><p>Exposes specific HTML elements and corresponding functionalities</p></li>
-<li><p>Special interface to submit HTML forms</p></li>
-<li><p>Cached element attributes</p></li>
-<li><p>Takes care of downloading corresponding browser drivers, adding to the path and other such overheads</p></li>
-<li><p>In built support for handling page/element wait times, staleness of elements and other such issues due to dynamic nature of webpages</p></li>
-<li><p>Access to response code and header information</p></li>
-<li><p>Ability to run browser in headless/incognito/with proxy and all the good stuff</p></li>
-<li><p>Non browser mode support to directly deal with HTML pages &amp; HTTP methods</p></li>
-<li><p>HTML rendering support</p></li>
-<li><p>Default exception handler</p></li>
-<li><p>Uses Selenium and Requests under the hood</p></li>
+<li>Browser as an object with simple interface to interact with webpage elements</li>
+<li>Exposes specific HTML elements and corresponding functionalities</li>
+<li>Special interface to submit HTML forms</li>
+<li>Cached element attributes</li>
+<li>Takes care of downloading corresponding browser drivers, adding to the path and other such overheads</li>
+<li>In built support for handling page/element wait times, staleness of elements and other such issues due to dynamic nature of webpages</li>
+<li>Access to response code and header information</li>
+<li>Ability to run browser in headless/incognito/with proxy and all the good stuff</li>
+<li>Non browser mode support to directly deal with HTML pages &amp; HTTP methods</li>
+<li>HTML rendering support</li>
+<li>Default exception handler</li>
+<li>Uses Selenium and Requests under the hood</li>
 </ul>
 <div class="section" id="installation">
 <h3><strong>Installation</strong><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p><strong>pybrowser</strong> is not in pypi (the cheeseshop!) yet.</p>
 <p>If you use <a class="reference external" href="https://pipenv.readthedocs.io/en/latest/">pipenv</a> , it can be installed with below command,</p>
-<p><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">git+https://github.com/abranjith/pybrowser.git#egg=pybrowser</span></code></p>
+<p><code class="docutils literal"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">git+https://github.com/abranjith/pybrowser.git#egg=pybrowser</span></code></p>
 <p>With pip,</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/abranjith/pybrowser#egg=pybrowser</span></code></p>
+<p><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/abranjith/pybrowser#egg=pybrowser</span></code></p>
 <p><a class="reference external" href="https://docs.python.org/3/library/venv.html">Virtualenv</a> is highly recommended. Note that, if you are using pipenv, it takes care
 of creating virtualenv for you.
 Feel free to clone/ fork and play around.</p>
@@ -87,11 +99,11 @@ Feel free to clone/ fork and play around.</p>
 <div class="section" id="requirements">
 <h3><strong>Requirements</strong><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>python 3.7+</p></li>
-<li><p>selenium</p></li>
-<li><p>requests</p></li>
-<li><p>pyppeteer</p></li>
-<li><p>pyquery</p></li>
+<li>python 3.7+</li>
+<li>selenium</li>
+<li>requests</li>
+<li>pyppeteer</li>
+<li>pyquery</li>
 </ul>
 <p>Note: Although, I have mentioned as python 3.7 or above, you should be able to get it to run with 3.6 also,
 but not prior to that. For versions of other packages refer Pipfile or requirements file</p>
@@ -103,41 +115,48 @@ but not prior to that. For versions of other packages refer Pipfile or requireme
 <h3><strong>Browser object</strong><a class="headerlink" href="#browser-object" title="Permalink to this headline">¶</a></h3>
 <p>Browser is the main object that needs to be instantiated for further usage. Here are some examples,
 To use as a typical browser,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#currently supports - Browser.CHROME and Browser.IE,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#currently supports - Browser.CHROME, Browser.IE and Browser.FIREFOX,</span>
 <span class="c1">#although Chrome is highly recommended</span>
 <span class="n">browser</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Browser supports multiple options as explained below,</p>
 <ul class="simple">
-<li><p>browser_name - name of the browser such as Browser.IE, Browser.CHROME etc</p></li>
-<li><p>incognito - when set to True, will start browser in incognito mode</p></li>
-<li><p>headless - when set to True, will start browser in headless mode (you won’t see the GUI)</p></li>
-<li><p>browser_options - dict of options that you would provide to webdriver of corresponding browser</p></li>
-<li><p>proxy - proxy url to use before starting browser</p></li>
-<li><p>screenshot_on_exception - when set to True, takes screenshot when an exception occurs in webdriver</p></li>
-<li><p>wait_time - wait time in seconds to be used in finding elements etc</p></li>
+<li>browser_name - name of the browser such as Browser.IE, Browser.CHROME etc</li>
+<li>incognito - when set to True, will start browser in incognito mode</li>
+<li>headless - when set to True, will start browser in headless mode (you won&#8217;t see the GUI)</li>
+<li>browser_options - dict of options that you would provide to webdriver of corresponding browser</li>
+<li>http_proxy - proxy url to use before starting browser</li>
+<li>screenshot_on_exception - when set to True, takes screenshot when an exception occurs in webdriver</li>
+<li>wait_time - wait time in seconds to be used in finding elements etc</li>
+<li>driver_path - If you already have drivers downloaded, just provide the path (directory and not file)</li>
+<li>firefox_binary_path - Applicable only for firefox. If not present, default firefox in system is used</li>
+<li>firefox_profile_path - Applicable only for firefox. If not present, default firefox profile is used</li>
 </ul>
 <p>Below sections explain the functionalities exposed by Browser.</p>
 </div>
 <div class="section" id="as-a-web-browser">
 <h3><strong>As a Web Browser</strong><a class="headerlink" href="#as-a-web-browser" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Please note using any webbrowser requires corresponding webdriver to be present. So if path to one is not provided via <code class="docutils literal"><span class="pre">driver_path</span></code>, it will be downloaded from the web</p>
+</div>
 <p>One of the key functionality provided by Browser object is access to your favorite browser as mentioned above.
 You can automate pretty much all of the activities you can do with you browser plus much more. Here are some examples,</p>
 <ul>
-<li><p><strong>Navigation</strong></p>
+<li><p class="first"><strong>Navigation</strong></p>
 <p>Navigate just like how you would do in a regular browser.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">refresh</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">back</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">forward</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">back</span><span class="p">()</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Access to important properties</strong></p>
+<li><p class="first"><strong>Access to important properties</strong></p>
 <p>Access various properties of the browser/page like current url, page title, cookies, response data etc.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="c1">#underlying selenium webdriver object</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">driver</span>
@@ -154,28 +173,28 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p><strong>More advanced actions on browser</strong></p>
+<li><p class="first"><strong>More advanced actions on browser</strong></p>
 <p>You can perform a bunch of actions with the browser apart from accessing properties and general navigation.</p>
 <ul>
-<li><p><strong>Change driver</strong></p>
-<p>If you don’t like the underlying selenium webdriver, provide your own</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
+<li><p class="first"><strong>Change driver</strong></p>
+<p>If you don&#8217;t like the underlying selenium webdriver, provide your own</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">your_custom_driver</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Change window size</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
+<li><p class="first"><strong>Change window size</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">maximize_window</span>
-<span class="n">b</span><span class="o">.</span><span class="n">minimize_window</span>
-<span class="n">b</span><span class="o">.</span><span class="n">fullscreen_window</span>
+<span class="n">b</span><span class="o">.</span><span class="n">maximize_window</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">minimize_window</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">fullscreen_window</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Switch to (from Selenium)</strong></p>
+<li><p class="first"><strong>Switch to (from Selenium)</strong></p>
 <p>You can switch to some other window, alert, frame etc. For more refer Selenium documentation <a class="reference external" href="https://selenium-python.readthedocs.io/navigating.html/">here</a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">alert</span>
 <span class="n">b</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">default_content</span><span class="p">()</span>
@@ -184,162 +203,197 @@ You can automate pretty much all of the activities you can do with you browser p
 </pre></div>
 </div>
 </li>
-<li><p><strong>Cookies</strong></p>
+<li><p class="first"><strong>Cookies</strong></p>
 <p>Add / delete/ get cookies</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">cookies</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">add_cookie</span><span class="p">({</span><span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span> <span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span> <span class="p">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;secure&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">})</span>
 <span class="n">b</span><span class="o">.</span><span class="n">delete_cookie</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">delete_all_cookies</span>
+<span class="n">b</span><span class="o">.</span><span class="n">delete_all_cookies</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>JSON</strong></p>
+<li><p class="first"><strong>JSON</strong></p>
 <p>If the response is JSON, get json.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>HTML</strong></p>
+<li><p class="first"><strong>HTML</strong></p>
 <p>Get hold of HTML and do more with it. More on this in below section</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">html</span><span class="p">())</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Underlying requests session</strong></p>
+<li><p class="first"><strong>Underlying requests session</strong></p>
 <p>Requests is an awesome python library for anything HTTP. More on that <a class="reference external" href="http://docs.python-requests.org/en/master/user/advanced/#session-objects">requests-session</a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">requests_session</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Take screenshot</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<li><p class="first"><strong>Take screenshot</strong></p>
+<p>You will get saved path in response.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="c1">#guesses path</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">()</span>
     <span class="c1">#you can provide filename</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;filename.png&#39;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;filename.png&#39;</span><span class="p">)</span>
     <span class="c1">#complete path without filename</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir&#39;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir&#39;</span><span class="p">)</span>
     <span class="c1">#complete path with filename</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir/filename.png&#39;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir/filename.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Execute javascript on browser</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<li><p class="first"><strong>Execute javascript on browser</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&quot;valid javascript for browser&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Close (ofcourse)</strong></p>
-<p>Closes all underlying sessions</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#with context manager no need to call close explicitly. Close is</span>
+<li><p class="first"><strong>Close (ofcourse)</strong></p>
+<p>Closes all underlying sessions. Please note you <strong>do not</strong> have to call this explicitly if you are using context manager !</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#with context manager no need to call close explicitly. Close is</span>
 <span class="c1">#called automatically  (**recommended**)</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
 <span class="c1">#in this case, you will need to call explicitly</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">close</span>
+<span class="n">b</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </li>
-<li><p><strong>Work with page elements</strong></p>
+<li><p class="first"><strong>Work with page elements</strong></p>
 <p>In a web page, access various elements and perform actions on them. Here are the various elements available,</p>
 <ul>
-<li><p><strong>Input</strong></p>
+<li><p class="first"><strong>Input</strong></p>
 <p>Represents any input element such as text, textarea, input type text etc where user can enter some text.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;id:=username&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="s2">&quot;someuser&quot;</span><span class="p">)</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;id:=password&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">clear</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;id:=password&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Button</strong></p>
+<li><p class="first"><strong>Button</strong></p>
 <p>Represents any button element such as button, input type button.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="s2">&quot;someuser&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;xpath:=//*[@id=&#39;login&#39;]/button&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Link</strong></p>
+<li><p class="first"><strong>Link</strong></p>
 <p>Represents any element with a href (typically link to another resource).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com&quot;</span><span class="p">)</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">&quot;xpath:=//*[@id=&#39;content&#39;]/ul/li[14]/a&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">url</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Radio</strong></p>
+<li><p class="first"><strong>Radio</strong></p>
 <p>Represents a radio button.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://www.w3schools.com/php/php_form_complete.asp&quot;</span><span class="p">)</span>
     <span class="n">radio</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">radio</span><span class="p">(</span><span class="s2">&quot;xpath:=/html/body/form//input[@value=&#39;female&#39;]&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">radio</span><span class="o">.</span><span class="n">is_displayed</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">radio</span><span class="o">.</span><span class="n">is_selected</span><span class="p">)</span>
-    <span class="n">radio</span><span class="o">.</span><span class="n">select</span>
+    <span class="n">radio</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
+    <span class="n">radio</span><span class="o">.</span><span class="n">unselect</span><span class="p">()</span>  <span class="c1">#if there is such a thing</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Checkbox</strong></p>
+<li><p class="first"><strong>Checkbox</strong></p>
 <p>Represents a checkbox.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/checkboxes&quot;</span><span class="p">)</span>
     <span class="n">check_box</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">checkbox</span><span class="p">(</span><span class="s2">&quot;xpath:=//*[@id=&#39;checkboxes&#39;]/input[1]&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">check_box</span><span class="o">.</span><span class="n">is_checked</span><span class="p">)</span>
-    <span class="n">check_box</span><span class="o">.</span><span class="n">check</span>
-    <span class="n">check_box</span><span class="o">.</span><span class="n">uncheck</span>
+    <span class="n">check_box</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+    <span class="n">check_box</span><span class="o">.</span><span class="n">uncheck</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Select</strong></p>
+<li><p class="first"><strong>Select</strong></p>
 <p>Represents any dropdown with one or many options to select from.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/checkboxes&quot;</span><span class="p">)</span>
     <span class="n">dropdown</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;id:=dropdown&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">options_text</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">options_value</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">options_element</span><span class="p">)</span>
     <span class="n">dropdown</span><span class="o">.</span><span class="n">select_by_indices</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">dropdown</span><span class="o">.</span><span class="n">select_by_visible_texts</span><span class="p">(</span><span class="s2">&quot;Option 1&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">all_selected_options</span><span class="p">)</span>
-    <span class="n">dropdown</span><span class="o">.</span><span class="n">deselect_all</span>       <span class="c1">#and so on</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">all_selected_options_text</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">all_selected_options_value</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">all_selected_options_element</span><span class="p">)</span>
+    <span class="n">dropdown</span><span class="o">.</span><span class="n">deselect_all</span><span class="p">()</span>
+    <span class="c1">#... and so on</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>File</strong></p>
+<li><p class="first"><strong>File</strong></p>
 <p>Represents a file element which is typically used to upload or download files.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/download&quot;</span><span class="p">)</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s2">&quot;xpath:=//*[@id=&#39;content&#39;]/div/a[1]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;/to/dir/&#39;</span><span class="p">)</span>
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s2">&quot;xpath:=//*[@id=&#39;content&#39;]/div/a[1]&quot;</span><span class="p">)</span>
+    <span class="n">fd</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;/to/dir/&#39;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">fd</span><span class="o">.</span><span class="n">is_download_complete</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">downloaded_files</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/upload&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s2">&quot;id:=file-upload&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/valid/file&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>A note about the download and upload methods.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">download</span></code> accepts below parameters,</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">directory</span></code> - where the file gets downloaded. Default is user home</li>
+<li><code class="docutils literal"><span class="pre">as_filename</span></code> - file name for the downloaded file. Default is derived based on url</li>
+<li><code class="docutils literal"><span class="pre">asynch</span></code> - Default is True that means file is downloaded in the background (asynchronous)</li>
+<li><code class="docutils literal"><span class="pre">unzip</span></code> - Default is False. Set to True to unzip downloaded files</li>
+<li><code class="docutils literal"><span class="pre">del_zipfile</span></code> - Default is False. Set to True to delete zip file after unzipping</li>
+<li><code class="docutils literal"><span class="pre">add_to_ospath</span></code> - Default is False. Set to True to add directory to PATH</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">download</span></code> also provides below properties to check if download was complete (useful when asynch is True),</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">is_download_complete</span></code> - True or False</li>
+<li><code class="docutils literal"><span class="pre">downloaded_files</span></code> - list of downloaded files</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">upload</span></code> accepts below parameters,</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">filename</span></code> - has to be a complete path to valid file</li>
+</ul>
+</dd>
+</dl>
 </li>
-<li><p><strong>Form</strong></p>
-<p>Represents a HTML form.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">form_data</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;id:=username&quot;</span><span class="p">,</span> <span class="s2">&quot;tomsmith&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;id:=password&quot;</span><span class="p">,</span> <span class="s2">&quot;SuperSecretPassword!&quot;</span><span class="p">)]</span>
+<li><p class="first"><strong>Form</strong></p>
+<p>Represents a HTML form. Please note special interface and method fill_and_submit_form.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">form_data</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;id:=username&quot;</span><span class="p">,</span> <span class="s2">&quot;tomsmith&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;id:=password&quot;</span><span class="p">,</span> <span class="s2">&quot;SuperSecretPassword!&quot;</span><span class="p">)]</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
     <span class="n">b</span><span class="o">.</span><span class="n">form</span><span class="p">(</span><span class="s2">&quot;id:=login&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fill_and_submit_form</span><span class="p">(</span><span class="n">form_data</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Element</strong></p>
-<p>Represents any element which doesn’t belong to any of the categories above</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<li><p class="first"><strong>Element</strong></p>
+<p>Represents any element which doesn&#8217;t belong to any of the categories above</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/add_remove_elements/&quot;</span><span class="p">)</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s2">&quot;xpath:=//*[@id=&#39;content&#39;]/h3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
     <span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
@@ -348,23 +402,23 @@ You can automate pretty much all of the activities you can do with you browser p
 </li>
 </ul>
 </li>
-<li><p><strong>Locator format</strong></p>
+<li><p class="first"><strong>Locator format</strong></p>
 <p>You might have already observed a rather peculiar choice for providing locator which is of the form,
-<code class="docutils literal notranslate"><span class="pre">locator_type:=locator_value</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">locator_type</span></code> is any of the Selenium allowed valid By types which are,
-<code class="docutils literal notranslate"><span class="pre">ID</span></code>, <code class="docutils literal notranslate"><span class="pre">NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">XPATH</span></code>, <code class="docutils literal notranslate"><span class="pre">LINK_TEXT</span></code>, <code class="docutils literal notranslate"><span class="pre">PARTIAL_LINK_TEXT</span></code>, <code class="docutils literal notranslate"><span class="pre">TAG_NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">CSS_SELECTOR</span></code>, <code class="docutils literal notranslate"><span class="pre">CLASS_NAME</span></code></p>
-<p>Note that these are case insensitive. That is <code class="docutils literal notranslate"><span class="pre">name:=some_name</span></code> and <code class="docutils literal notranslate"><span class="pre">NAME:=some_name</span></code> are one and the same.</p>
-<p><code class="docutils literal notranslate"><span class="pre">locator_value</span></code> on the other hand is the correspodning value for <code class="docutils literal notranslate"><span class="pre">locator_type</span></code> used.
-<code class="docutils literal notranslate"><span class="pre">:=</span></code> is the delimiter used. This has been done instead of just using <code class="docutils literal notranslate"><span class="pre">=</span></code> to avoid confusion
-that might arrive when <code class="docutils literal notranslate"><span class="pre">=</span></code> is part of your locator_value.</p>
-<p>Also note, if the <code class="docutils literal notranslate"><span class="pre">locator_type</span></code> is <code class="docutils literal notranslate"><span class="pre">ID</span></code> or <code class="docutils literal notranslate"><span class="pre">NAME</span></code>, you can skip the <code class="docutils literal notranslate"><span class="pre">locator_type</span></code> and jsut provide <code class="docutils literal notranslate"><span class="pre">locator_value</span></code>.
-For eg, <code class="docutils literal notranslate"><span class="pre">b.element(&quot;some_id&quot;)</span></code> is totally valid
-Although <code class="docutils literal notranslate"><span class="pre">locator_type:=locator_value</span></code> is the recommended syntax.</p>
+<code class="docutils literal"><span class="pre">locator_type:=locator_value</span></code></p>
+<p><code class="docutils literal"><span class="pre">locator_type</span></code> is any of the Selenium allowed valid By types which are,
+<code class="docutils literal"><span class="pre">ID</span></code>, <code class="docutils literal"><span class="pre">NAME</span></code>, <code class="docutils literal"><span class="pre">XPATH</span></code>, <code class="docutils literal"><span class="pre">LINK_TEXT</span></code>, <code class="docutils literal"><span class="pre">PARTIAL_LINK_TEXT</span></code>, <code class="docutils literal"><span class="pre">TAG_NAME</span></code>, <code class="docutils literal"><span class="pre">CSS_SELECTOR</span></code>, <code class="docutils literal"><span class="pre">CLASS_NAME</span></code></p>
+<p>Note that these are case insensitive. That is <code class="docutils literal"><span class="pre">name:=some_name</span></code> and <code class="docutils literal"><span class="pre">NAME:=some_name</span></code> are one and the same.</p>
+<p><code class="docutils literal"><span class="pre">locator_value</span></code> on the other hand is the correspodning value for <code class="docutils literal"><span class="pre">locator_type</span></code> used.
+<code class="docutils literal"><span class="pre">:=</span></code> is the delimiter used. This has been done instead of just using <code class="docutils literal"><span class="pre">=</span></code> to avoid confusion
+that might arrive when <code class="docutils literal"><span class="pre">=</span></code> is part of your locator_value.</p>
+<p>Also note, if the <code class="docutils literal"><span class="pre">locator_type</span></code> is <code class="docutils literal"><span class="pre">ID</span></code> or <code class="docutils literal"><span class="pre">NAME</span></code>, you can skip the <code class="docutils literal"><span class="pre">locator_type</span></code> and jsut provide <code class="docutils literal"><span class="pre">locator_value</span></code>.
+For eg, <code class="docutils literal"><span class="pre">b.element(&quot;some_id&quot;)</span></code> is totally valid
+Although <code class="docutils literal"><span class="pre">locator_type:=locator_value</span></code> is the recommended syntax.</p>
 </li>
-<li><p><strong>Common actions on elements</strong></p>
+<li><p class="first"><strong>Common actions on elements</strong></p>
 <p>Even though above section describes most of the actions, below is a consolidation of some common ones.
 These are common, which means these can be applied on any element.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s2">&quot;id:=element&quot;</span><span class="p">)</span>
     <span class="n">e</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
@@ -373,10 +427,10 @@ These are common, which means these can be applied on any element.</p>
     <span class="c1">#just waits for time in seconds</span>
     <span class="n">e</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">wait_time</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="c1">#physically move to the element</span>
-    <span class="n">e</span><span class="o">.</span><span class="n">move_to_element</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">move_to_element</span><span class="p">()</span>
     <span class="c1">#highlights the element, try this out !</span>
-    <span class="n">e</span><span class="o">.</span><span class="n">highlight</span>
-    <span class="n">e</span><span class="o">.</span><span class="n">double_click</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">highlight</span><span class="p">()</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">double_click</span><span class="p">()</span>
     <span class="c1">#drag element e and drop at element represented by to_locator</span>
     <span class="n">e</span><span class="o">.</span><span class="n">drag_and_drop_at</span><span class="p">(</span><span class="n">to_locator</span><span class="o">=</span><span class="s2">&quot;id:=to_element&quot;</span><span class="p">)</span>
     <span class="c1">#drag element e and drop at another element</span>
@@ -384,9 +438,9 @@ These are common, which means these can be applied on any element.</p>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Access various properties of page elements</strong></p>
+<li><p class="first"><strong>Access various properties of page elements</strong></p>
 <p>Once you identify an element per above bullet point, you can access various properties of the element such as tag_name, id etc. Below are some examples.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
     <span class="n">ele</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;id:=username&quot;</span><span class="p">)</span>
     <span class="n">ele</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="s2">&quot;some_user&quot;</span><span class="p">)</span>
@@ -403,9 +457,9 @@ These are common, which means these can be applied on any element.</p>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Non-HTML properties of page elements</strong></p>
+<li><p class="first"><strong>Non-HTML properties of page elements</strong></p>
 <p>Apart from the HTML properties there are some properties which essentially represent meta data around the element such as below.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
     <span class="n">ele</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;id:=username&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">is_found</span><span class="p">)</span>
@@ -418,15 +472,15 @@ These are common, which means these can be applied on any element.</p>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Common problems and solutions</strong></p>
-<p>Browser automation is hard, specially given the dynamic nature of today’s webpages. There are issues with page load, elements
-getting refreshed in the background, lazy loading and so on. <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> comes with a toolkit to handle some of the most
+<li><p class="first"><strong>Common problems and solutions</strong></p>
+<p>Browser automation is hard, specially given the dynamic nature of today&#8217;s webpages. There are issues with page load, elements
+getting refreshed in the background, lazy loading and so on. <code class="docutils literal"><span class="pre">pybrowser</span></code> comes with a toolkit to handle some of the most
 common issues that can occur during browser automation.</p>
 <ul>
-<li><p><strong>Wait for page load</strong></p>
+<li><p class="first"><strong>Wait for page load</strong></p>
 <p>When you visit a page, even though Selenium waits for the page load by default, I have experienced issues with this
 behavior. So here are couple of ways to tackle that issue.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="c1">#keeps polling until page is loaded up until wait_time</span>
     <span class="n">b</span><span class="o">.</span><span class="n">wait_for_page_load</span><span class="p">(</span><span class="n">wait_time</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
@@ -435,10 +489,10 @@ behavior. So here are couple of ways to tackle that issue.</p>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Element related</strong></p>
+<li><p class="first"><strong>Element related</strong></p>
 <p>Some of the common issues with element are element not found, not enabled, element going stale after finding etc.
-<code class="docutils literal notranslate"><span class="pre">pybrowser's</span></code> toolkit provides some interesting interfaces to handle such issues.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<code class="docutils literal"><span class="pre">pybrowser's</span></code> toolkit provides some interesting interfaces to handle such issues.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="c1">#below line doesn&#39;t throw error if element is not found</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s2">&quot;id:=element&quot;</span><span class="p">)</span>
@@ -456,32 +510,32 @@ behavior. So here are couple of ways to tackle that issue.</p>
     <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">if_displayed</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
     <span class="c1">#true if element is enabled</span>
     <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">)</span>
-    <span class="n">e</span><span class="o">.</span><span class="n">if_enabled</span><span class="o">.</span><span class="n">move_to_element</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">if_enabled</span><span class="o">.</span><span class="n">move_to_element</span><span class="p">()</span>
     <span class="c1">#true if element has gone stale</span>
     <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">is_stale</span><span class="p">)</span>
     <span class="c1">#if you know element is going to go stale, wait for the same to happen</span>
     <span class="n">e</span><span class="o">.</span><span class="n">wait_for_staleness</span><span class="p">(</span><span class="n">wait_time</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="c1">#if element has gone stale, calling refresh finds element again</span>
-    <span class="n">e</span><span class="o">.</span><span class="n">if_stale</span><span class="o">.</span><span class="n">refresh</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">if_stale</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
     <span class="c1">#just waits for give time</span>
     <span class="n">e</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">wait_time</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="c1">#since properties of an element is cached, if you wan&#39;t to refresh cache,</span>
     <span class="c1">#do below (to find element again)</span>
-    <span class="n">e</span><span class="o">.</span><span class="n">refresh</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Basically properties such as <code class="docutils literal notranslate"><span class="pre">is_found</span></code>, <code class="docutils literal notranslate"><span class="pre">is_displayed</span></code>, <code class="docutils literal notranslate"><span class="pre">is_visible</span></code>, <code class="docutils literal notranslate"><span class="pre">is_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">is_stale</span></code>
+<p>Basically properties such as <code class="docutils literal"><span class="pre">is_found</span></code>, <code class="docutils literal"><span class="pre">is_displayed</span></code>, <code class="docutils literal"><span class="pre">is_visible</span></code>, <code class="docutils literal"><span class="pre">is_enabled</span></code>, <code class="docutils literal"><span class="pre">is_stale</span></code>
 are flags available to precheck corresponding condition. And then there are properties such as
-<code class="docutils literal notranslate"><span class="pre">if_found</span></code>, <code class="docutils literal notranslate"><span class="pre">if_displayed</span></code>, <code class="docutils literal notranslate"><span class="pre">if_visible</span></code>, <code class="docutils literal notranslate"><span class="pre">if_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">if_stale</span></code> provide ways to conditionally
+<code class="docutils literal"><span class="pre">if_found</span></code>, <code class="docutils literal"><span class="pre">if_displayed</span></code>, <code class="docutils literal"><span class="pre">if_visible</span></code>, <code class="docutils literal"><span class="pre">if_enabled</span></code>, <code class="docutils literal"><span class="pre">if_stale</span></code> provide ways to conditionally
 perform actions on elements you are dealing with.</p>
 </li>
-<li><p><strong>Post click</strong></p>
+<li><p class="first"><strong>Post click</strong></p>
 <p>This issue is kind of similar to page load. When user clicks on an element (like a link or a button etc), even though
-Selenium waits for page to be ready post the action, there have been issues with that. To resolve this issue, <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> provides an
+Selenium waits for page to be ready post the action, there have been issues with that. To resolve this issue, <code class="docutils literal"><span class="pre">pybrowser</span></code> provides an
 interface where user can provide a hook function (should be callable) to which webdriver instance would be passed and user can
-then have specific logic to handle page/ element refresh issue after click. If hook function isn’t provided there is a default wait function
+then have specific logic to handle page/ element refresh issue after click. If hook function isn&#8217;t provided there is a default wait function
 in-built which should work most of the times.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://url&quot;</span><span class="p">)</span>
     <span class="c1">#user_func is called as user_func(webdriver) post the click action</span>
     <span class="n">e</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">hook</span><span class="o">=</span><span class="n">user_func</span><span class="p">)</span>
@@ -500,15 +554,15 @@ in-built which should work most of the times.</p>
 </div>
 <div class="section" id="non-browser-mode">
 <h3><strong>Non Browser mode</strong><a class="headerlink" href="#non-browser-mode" title="Permalink to this headline">¶</a></h3>
-<p><strong>pybrowser</strong> is much more than browser automation. One of the idea behind <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> was to make it an interface to all things
-HTTP. So with that in mind, you can do the following with <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code></p>
+<p><strong>pybrowser</strong> is much more than browser automation. One of the idea behind <code class="docutils literal"><span class="pre">pybrowser</span></code> was to make it an interface to all things
+HTTP. So with that in mind, you can do the following with <code class="docutils literal"><span class="pre">pybrowser</span></code></p>
 <ul>
-<li><p><strong>Access HTML &amp; parse</strong></p>
-<p>You saw an example of accessing HTML object above via browser. You don’t have to open a browser (such as Chrome) for that.
+<li><p class="first"><strong>Access HTML &amp; parse</strong></p>
+<p>You saw an example of accessing HTML object above via browser. You don&#8217;t have to open a browser (such as Chrome) for that.
 Instead directly get html for the url and play around with that.</p>
 <ul>
-<li><p><strong>Get HTML directly</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#note that even though you are using Browser(), you don&#39;t provide any</span>
+<li><p class="first"><strong>Get HTML directly</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#note that even though you are using Browser(), you don&#39;t provide any</span>
 <span class="c1">#browser and hence no browser is opened</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">html</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://the-internet.herokuapp.com/login&quot;</span><span class="p">)</span>
@@ -517,10 +571,10 @@ Instead directly get html for the url and play around with that.</p>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Search in HTML</strong></p>
+<li><p class="first"><strong>Search in HTML</strong></p>
 <p>You can search in html for a specific template like below.
 More on string formatting <a class="reference external" href="https://docs.python.org/3/library/string.html#format-string-syntax">format-string</a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">html</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://dollarrupee.in/&quot;</span><span class="p">)</span>
     <span class="n">search_text</span> <span class="o">=</span> <span class="s2">&quot;Current USD to INR exchange rate equals {} Rupees per 1 US Dollar&quot;</span>
@@ -543,9 +597,9 @@ More on string formatting <a class="reference external" href="https://docs.pytho
 </pre></div>
 </div>
 </li>
-<li><p><strong>Find elements</strong></p>
+<li><p class="first"><strong>Find elements</strong></p>
 <p>Search for HTML elements by their attributes</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">html</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://url/&quot;</span><span class="p">)</span>
     <span class="n">e1</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="s2">&quot;some_id&quot;</span><span class="p">)</span>
@@ -555,17 +609,18 @@ More on string formatting <a class="reference external" href="https://docs.pytho
     <span class="n">e4</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">find_by_css_selector</span><span class="p">(</span><span class="s2">&quot;div &gt; a&quot;</span><span class="p">)</span>
     <span class="n">e5</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">find_by_xpath</span><span class="p">(</span><span class="s2">&quot;//div/a&quot;</span><span class="p">)</span>
     <span class="c1">#returns list of tuple of link text and url</span>
-    <span class="n">e6</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">links</span><span class="p">(</span><span class="n">containing</span><span class="o">=</span><span class="s2">&quot;some_text&quot;</span><span class="p">,</span> <span class="n">url_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1">#below returns a list of named_tuple with name and url</span>
+    <span class="n">e6</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">links</span><span class="p">(</span><span class="n">containing</span><span class="o">=</span><span class="s2">&quot;some_text&quot;</span><span class="p">,</span> <span class="n">url_only</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Render</strong></p>
+<li><p class="first"><strong>Render</strong></p>
 <p>If your HTML contains javascript that needs rendering then use this. You can also evaluate your own javascript</p>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This uses <a class="reference external" href="https://developers.google.com/web/tools/puppeteer/">puppeteer</a> from Google which basically uses headless chrome and requires it’s own version of chromium. So using render for the first time downloads chromium to PYPPETEER_HOME. Make sure there is right access to this folder</p>
+<p class="first admonition-title">Warning</p>
+<p class="last">This uses <a class="reference external" href="https://developers.google.com/web/tools/puppeteer/">puppeteer</a> from Google which basically uses headless chrome and requires it&#8217;s own version of chromium. So using render for the first time downloads chromium to PYPPETEER_HOME. Make sure there is right access to this folder</p>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">bro</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">bro</span><span class="p">:</span>
     <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;() =&gt; {</span>
 <span class="s1">    return {</span>
 <span class="s1">        width: document.documentElement.clientWidth,</span>
@@ -579,29 +634,29 @@ More on string formatting <a class="reference external" href="https://docs.pytho
 </pre></div>
 </div>
 </li>
-<li><p><strong>Save</strong></p>
+<li><p class="first"><strong>Save</strong></p>
 <p>You can of course save the HTML</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;http://google.com&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">html</span><span class="p">()</span>
     <span class="c1">#guesses path</span>
-    <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">save_path</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
     <span class="c1">#you can provide filename</span>
-    <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;filename.html&#39;</span><span class="p">)</span>
+    <span class="n">save_path</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;filename.html&#39;</span><span class="p">)</span>
     <span class="c1">#complete path without filename</span>
-    <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir&#39;</span><span class="p">)</span>
+    <span class="n">save_path</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir&#39;</span><span class="p">)</span>
     <span class="c1">#complete path with filename</span>
-    <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir/filename.html&#39;</span><span class="p">)</span>
+    <span class="n">save_path</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/dir/filename.html&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </li>
-<li><p><strong>Requests - Yes !</strong></p>
+<li><p class="first"><strong>Requests - Yes !</strong></p>
 <p><a class="reference external" href="http://docs.python-requests.org/en/master/">Requests</a> has become synonym for anything HTTP
-in python community. So how can we not use requests in <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> ? So we do. Two of the most common HTTP methods,
-GET and POST are supported out of the box (with asynchronous). And since <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code> isn’t restrictive, you get access to requests-session
+in python community. So how can we not use requests in <code class="docutils literal"><span class="pre">pybrowser</span></code> ? So we do. Two of the most common HTTP methods,
+GET and POST are supported out of the box (with asynchronous). And since <code class="docutils literal"><span class="pre">pybrowser</span></code> isn&#8217;t restrictive, you get access to requests-session
 object which can be used to do anything HTTP.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#Look for some dynamic value</span>
 <span class="k">with</span> <span class="n">Browser</span><span class="p">()</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
     <span class="c1">#this is a blocking call</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://url/&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;k&#39;</span><span class="p">:</span><span class="s1">&#39;v&#39;</span><span class="p">})</span>
@@ -609,7 +664,8 @@ object which can be used to do anything HTTP.</p>
     <span class="n">rt</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="c1">#bytes</span>
     <span class="n">rb</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">rj</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span> <span class="c1">#if json</span>
+    <span class="c1">#if json</span>
+    <span class="n">rj</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span>
     <span class="n">rh</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">response_headers</span>
     <span class="n">rc</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">response_code</span>
     <span class="n">re</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">response_encoding</span>
@@ -630,35 +686,35 @@ object which can be used to do anything HTTP.</p>
 </div>
 <div class="section" id="environment-variables">
 <h3><strong>Environment variables</strong><a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
-<p>Below are some of the environment variables that can be set via <code class="docutils literal notranslate"><span class="pre">os.environ[name]=value</span></code>. Defaults are assumed in case one is
+<p>Below are some of the environment variables that can be set via <code class="docutils literal"><span class="pre">os.environ[name]=value</span></code>. Defaults are assumed in case one is
 not provided</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code> : Path under which all files will be stored. Default is user home</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code> : pybrowser main directory name. Default is <code class="docutils literal notranslate"><span class="pre">pybrowser</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DRIVERS_DOWNLOAD_DIR_NAME</span></code> : directory name where webdriver files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is browserdrivers</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">HTML_DIR_NAME</span></code> : directory name where HTML files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is html</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCREENSHOTS_DIR_NAME</span></code> : directory name where screenshots will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is screenshots</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PYPPETEER_DIR_NAME</span></code> : directory name where puppeteer files will be saved. This will be under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is puppeteer</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PYPPETEER_HOME</span></code> : Path where all puppeteer files would go. If this is present <code class="docutils literal notranslate"><span class="pre">PYPPETEER_DIR_NAME</span></code> has no significance</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOGGER_PATH</span></code> : Path under which log files will be stored. Default is under <code class="docutils literal notranslate"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_LOGGER_NAME</span></code> : Name for the logger to use. Default is pybrowser</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHROME_HOME_URL</span></code> : Home page URL for chromedriver</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHROME_DOWNLOAD_URL</span></code> : Download URL for chromedriver with placeholder for dynamic values such as version and filename</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHROME_FILENAME</span></code> : Chromedriver filename with placeholder for version</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_VERSION</span></code> : Specific chromedriver version to use. Default is pulled from <code class="docutils literal notranslate"><span class="pre">CHROME_HOME_URL</span></code> (latest version)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_DEFAULT_VERSION</span></code> : You either provide value for this flag or <code class="docutils literal notranslate"><span class="pre">CHROMEDRIVER_VERSION</span></code>. This basically tells the api to use this as fallback in case unable to pull latest from website</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IE_HOME_URL</span></code> : Home page URL for IEdriver</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IE_DOWNLOAD_URL</span></code> : Download URL for IEdriver with placeholder for dynamic values such as version and filename</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IE_FILENAME</span></code> : IEdriver filename with placeholder for version</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IEDRIVER_VERSION</span></code> : Specific IEdriver version to use. Default currently is 3.14</p></li>
+<li><code class="docutils literal"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code> : Path under which all files will be stored. Default is user home</li>
+<li><code class="docutils literal"><span class="pre">PYBROWSER_DIR_NAME</span></code> : pybrowser main directory name. Default is <code class="docutils literal"><span class="pre">pybrowser</span></code></li>
+<li><code class="docutils literal"><span class="pre">DRIVERS_DOWNLOAD_DIR_NAME</span></code> : directory name where webdriver files will be saved. This will be under <code class="docutils literal"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is browserdrivers</li>
+<li><code class="docutils literal"><span class="pre">HTML_DIR_NAME</span></code> : directory name where HTML files will be saved. This will be under <code class="docutils literal"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is html</li>
+<li><code class="docutils literal"><span class="pre">SCREENSHOTS_DIR_NAME</span></code> : directory name where screenshots will be saved. This will be under <code class="docutils literal"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is screenshots</li>
+<li><code class="docutils literal"><span class="pre">PYPPETEER_DIR_NAME</span></code> : directory name where puppeteer files will be saved. This will be under <code class="docutils literal"><span class="pre">PYBROWSER_DIR_NAME</span></code>. Default is puppeteer</li>
+<li><code class="docutils literal"><span class="pre">PYPPETEER_HOME</span></code> : Path where all puppeteer files would go. If this is present <code class="docutils literal"><span class="pre">PYPPETEER_DIR_NAME</span></code> has no significance</li>
+<li><code class="docutils literal"><span class="pre">DEFAULT_LOGGER_PATH</span></code> : Path under which log files will be stored. Default is under <code class="docutils literal"><span class="pre">PYBROWSER_HOME_DIR_PATH</span></code></li>
+<li><code class="docutils literal"><span class="pre">DEFAULT_LOGGER_NAME</span></code> : Name for the logger to use. Default is pybrowser</li>
+<li><code class="docutils literal"><span class="pre">CHROME_HOME_URL</span></code> : Home page URL for chromedriver</li>
+<li><code class="docutils literal"><span class="pre">CHROME_DOWNLOAD_URL</span></code> : Download URL for chromedriver. Note that is a complete url upon click should download file</li>
+<li><code class="docutils literal"><span class="pre">CHROMEDRIVER_VERSION</span></code> : Specific chromedriver version to use. Default is pulled from <code class="docutils literal"><span class="pre">CHROME_HOME_URL</span></code> (latest version)</li>
+<li><code class="docutils literal"><span class="pre">IE_HOME_URL</span></code> : Home page URL for IEdriver</li>
+<li><code class="docutils literal"><span class="pre">IE_DOWNLOAD_URL</span></code> : Download URL for IEdriver. Note that is a complete url upon click should download file</li>
+<li><code class="docutils literal"><span class="pre">IEDRIVER_VERSION</span></code> : Specific IEdriver version to use. Default currently is 3.14</li>
+<li><code class="docutils literal"><span class="pre">FIREFOX_HOME_URL</span></code> : Home page URL for IEdriver</li>
+<li><code class="docutils literal"><span class="pre">FIREFOX_DOWNLOAD_URL</span></code> : Download URL for IEdriver. Note that is a complete url upon click should download file</li>
+<li><code class="docutils literal"><span class="pre">FIREFOXDRIVER_VERSION</span></code> : Specific IEdriver version to use. Default currently is 3.14</li>
 </ul>
 </div>
 <div class="section" id="logging">
 <h3><strong>Logging</strong><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
-<p><strong>pybrowser</strong> comes with default logger (<code class="docutils literal notranslate"><span class="pre">pybrowser</span></code>). Same can be used in your application as well.
+<p><strong>pybrowser</strong> comes with default logger (<code class="docutils literal"><span class="pre">pybrowser</span></code>). Same can be used in your application as well.
 You can of course use above environment variables related to logger to set your own name and path. You can give any name
 during execution as well (see below). Example code below.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pybrowser</span> <span class="kn">import</span> <span class="n">log_adapter</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pybrowser</span> <span class="kn">import</span> <span class="n">log_adapter</span>
 <span class="c1">#not providing logger_name uses default</span>
 <span class="n">log</span> <span class="o">=</span> <span class="n">log_adapter</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="n">logger_name</span><span class="o">=</span><span class="s2">&quot;some_name&quot;</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;logging&quot;</span><span class="p">)</span>
@@ -677,29 +733,40 @@ feature suggestion and/or addition, defect fixes, documentation etc</p>
 <div class="section" id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">pybrowser</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><strong>Welcome to pybrowser&#8217;s documentation</strong></a><ul>
+<li><a class="reference internal" href="#about-the-project"><strong>About the project</strong></a></li>
+<li><a class="reference internal" href="#why-another-browser-automation-api"><strong>Why another browser automation API ?</strong></a></li>
+<li><a class="reference internal" href="#features"><strong>Features</strong></a><ul>
+<li><a class="reference internal" href="#installation"><strong>Installation</strong></a></li>
+<li><a class="reference internal" href="#requirements"><strong>Requirements</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#detailed-guide"><strong>Detailed guide</strong></a><ul>
+<li><a class="reference internal" href="#browser-object"><strong>Browser object</strong></a></li>
+<li><a class="reference internal" href="#as-a-web-browser"><strong>As a Web Browser</strong></a></li>
+<li><a class="reference internal" href="#non-browser-mode"><strong>Non Browser mode</strong></a></li>
+<li><a class="reference internal" href="#environment-variables"><strong>Environment variables</strong></a></li>
+<li><a class="reference internal" href="#logging"><strong>Logging</strong></a></li>
+<li><a class="reference internal" href="#contributing-to-pybrowser"><strong>Contributing to pybrowser</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -707,24 +774,23 @@ feature suggestion and/or addition, defect fixes, documentation etc</p>
   </ul></li>
 </ul>
 </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -733,11 +799,11 @@ feature suggestion and/or addition, defect fixes, documentation etc</p>
       &copy;2019, ranjith.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
-      <a href="_sources/index.rst.txt"
+      <a href="_sources/index.txt"
           rel="nofollow">Page source</a>
     </div>
 

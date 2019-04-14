@@ -8,6 +8,7 @@ from .file import File
 from .radio import Radio
 from .checkbox import Checkbox
 
+#TODO: property to get all form inputs
 class Form(Action):
 
     def __init__(self, driver, locator=None, element=None, wait_time=10, visible=False):
