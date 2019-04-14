@@ -94,16 +94,16 @@ To use as a typical browser,
 
 Browser supports multiple options as explained below,
 
-*   browser_name - name of the browser such as Browser.IE, Browser.CHROME etc
-*   incognito - when set to True, will start browser in incognito mode
-*   headless - when set to True, will start browser in headless mode (you won't see the GUI)
-*   browser_options - dict of options that you would provide to webdriver of corresponding browser
-*   http_proxy - proxy url to use before starting browser
-*   screenshot_on_exception - when set to True, takes screenshot when an exception occurs in webdriver
-*   wait_time - wait time in seconds to be used in finding elements etc
-*   driver_path - If you already have drivers downloaded, just provide the path (directory and not file)
-*   firefox_binary_path - Applicable only for firefox. If not present, default firefox in system is used
-*   firefox_profile_path - Applicable only for firefox. If not present, default firefox profile is used
+*   ``browser_name`` - name of the browser such as Browser.IE, Browser.CHROME etc
+*   ``incognito`` - when set to True, will start browser in incognito mode
+*   ``headless`` - when set to True, will start browser in headless mode (you won't see the GUI)
+*   ``browser_options`` - dict of options that you would provide to webdriver of corresponding browser
+*   ``http_proxy`` - proxy url to use before starting browser
+*   ``screenshot_on_exception`` - when set to True, takes screenshot when an exception occurs in webdriver
+*   ``wait_time`` - wait time in seconds to be used in finding elements etc
+*   ``driver_path`` - If you already have drivers downloaded, just provide the path (directory and not file)
+*   ``firefox_binary_path`` - Applicable only for firefox. If not present, default firefox in system is used
+*   ``firefox_profile_path`` - Applicable only for firefox. If not present, default firefox profile is used
 
 Below sections explain the functionalities exposed by Browser.
 

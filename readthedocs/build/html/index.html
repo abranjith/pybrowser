@@ -122,16 +122,16 @@ To use as a typical browser,</p>
 </div>
 <p>Browser supports multiple options as explained below,</p>
 <ul class="simple">
-<li>browser_name - name of the browser such as Browser.IE, Browser.CHROME etc</li>
-<li>incognito - when set to True, will start browser in incognito mode</li>
-<li>headless - when set to True, will start browser in headless mode (you won&#8217;t see the GUI)</li>
-<li>browser_options - dict of options that you would provide to webdriver of corresponding browser</li>
-<li>http_proxy - proxy url to use before starting browser</li>
-<li>screenshot_on_exception - when set to True, takes screenshot when an exception occurs in webdriver</li>
-<li>wait_time - wait time in seconds to be used in finding elements etc</li>
-<li>driver_path - If you already have drivers downloaded, just provide the path (directory and not file)</li>
-<li>firefox_binary_path - Applicable only for firefox. If not present, default firefox in system is used</li>
-<li>firefox_profile_path - Applicable only for firefox. If not present, default firefox profile is used</li>
+<li><code class="docutils literal"><span class="pre">browser_name</span></code> - name of the browser such as Browser.IE, Browser.CHROME etc</li>
+<li><code class="docutils literal"><span class="pre">incognito</span></code> - when set to True, will start browser in incognito mode</li>
+<li><code class="docutils literal"><span class="pre">headless</span></code> - when set to True, will start browser in headless mode (you won&#8217;t see the GUI)</li>
+<li><code class="docutils literal"><span class="pre">browser_options</span></code> - dict of options that you would provide to webdriver of corresponding browser</li>
+<li><code class="docutils literal"><span class="pre">http_proxy</span></code> - proxy url to use before starting browser</li>
+<li><code class="docutils literal"><span class="pre">screenshot_on_exception</span></code> - when set to True, takes screenshot when an exception occurs in webdriver</li>
+<li><code class="docutils literal"><span class="pre">wait_time</span></code> - wait time in seconds to be used in finding elements etc</li>
+<li><code class="docutils literal"><span class="pre">driver_path</span></code> - If you already have drivers downloaded, just provide the path (directory and not file)</li>
+<li><code class="docutils literal"><span class="pre">firefox_binary_path</span></code> - Applicable only for firefox. If not present, default firefox in system is used</li>
+<li><code class="docutils literal"><span class="pre">firefox_profile_path</span></code> - Applicable only for firefox. If not present, default firefox profile is used</li>
 </ul>
 <p>Below sections explain the functionalities exposed by Browser.</p>
 </div>
@@ -357,7 +357,7 @@ You can automate pretty much all of the activities you can do with you browser p
     <span class="n">b</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s2">&quot;id:=file-upload&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/path/to/valid/file&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A note about the download and upload methods.</p>
+<p>A note about the download and upload methods -</p>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">download</span></code> accepts below parameters,</dt>
 <dd><ul class="first last simple">
