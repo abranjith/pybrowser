@@ -96,7 +96,7 @@ def add_to_osenv(name, path, overwrite=True):
         return
     try:
         os.environ[name] = path
-    except (OSError, KeyError) as e:
+    except (OSError, KeyError):
         pass
 
 #Adds a given path to the PATH if not already present
@@ -105,7 +105,7 @@ def add_to_path(p):
         return
     try:
         os.environ['PATH'] = f"{p}{os.pathsep}{os.environ.get('PATH', '')}"
-    except (OSError, KeyError) as e:
+    except (OSError, KeyError):
         pass
 
 def in_path(p):
@@ -137,10 +137,13 @@ def file_exists(f):
     return False
 
 def dir_filename(p, default_ext=None):
+    BLANK = ""
     if not p:
         return
-    d = os.path.dirname(p) or ""
-    b = os.path.basename(p) or ""
+    if os.path.isdir(p):
+        return p, BLANK
+    d = os.path.dirname(p) or BLANK
+    b = os.path.basename(p) or BLANK
     if b:
         b = os.path.splitext(b)
         if default_ext and not b[1]:

@@ -79,6 +79,8 @@ class Requester(object):
     
     def close(self):
         if self.req_session:
-            self.req_session.close()
+            try: self.req_session.close()
+            except: pass
         if self.response and hasattr(self.response, "close"):
-            self.response.close()
+            try: self.response.close()
+            except: pass

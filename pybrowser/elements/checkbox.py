@@ -6,13 +6,11 @@ class Checkbox(Action):
     def __init__(self, driver, locator=None, element=None, wait_time=10, visible=False):
         super().__init__(driver, locator, element, wait_time, visible)
 
-    @property    
     def check(self):
         if not self.is_checked:
             self.click()
         return self
     
-    @property
     def uncheck(self):
         if self.is_checked:
             self.click()

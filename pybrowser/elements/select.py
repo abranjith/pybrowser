@@ -10,7 +10,6 @@ class Select(Action):
         super().__init__(driver, locator, element, wait_time, visible)
         self.dropdown = Select_(self.element)
     
-    @property
     def select_all(self):
         all_elements = self.dropdown.options
         if not all_elements:
@@ -37,7 +36,6 @@ class Select(Action):
             self.dropdown.select_by_value(value)
         return self
     
-    @property
     def deselect_all(self):
         self.dropdown.deselect_all()
     
@@ -59,16 +57,46 @@ class Select(Action):
             self.dropdown.deselect_by_value(value)
         return self
     
-    def options(self, get="text"):
+    @property
+    def options_text(self):
         #get can be text, value, element
         all_elements = self.dropdown.options
-        results = self._get_options(all_elements, get)
+        results = self._get_options(all_elements, "text")
         return results
     
-    def all_selected_options(self, get="text"):
+    @property
+    def options_value(self):
+        #get can be text, value, element
+        all_elements = self.dropdown.options
+        results = self._get_options(all_elements, "value")
+        return results
+
+    @property
+    def options_element(self):
+        #get can be text, value, element
+        all_elements = self.dropdown.options
+        results = self._get_options(all_elements, "element")
+        return results
+    
+    @property
+    def all_selected_options_text(self):
         #get can be text, value, element
         all_elements = self.dropdown.all_selected_options
-        results = self._get_options(all_elements, get)
+        results = self._get_options(all_elements, "text")
+        return results
+    
+    @property
+    def all_selected_options_value(self):
+        #get can be text, value, element
+        all_elements = self.dropdown.all_selected_options
+        results = self._get_options(all_elements, "value")
+        return results
+    
+    @property
+    def all_selected_options_element(self):
+        #get can be text, value, element
+        all_elements = self.dropdown.all_selected_options
+        results = self._get_options(all_elements, "element")
         return results
     
     def _get_options(self, all_elements, get):

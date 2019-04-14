@@ -74,15 +74,18 @@ class HTML(object):
         final_path = self._get_filename_from_url(filename)
         with open(final_path, "w", encoding=self.encoding) as f:
             f.write(self.content)
+        return final_path
     
     def _get_filename_from_url(self, filename=None):
         if filename is None:
             f = get_unique_filename_from_url(self.url, ext="html")
-            d = os.path.join(get_user_home_dir(), CONSTANTS.DIR_NAME, CONSTANTS.HTML_DIR)
+            p = CONSTANTS.DIR_PATH or get_user_home_dir()
+            d = os.path.join(p, CONSTANTS.DIR_NAME, CONSTANTS.HTML_DIR)
         else:        
             d, f = dir_filename(filename, default_ext="html")
             if not d:
-                d = os.path.join(get_user_home_dir(), CONSTANTS.DIR_NAME, CONSTANTS.HTML_DIR)
+                p = CONSTANTS.DIR_PATH or get_user_home_dir()
+                d = os.path.join(p, CONSTANTS.DIR_NAME, CONSTANTS.HTML_DIR)
             if not f:
                 f = get_unique_filename_from_url(self.driver.current_url, ext="html")
         make_dir(d)

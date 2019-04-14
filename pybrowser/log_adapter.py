@@ -14,15 +14,19 @@ def _default_handler(level=logging.DEBUG):
     MAX_SIZE_BYTES = 1000000
     BACKUP_COUNT = 2
     filename = f"{_DEFAULT_LOGGER}.log"
-    default_path = _get_default_path()
-    given_path = CONSTANTS.DEFAULT_LOGGER_PATH
-    final_path = given_path or default_path
+    final_path = log_path()
     p = os.path.abspath(final_path)
     p = os.path.join(p, filename)
     h = RotatingFileHandler(p, maxBytes=MAX_SIZE_BYTES, backupCount=BACKUP_COUNT)
     h.setLevel(level)
     h.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
     return h
+
+def log_path():
+    default_path = _get_default_path()
+    given_path = CONSTANTS.DEFAULT_LOGGER_PATH
+    final_path = given_path or default_path
+    return final_path
 
 def _get_default_path():
     default_path = CONSTANTS.DIR_PATH or get_user_home_dir()

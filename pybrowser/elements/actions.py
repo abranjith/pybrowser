@@ -1,4 +1,4 @@
-__author__ = 'Ranjith'
+__author__ = 'ranjith'
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -179,7 +179,6 @@ class Action(object):
         sleep(wait_time)
         return self._dispatch()
     
-    @property
     def refresh(self):
         CACHED_ATTRS = ['tag_name', 'id', 'name', 'type', 'css_classes', 'value', 'text', 'href']   # i don't like this either!
         self.element = find_element_for_locator(self._driver, self.locator, self.wait_time, visible=self.visible, ignore_exception=True)
@@ -189,7 +188,6 @@ class Action(object):
             del self.__dict__[attr]
         return self._dispatch()
     
-    @property
     def highlight(self):
         if not (self._driver and self.element):
             return
@@ -207,14 +205,12 @@ class Action(object):
             sleep(DURATION2)
         return self._dispatch()
     
-    @property
     def double_click(self):
         if not self.element:
             return
         ac = ActionChains(self._driver)
         ac.double_click(on_element=self.element).perform()
     
-    @property
     def move_to_element(self):
         if not self.element:
             return

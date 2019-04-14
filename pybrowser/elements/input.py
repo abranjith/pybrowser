@@ -11,7 +11,6 @@ class Input(Action):
         self.element.send_keys(some_text)
         return self
     
-    @property
     def clear(self):
         self.element.clear()
         return self

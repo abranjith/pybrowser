@@ -29,12 +29,12 @@ async def _render(url=None, html=None, get_text=False, script=None, reload_=Fals
         browser = await launch(ignoreHTTPSErrors=True, headless=True)
         page = await browser.newPage()
         await asyncio.sleep(wait_time)
-        if reload_ and url:
+        if url:
             await page.goto(url, options={'timeout': int(timeout * 1000), 'waitUntil': ['domcontentloaded', 'load']})
         elif html:
             await page.goto(f'data:text/html,{html}', options={'timeout': int(timeout * 1000), 'waitUntil': ['domcontentloaded', 'load']})
-        elif url:
-            await page.goto(url, options={'timeout': int(timeout * 1000), 'waitUntil': ['domcontentloaded', 'load']})
+        #elif url:
+        #    await page.goto(url, options={'timeout': int(timeout * 1000), 'waitUntil': ['domcontentloaded', 'load']})
         #await page.screenshot({'path': 'example.png'})
         if script:
             result = await page.evaluate(script)
@@ -46,12 +46,14 @@ async def _render(url=None, html=None, get_text=False, script=None, reload_=Fals
         if page:
             await page.close()
             page = None
-    except Exception as e:
+    except Exception:
         if page:
-            await page.close()
+            try: await page.close()
+            except: pass
             page = None
     return result, content
 
+#TODO: make it talk
 async def _talk(html, wait_time=5):
     page = None
     result, content = None, None
@@ -65,7 +67,7 @@ async def _talk(html, wait_time=5):
         if page:
             await page.close()
             page = None
-    except Exception as e:
+    except Exception:
         if page:
             await page.close()
             page = None

@@ -1,8 +1,5 @@
 import os
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.ie.options import Options as IEOptions
 from selenium.webdriver.support.events import EventFiringWebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from .elements.button import Button
@@ -16,14 +13,13 @@ from .elements.form import Form
 from .elements.file import File
 from .elements.utils import wait_until, find_element_for_locator
 from .constants import CONSTANTS
-from .downloader import download_driver
 from .requester import Requester
 from .htmlm import HTML
-from .log_adapter import get_logger
+from .log_adapter import get_logger, log_path
 from .exceptions import InvalidArgumentError
 from .listeners import ExceptionListener
-from .common_utils import (hash_, get_unique_filename_from_url, get_user_home_dir, make_dir, dir_filename,
-                           os_name, os_bits, set_winreg_fromlocalmachine, uuid1_as_str)  
+from .driver_handler import BaseDriverHandler
+from .common_utils import (hash_, get_unique_filename_from_url, get_user_home_dir, make_dir, dir_filename, uuid1_as_str)  
 
 #TODO: caching driver versions to already downloaded
 #TODO: use selenium servers as utility & hook
@@ -36,116 +32,51 @@ class Browser(object):
     EDGE = "edge"
     SAFARI = "safari"
 
-    def __init__(self, browser_name=None, incognito=False, headless=False, browser_options=None, 
-                 proxy=None, screenshot_on_exception=True, silent_fail=False, wait_time=10):
+    def __init__(self, browser_name=None, incognito=False, headless=False, browser_options_dict=None, 
+                 browser_options_args=None, http_proxy=None, screenshot_on_exception=True, silent_fail=False,
+                 firefox_binary_path=None, firefox_profile_path=None, driver_path=None, wait_time=10):
         self.screenshot_on_exception = screenshot_on_exception
         #TODO: this currently has no effect. Once on_exception is handled in selenium api, will start to work
         self.silent_fail = silent_fail
         self.incognito = incognito
         self.headless = headless
-        if browser_options and (not isinstance(browser_options, list)):
-            browser_options = [browser_options]
-        self.more_options = browser_options
+        if browser_options_args and (not isinstance(browser_options_args, list)):
+            browser_options_args = [browser_options_args]
+        self.browser_options_args = browser_options_args
+        self.browser_options_dict = browser_options_dict
+        self.firefox_binary_path = firefox_binary_path
+        self.firefox_profile_path = firefox_profile_path
         self._driver = None
         self._url = None
-        self.proxy = proxy
+        self.http_proxy = http_proxy
         self.content_hash = None
         self.wait_time = wait_time
         self.logger = get_logger()
         self._content_session = Requester()
-        self._set_driver(browser_name)
+        self._set_driver(browser_name, driver_path)
         self._presets()
     
     def __enter__(self):
         return self
 
     def __exit__(self, *args):
-        self.close
+        self.close()
     
-    def _set_driver(self, browser_name):
+    def _set_driver(self, browser_name, driver_path):
         #browser_name of None is allowed to permit access to other features such as html/get/post
         if browser_name is None:
             return
-        elif browser_name == Browser.IE:
-            download_driver(CONSTANTS.IE_DRIVER, overwrite_existing=False)
-            self._handle_IE_registry_entry()
-            options = self._create_IE_options()
-            self._driver = webdriver.Ie(options=options)
-        elif browser_name == Browser.CHROME:
-            download_driver(CONSTANTS.CHROME_DRIVER, overwrite_existing=False)
-            options = self._create_chrome_options()
-            self._driver = webdriver.Chrome(options=options)
-        elif browser_name == Browser.FIREFOX:
-            download_driver(CONSTANTS.FIREFOX_DRIVER, overwrite_existing=False)
-            options = None #TODO
-            self._driver = webdriver.Firefox(capabilities=options)
-        elif browser_name == Browser.EDGE:
-            self._driver = webdriver.Edge()
-        elif browser_name == Browser.SAFARI:
-            self._driver = webdriver.Safari()
-        else:
-            self.logger.error(f"Invalid browser_name: {browser_name}")
-            raise InvalidArgumentError(f"Invalid browser_name: {browser_name}")
+        #TODO: hate passing self, need better solution
+        self._driver = BaseDriverHandler.create_driver(browser_name, driver_path, self)
         if self._driver and self.screenshot_on_exception:
             filename = f"Exception_{uuid1_as_str()}.png"
             self._driver = EventFiringWebDriver(self._driver, ExceptionListener(self, filename))
-    
-    #takes care of adding necessary registry entries needed in windows (needs admin privileges)
-    def _handle_IE_registry_entry(self):
-        if "window" not in os_name().lower():
-            return
-        try:
-            path32 = r"SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE"  
-            path64 = r"SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE"
-            path = path32 if os_bits() == 32 else path64
-            set_winreg_fromlocalmachine(path, "iexplore.exe", 0, overwrite=True)
-        except Exception as e:
-            self.logger.warning(str(e))
-
-    def _create_IE_options(self):
-        options = IEOptions()
-        args = set()
-        #not recommended, ensure correct security settings in IE
-        args.add(IEOptions.IGNORE_PROTECTED_MODE_SETTINGS)
-        args.add(IEOptions.ENSURE_CLEAN_SESSION)
-        args.add(IEOptions.IGNORE_ZOOM_LEVEL)
-        args.add(IEOptions.REQUIRE_WINDOW_FOCUS)
-        args.add(IEOptions.PERSISTENT_HOVER)
-        if self.more_options:
-            args.update(self.more_options)
-        for arg in args:
-            if arg:
-                options.add_argument(arg)
-        if self.proxy:
-            proxy = { 'proxyType': "manual", 'httpProxy': str(self.proxy)}
-            options.set_capability("proxy", proxy)
-        #adding some more to handle click issue with IE
-        options.set_capability(IEOptions.NATIVE_EVENTS, False)
-        options.set_capability("disable-popup-blocking", True)
-        options.set_capability("unexpectedAlertBehaviour", "accept")
-        return options
-    
-    def _create_chrome_options(self):
-        options = ChromeOptions()
-        args = set()
-        if self.headless:
-            args.add("--headless")
-        if self.incognito:
-            args.add("--incognito")
-        if self.more_options:
-            args.update(self.more_options)
-        for arg in args:
-            if arg:
-                options.add_argument(arg)
-        if self.proxy:
-            options.add_argument('--proxy-server=%s' %self.proxy)
-        return options if len(args) > 0 else None
 
     def _presets(self):
         if self._driver is None:
             return
         try:
-            self.maximize_window
+            self.maximize_window()
             self.execute_script("document.body.style.zoom='100%'")
             self.switch_to.window(self._driver.current_window_handle)
         except Exception as e:
@@ -173,7 +104,6 @@ class Browser(object):
         self._set_url_and_hash()
         return self
 
-    @property
     def back(self):
         if self._driver is None:
             return
@@ -181,7 +111,6 @@ class Browser(object):
         self._set_url_and_hash()
         return self
 
-    @property
     def forward(self):
         if self._driver is None:
             return
@@ -189,7 +118,6 @@ class Browser(object):
         self._set_url_and_hash()
         return self
     
-    @property
     def refresh(self):
         if self._driver is None:
             return
@@ -197,21 +125,18 @@ class Browser(object):
         self._set_url_and_hash()
         return self
     
-    @property
     def maximize_window(self):
         if self._driver is None:
             return
         self._driver.maximize_window()
         return self
     
-    @property
     def minimize_window(self):
         if self._driver is None:
             return
         self._driver.minimize_window()
         return self
     
-    @property
     def fullscreen_window(self):
         if self._driver is None:
             return
@@ -294,10 +219,11 @@ class Browser(object):
         cookies = []
         if resp:
             cookies_jar = resp.cookies
+            if not cookies_jar:
+                return cookies
             names = self._cookie_attr_names()
-            if cookies_jar:
-                for c in cookies_jar:
-                    cookies.append(self._get_dict_for_attrs(c, names))
+            for c in cookies_jar:
+                cookies.append(self._get_dict_for_attrs(c, names))
         return cookies
     
     def _cookie_attr_names(self):
@@ -312,10 +238,10 @@ class Browser(object):
     def _get_dict_for_attrs(self, obj, attr_names):
         d = {}
         for name in attr_names:
-            d[name] = getattr(obj, name)
+            if hasattr(obj, name):
+                d[name] = getattr(obj, name)
         return d
    
-    @property
     def delete_all_cookies(self):
         if self._driver is None:
             return
@@ -419,6 +345,7 @@ class Browser(object):
         if self._driver and self._driver.current_url:
             final_path = self._get_filename_from_url(filename)
             self._driver.get_screenshot_as_file(filename=final_path)
+            return final_path
     
     def _get_filename_from_url(self, filename=None):
         url = self._driver.current_url if self.driver else None
@@ -426,11 +353,13 @@ class Browser(object):
             url = self._url
         if filename is None:
             f = get_unique_filename_from_url(url, ext="png")
-            d = os.path.join(get_user_home_dir(), CONSTANTS.DIR_NAME, CONSTANTS.SCREENSHOTS_DIR)
+            p = CONSTANTS.DIR_PATH or get_user_home_dir()
+            d = os.path.join(p, CONSTANTS.DIR_NAME, CONSTANTS.SCREENSHOTS_DIR)
         else:        
             d, f = dir_filename(filename, default_ext="png")
             if not d:
-                d = os.path.join(get_user_home_dir(), CONSTANTS.DIR_NAME, CONSTANTS.SCREENSHOTS_DIR)
+                p = CONSTANTS.DIR_PATH or get_user_home_dir()
+                d = os.path.join(p, CONSTANTS.DIR_NAME, CONSTANTS.SCREENSHOTS_DIR)
             if not f:
                 f = get_unique_filename_from_url(url, ext="png")
         make_dir(d)
@@ -454,7 +383,7 @@ class Browser(object):
         wait_time = wait_time or self.wait_time
         try:
             wait_until(self._driver, wait_time, _wait)
-        except Exception as e:
+        except Exception:
             self.logger.error("Page load failed")
             raise
 
@@ -465,16 +394,15 @@ class Browser(object):
         try:
             find_element_for_locator(self._driver, locator, wait_time=wait_time, visible=visible)
         except Exception as e:
-            self.logger.error("Element not found in wait_for_element method")
+            self.logger.error("Element not found in wait_for_element method : " + str(e))
             raise     
 
-    @property    
     def close(self):
-        try:
-            if self._driver:
-                self._driver.close()
-                self._driver.quit()
-            if self._content_session:
-                self._content_session.close()
-        except:
-            pass
+        if self._driver:
+                try: self._driver.close()
+                except: pass
+                try: self._driver.quit()
+                except: pass
+        if self._content_session:
+                try: self._content_session.close()
+                except: pass

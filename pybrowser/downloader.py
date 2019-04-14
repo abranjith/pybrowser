@@ -2,13 +2,17 @@ import sys
 import os
 import zipfile
 try:
+    import tarfile
+except ImportError:
+    pass
+try:
     from urllib import request
 except ImportError:
     import urllib as request
 from requests import Session as HTTPSession
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from .constants import CONSTANTS, CHROME_CONSTANTS, IE_CONSTANTS
+from .constants import CONSTANTS, CHROME_CONSTANTS, IE_CONSTANTS, FIREFOX_CONSTANTS
 from .exceptions import InvalidArgumentError, OperationFailedException
 from .common_utils import (get_user_home_dir, is_valid_url, copy_file, hash_, rm_files, 
                            guess_filename_from_url, add_to_path, find_patterns_in_str, os_name, 
@@ -29,10 +33,12 @@ def download_driver(driver_name, version=None, download_filename=None, add_to_os
         webdriver_downloader.download_ie(version=version, download_filename=download_filename,
                                              add_to_ospath=add_to_ospath, overwrite_existing=overwrite_existing)
     elif driver_name == CONSTANTS.FIREFOX_DRIVER:
-        get_logger().error("Unable to download Firefox driver at this point")
+        webdriver_downloader.download_firefox(version=version, download_filename=download_filename,
+                                             add_to_ospath=add_to_ospath, overwrite_existing=overwrite_existing)
     else:
         get_logger().error(f"Unable to download {driver_name} driver at this point")
 
+#TODO: return downloaded fullpath
 def download_url(url, to_dir=None, download_filename=None, overwrite_existing=True, asynch=True,
                  unzip=False, del_zipfile=False, add_to_ospath=False):
     d = Downloader(from_url=url, to_dir=to_dir, download_filename=download_filename,
@@ -41,6 +47,15 @@ def download_url(url, to_dir=None, download_filename=None, overwrite_existing=Tr
     d.download()
 
 class Downloader(object):
+
+    @staticmethod
+    def any_file_exists(files):
+        if not isinstance(files, list):
+            files = [files]
+        for f in files:
+            if file_exists(f):
+                return True
+        return False
 
     def __init__(self, from_url=None, to_dir=None, download_filename=None, unzip_filename=None,
                  overwrite_existing=True, asynch=False, unzip=True, del_zipfile=True, add_to_ospath=False):
@@ -80,17 +95,34 @@ class Downloader(object):
     def _can_proceed(self):
         if not self.overwrite_existing:
             #print("self.unzip_fullfilename - " + self.unzip_fullfilename)
-            if file_exists(self.unzip_fullfilename) or file_exists(self.download_fullfilename):
+            if Downloader.any_file_exists([self.unzip_fullfilename, self.download_fullfilename]):
                 return False
         return True
     
     def _unzip(self):
         f = self.download_fullfilename
-        if f and zipfile.is_zipfile(f):
+        if not f:
+            return
+        extracted_names = []
+        extracted = False
+        if zipfile.is_zipfile(f):
             with zipfile.ZipFile(f) as zf:
                 zf.extractall(path=self.to_dir)
-                self.downloaded_files = [os.path.join(self.to_dir, extracted_files) 
-                                         for extracted_files in zf.namelist()]
+                extracted_names = zf.namelist()
+                extracted = True
+        elif f.endswith("tar.gz"):
+            with tarfile.open(f, "r:gz") as tar:
+                tar.extractall(path=self.to_dir)
+                extracted_names = tar.getnames()
+                extracted = True
+        elif f.endswith("tar"):
+            with tarfile.open(f, "r:") as tar:
+                tar.extractall(path=self.to_dir)
+                extracted_names = tar.getnames()
+                extracted = True
+        
+        if extracted:
+            self.downloaded_files = [os.path.join(self.to_dir, fl) for fl in extracted_names]
             if self.del_zipfile:
                 rm_files(f)
     
@@ -134,7 +166,9 @@ class Downloader(object):
 
 class WebdriverDownloader(Downloader):
     
-    _OSMAP = {'windows':"win32", 'mac':"mac64", 'linux':"linux64"}
+    _OSMAP_CHROME = {'windows':"win32", 'mac':"mac64", 'linux':"linux64"}
+    _OSMAP_FIREFOX = {'windows':"win64", 'mac':"macos", 'linux':"linux64"}
+    _ZIPEXTMAP_FIREFOX = {'windows':"zip", 'mac':"tar.gz", 'linux':"tar.gz"}
     WEBDRIVERNAMES = {CONSTANTS.CHROME_DRIVER : "chromedriver",
                       CONSTANTS.IE_DRIVER : "IEDriverServer",
                       CONSTANTS.FIREFOX_DRIVER : "geckodriver"  }
@@ -157,9 +191,7 @@ class WebdriverDownloader(Downloader):
     
     @staticmethod
     def latest_chrome_version(use_default=True):
-        v = CHROME_CONSTANTS.VERSION
-        if v:
-            return str(v).strip()
+        #TODO: this needs to change
         #get from chromium website
         LATEST_VERSION_PATTERN = r'Latest Release:.*ChromeDriver ([\d+\.+]+)'
         plain_text = ""
@@ -186,36 +218,86 @@ class WebdriverDownloader(Downloader):
         return home_url
     
     @classmethod
-    def download_chrome(cls, to_dir=None, version=None, download_filename=None, overwrite_existing=True,
-                        asynch=False, unzip=True, add_to_ospath=False):
-        filename = CHROME_CONSTANTS.FILENAME.format(WebdriverDownloader._OSMAP[os_name()])
-        if (not overwrite_existing) and file_exists(filename):
-            return
-        if version:
-            version = str(version)
-        version = version or WebdriverDownloader.latest_chrome_version()
-        #print("version " + str(version))
-        if not download_filename:
-            download_filename = filename
-        url = CHROME_CONSTANTS.DOWNLOAD_URL.format(version, filename)
+    def download_chrome(cls, to_dir=None, version=None, download_filename=None, overwrite_existing=False,
+                        asynch=False, unzip=True, add_to_ospath=True):
         unzip_filename = WebdriverDownloader.WEBDRIVERNAMES[CONSTANTS.CHROME_DRIVER]
+        #TODO: de-duplication
+        start_dir = to_dir or WebdriverDownloader.default_download_directory()
+        f_dir = os.path.join(start_dir, unzip_filename)
+        if (not overwrite_existing) and file_exists(f_dir):
+            if add_to_ospath:
+                add_to_path(start_dir)
+            return
+        download_url = CHROME_CONSTANTS.DOWNLOAD_URL
+        if download_url:
+            url = download_url               
+        else:
+            #determine download_url
+            if version:
+                version = str(version)
+            version = version or CHROME_CONSTANTS.VERSION or WebdriverDownloader.latest_chrome_version()
+            filename = CHROME_CONSTANTS.FILENAME_TEMPLATE.format(WebdriverDownloader._OSMAP_CHROME[os_name()])
+            if not download_filename:
+                download_filename = filename
+            url = CHROME_CONSTANTS.DOWNLOAD_URL_TEMPLATE.format(version, filename)
         wd = WebdriverDownloader(url=url, to_dir=to_dir, download_filename=download_filename, 
                                  unzip_filename=unzip_filename, overwrite_existing=overwrite_existing,
                                  asynch=asynch, unzip=unzip, add_to_ospath=add_to_ospath)
         wd.download()
     
+    #TODO: automatically determine version
     @classmethod
-    def download_ie(cls, to_dir=None, version=None, download_filename=None, overwrite_existing=True,
-                        asynch=False, unzip=True, add_to_ospath=False):
-        #TODO: automatically determine version
-        if version:
-            version = str(version)
-        version = version or str(IE_CONSTANTS.VERSION)
-        filename = IE_CONSTANTS.FILENAME.format(version)
-        if not download_filename:
-            download_filename = filename
-        url = IE_CONSTANTS.DOWNLOAD_URL.format(version, filename)
+    def download_ie(cls, to_dir=None, version=None, download_filename=None, overwrite_existing=False,
+                        asynch=False, unzip=True, add_to_ospath=True):
         unzip_filename = WebdriverDownloader.WEBDRIVERNAMES[CONSTANTS.IE_DRIVER]
+        #TODO: de-duplication
+        start_dir = to_dir or WebdriverDownloader.default_download_directory()
+        f_dir = os.path.join(start_dir, unzip_filename)
+        if (not overwrite_existing) and file_exists(f_dir):
+            if add_to_ospath:
+                add_to_path(start_dir)
+            return
+        download_url = IE_CONSTANTS.DOWNLOAD_URL
+        if download_url:
+            url = download_url               
+        else:
+            #determine download_url
+            version = version or IE_CONSTANTS.VERSION
+            version = str(version)
+            filename = IE_CONSTANTS.FILENAME_TEMPLATE.format(version)
+            if not download_filename:
+                download_filename = filename
+            url = IE_CONSTANTS.DOWNLOAD_URL_TEMPLATE.format(version, filename) 
+        wd = WebdriverDownloader(url=url, to_dir=to_dir, download_filename=download_filename, 
+                                 unzip_filename=unzip_filename, overwrite_existing=overwrite_existing,
+                                 asynch=asynch, unzip=unzip, add_to_ospath=add_to_ospath)
+        wd.download()
+    
+    #TODO: logic to get latest version from Website
+    @classmethod
+    def download_firefox(cls, to_dir=None, version=None, download_filename=None, overwrite_existing=False,
+                        asynch=False, unzip=True, add_to_ospath=True):
+        unzip_filename = WebdriverDownloader.WEBDRIVERNAMES[CONSTANTS.FIREFOX_DRIVER]
+        #TODO: de-duplication
+        start_dir = to_dir or WebdriverDownloader.default_download_directory()
+        f_dir = os.path.join(start_dir, unzip_filename)
+        if (not overwrite_existing) and file_exists(f_dir):
+            if add_to_ospath:
+                add_to_path(start_dir)
+            return
+        download_url = FIREFOX_CONSTANTS.DOWNLOAD_URL
+        if download_url:
+            url = download_url               
+        else:
+            #determine download_url
+            version = version or FIREFOX_CONSTANTS.VERSION or FIREFOX_CONSTANTS.DEFAULT_VERSION
+            version = str(version)
+            ospart = WebdriverDownloader._OSMAP_FIREFOX[os_name()]
+            extpart = WebdriverDownloader._ZIPEXTMAP_FIREFOX[os_name()]
+            filename = FIREFOX_CONSTANTS.FILENAME_TEMPLATE.format(version, ospart, extpart)
+            if not download_filename:
+                download_filename = filename
+            url = FIREFOX_CONSTANTS.DOWNLOAD_URL_TEMPLATE.format(version, filename)
         wd = WebdriverDownloader(url=url, to_dir=to_dir, download_filename=download_filename, 
                                  unzip_filename=unzip_filename, overwrite_existing=overwrite_existing,
                                  asynch=asynch, unzip=unzip, add_to_ospath=add_to_ospath)

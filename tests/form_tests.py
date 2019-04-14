@@ -1,7 +1,6 @@
 __author__ = 'Ranjith'
 
 import unittest
-import time
 import sys
 sys.path.append("..\\pybrowser")
 
@@ -15,9 +14,13 @@ class FormTests(unittest.TestCase):
         with Browser(browser_name=Browser.CHROME) as b:
             b.goto("https://the-internet.herokuapp.com/login")
             b.form("login").fill_and_submit_form(form_data)
-            time.sleep(5)
-            print(b.cookies)
-            print(b.response_code)
+            cs = b.cookies
+            #print(cs)
+            self.assertTrue(len(cs) > 0)
+            self.assertTrue("the-internet.herokuapp.com" in cs[0]['domain'] )
+            self.assertEqual(200, b.response_code)
+            t = b.element("flash").text.strip()
+            self.assertTrue("You logged into a secure area" in t)
 
 if __name__ == "__main__":
     unittest.main()
