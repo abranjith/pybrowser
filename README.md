@@ -12,6 +12,7 @@ For documentation, refer [here](https://pybrowser.readthedocs.io/en/latest/)
     **Please note some key changes with regards to properties changing to methods**.
 
     *   Methods which were properties in initial release are now method calls. Below is the impacted list.
+        
         In Browser,
 
         *   `Browser.refresh()`
@@ -38,7 +39,7 @@ For documentation, refer [here](https://pybrowser.readthedocs.io/en/latest/)
         *   `Radio.unselect()`
         *   `Input.clear()`
     
-    *   Browser class init method now has more options,
+    *   Browser class `__init__` method now has more options,
 
         *   `firefox_binary_path`
         *   `firefox_profile_path`
@@ -61,7 +62,7 @@ For documentation, refer [here](https://pybrowser.readthedocs.io/en/latest/)
     
     *   File element changes,
 
-        Below enhancements have been made to download feature
+        Below enhancements have been made to download feature,
 
         *   Added more parameters - 
 
