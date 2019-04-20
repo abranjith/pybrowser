@@ -115,14 +115,16 @@ but not prior to that. For versions of other packages refer Pipfile or requireme
 <h3><strong>Browser object</strong><a class="headerlink" href="#browser-object" title="Permalink to this headline">¶</a></h3>
 <p>Browser is the main object that needs to be instantiated for further usage. Here are some examples,
 To use as a typical browser,</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#currently supports - Browser.CHROME, Browser.IE and Browser.FIREFOX,</span>
-<span class="c1">#although Chrome is highly recommended</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">currently supports - Browser.CHROME, Browser.IE and Browser.FIREFOX with automatic download support for webdriver.</span>
+<span class="sd">Note the other options - Browser.EDGE, Browser.SAFARI, Browser.OPERA are also available, but ``driver_path`` needs to be provided.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="n">browser</span> <span class="o">=</span> <span class="n">Browser</span><span class="p">(</span><span class="n">browser_name</span><span class="o">=</span><span class="n">Browser</span><span class="o">.</span><span class="n">CHROME</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Browser supports multiple options as explained below,</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">browser_name</span></code> - name of the browser such as Browser.IE, Browser.CHROME etc</li>
+<li><code class="docutils literal"><span class="pre">browser_name</span></code> - name of the browser such as Browser.FIREFOX, Browser.CHROME etc</li>
 <li><code class="docutils literal"><span class="pre">incognito</span></code> - when set to True, will start browser in incognito mode</li>
 <li><code class="docutils literal"><span class="pre">headless</span></code> - when set to True, will start browser in headless mode (you won&#8217;t see the GUI)</li>
 <li><code class="docutils literal"><span class="pre">browser_options</span></code> - dict of options that you would provide to webdriver of corresponding browser</li>

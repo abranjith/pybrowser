@@ -88,13 +88,15 @@ To use as a typical browser,
 
 .. code-block:: python
     
-    #currently supports - Browser.CHROME, Browser.IE and Browser.FIREFOX, 
-    #although Chrome is highly recommended
+    """
+    currently supports - Browser.CHROME, Browser.IE and Browser.FIREFOX with automatic download support for webdriver.
+    Note the other options - Browser.EDGE, Browser.SAFARI, Browser.OPERA are also available, but ``driver_path`` needs to be provided.
+    """
     browser = Browser(browser_name=Browser.CHROME)
 
 Browser supports multiple options as explained below,
 
-*   ``browser_name`` - name of the browser such as Browser.IE, Browser.CHROME etc
+*   ``browser_name`` - name of the browser such as Browser.FIREFOX, Browser.CHROME etc
 *   ``incognito`` - when set to True, will start browser in incognito mode
 *   ``headless`` - when set to True, will start browser in headless mode (you won't see the GUI)
 *   ``browser_options`` - dict of options that you would provide to webdriver of corresponding browser
