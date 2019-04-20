@@ -19,7 +19,7 @@ class ContentTests(unittest.TestCase):
         bro.close()
 
     def test_html(self):
-        with Browser(browser_name = Browser.CHROME, incognito=True) as b:
+        with Browser(browser_name = Browser.CHROME, incognito=True, headless=True) as b:
             b.goto("https://the-internet.herokuapp.com/notification_message_rendered")
             self.assertTrue("The message displayed above the heading is a notification message" in b.html().text)
             rc = b.content(raw=True)

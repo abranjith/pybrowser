@@ -32,7 +32,7 @@ def is_valid_url(url):
     try:
         pieces = urlparse(url)
         return all([pieces.scheme, pieces.netloc])
-    except Exception as e:
+    except Exception:
         return False
 
 #TODO : also handle src is directory

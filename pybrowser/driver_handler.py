@@ -4,9 +4,10 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.ie.options import Options as IEOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.proxy import Proxy as WebdriverProxy
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from .log_adapter import get_logger, log_path
 from .exceptions import InvalidArgumentError
-from .common_utils import add_to_path, path_exists, set_winreg_fromlocalmachine, os_bits, os_name
+from .common_utils import add_to_path, path_exists, set_winreg_fromlocalmachine, os_bits, os_name, is_valid_url
 from .constants import CONSTANTS
 
 #Various browsers
@@ -15,7 +16,9 @@ CHROME = "chrome"
 FIREFOX = "firefox"
 EDGE = "edge"
 SAFARI = "safari"
+OPERA = "opera"
 
+#TODO: need better abstraction (no duplication)
 class BaseDriverHandler(object):
  
     @staticmethod
@@ -34,17 +37,28 @@ class BaseDriverHandler(object):
             get_logger().error(f"Invalid browser_name: {browser_name}")
             raise InvalidArgumentError(f"Invalid browser_name: {browser_name}")
         return driver
+    
+    @staticmethod
+    def create_remote_driver(hub_url, desired_caps):
+        driver = webdriver.Remote(command_executor=hub_url, desired_capabilities=desired_caps)
+        return driver
 
 class ChromeHandler(BaseDriverHandler):
 
     @staticmethod
     def create_driver(driver_path, api_obj):
+        options = ChromeHandler._create_chrome_options(api_obj)
+        if hasattr(api_obj, "remote_url") and is_valid_url(api_obj.remote_url):
+            caps = DesiredCapabilities.CHROME.copy()
+            if options:
+                caps.update(options.to_capabilities())
+            driver = ChromeHandler.create_remote_driver(api_obj.remote_url, caps)
+            return driver
         if driver_path and path_exists(driver_path):
             add_to_path(driver_path)
         else:
             from .downloader import download_driver
             download_driver(CONSTANTS.CHROME_DRIVER, overwrite_existing=False)
-        options = ChromeHandler._create_chrome_options(api_obj)
         driver = webdriver.Chrome(options=options)
         return driver
 
@@ -72,13 +86,17 @@ class IEHandler(BaseDriverHandler):
 
     @staticmethod
     def create_driver(driver_path, api_obj):
+        options = IEHandler._create_IE_options(api_obj)
+        if hasattr(api_obj, "remote_url") and is_valid_url(api_obj.remote_url):
+            caps = options.to_capabilities()
+            driver = IEHandler.create_remote_driver(api_obj.remote_url, caps)
+            return driver
         if driver_path and path_exists(driver_path):
             add_to_path(driver_path)
         else:
             from .downloader import download_driver
             download_driver(CONSTANTS.IE_DRIVER, overwrite_existing=False)
         IEHandler._handle_IE_registry_entry()
-        options = IEHandler._create_IE_options(api_obj)
         driver = webdriver.Ie(options=options)
         return driver
 
@@ -123,12 +141,18 @@ class FirefoxHandler(BaseDriverHandler):
 
     @staticmethod
     def create_driver(driver_path, api_obj):
+        options = FirefoxHandler._create_firefox_options(api_obj)
+        if hasattr(api_obj, "remote_url") and is_valid_url(api_obj.remote_url):
+            caps = DesiredCapabilities.FIREFOX.copy()
+            if options:
+                caps.update(options.to_capabilities())
+            driver = FirefoxHandler.create_remote_driver(api_obj.remote_url, caps)
+            return driver
         if driver_path and path_exists(driver_path):
             add_to_path(driver_path)
         else:
             from .downloader import download_driver
             download_driver(CONSTANTS.FIREFOX_DRIVER, overwrite_existing=False)
-        options = FirefoxHandler._create_firefox_options(api_obj)
         log_p = os.path.join(log_path(), "geckodriver.log")
         driver = webdriver.Firefox(options=options, service_log_path=log_p)
         return driver
@@ -161,6 +185,10 @@ class EdgeHandler(BaseDriverHandler):
 
     @staticmethod
     def create_driver(driver_path, api_obj):
+        if hasattr(api_obj, "remote_url") and is_valid_url(api_obj.remote_url):
+            caps = DesiredCapabilities.EDGE.copy()
+            driver = EdgeHandler.create_remote_driver(api_obj.remote_url, caps)
+            return driver
         driver = webdriver.Edge()
         return driver
 
@@ -168,5 +196,20 @@ class SafariHandler(BaseDriverHandler):
 
     @staticmethod
     def create_driver(driver_path, api_obj):
+        if hasattr(api_obj, "remote_url") and is_valid_url(api_obj.remote_url):
+            caps = DesiredCapabilities.SAFARI.copy()
+            driver = SafariHandler.create_remote_driver(api_obj.remote_url, caps)
+            return driver
         driver = webdriver.Safari()
+        return driver
+
+class OperaHandler(BaseDriverHandler):
+
+    @staticmethod
+    def create_driver(driver_path, api_obj):
+        if hasattr(api_obj, "remote_url") and is_valid_url(api_obj.remote_url):
+            caps = DesiredCapabilities.OPERA.copy()
+            driver = OperaHandler.create_remote_driver(api_obj.remote_url, caps)
+            return driver
+        driver = webdriver.Opera()
         return driver

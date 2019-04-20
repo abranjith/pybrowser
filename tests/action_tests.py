@@ -9,7 +9,7 @@ from pybrowser import Browser
 class ListenerTests(unittest.TestCase):
 
     def test_iffound(self):
-        with Browser(browser_name=Browser.CHROME, wait_time=1) as b:
+        with Browser(browser_name=Browser.CHROME, wait_time=1, headless=True) as b:
             b.goto("https://the-internet.herokuapp.com/")
             #no such element
             btn = b.button("byby")
@@ -24,7 +24,7 @@ class ListenerTests(unittest.TestCase):
     
     def test_cachedprops(self):
         BLANK = ""
-        with Browser(browser_name=Browser.FIREFOX) as b:
+        with Browser(browser_name=Browser.FIREFOX, headless=True) as b:
             b.goto("https://the-internet.herokuapp.com/forgot_password")
             btn = b.button("form_submit")
             self.assertTrue(btn.is_found)

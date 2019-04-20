@@ -8,7 +8,7 @@ class BrowserTests(unittest.TestCase):
     #IE issues, so skipping :-\
     @unittest.SkipTest
     def test_ie(self):
-        with Browser(browser_name=Browser.IE) as b:
+        with Browser(browser_name=Browser.IE, headless=True) as b:
             e = b.goto("https://the-internet.herokuapp.com/").link("xpath:=//*[@id='content']/ul/li[1]/a")
             self.assertTrue(e.is_found)
             #print(e.id)
@@ -21,14 +21,14 @@ class BrowserTests(unittest.TestCase):
             self.assertTrue("Also known as split testing" in t)
 
     def test_chrome(self):
-        with Browser(browser_name=Browser.CHROME) as b:
+        with Browser(browser_name=Browser.CHROME, headless=True) as b:
             b.goto("https://the-internet.herokuapp.com/").link("xpath:=//*[@id='content']/ul/li[1]/a").click()
             t = b.element("content").text
             #print(t)
             self.assertTrue("Also known as split testing" in t)
     
     def test_firefox(self):
-        with Browser(browser_name=Browser.FIREFOX) as b:
+        with Browser(browser_name=Browser.FIREFOX, headless=True) as b:
             b.goto("https://the-internet.herokuapp.com/").link("xpath:=//*[@id='content']/ul/li[1]/a").click()
             t = b.element("content").text
             #print(t)

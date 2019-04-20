@@ -44,7 +44,7 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Please note that if you are switching from previous version (<code class="docutils literal"><span class="pre">0.0.1</span></code>) to latest (<code class="docutils literal"><span class="pre">0.1.0</span></code>), there have been some significant changes and also some new features. Refer release notes in <a class="reference external" href="https://github.com/abranjith/pybrowser/blob/master/README.md">github</a> to know more before upgrading.</p>
+<p class="last">Please note that if you are switching from previous version (<code class="docutils literal"><span class="pre">0.0.1</span></code>) to latest (<code class="docutils literal"><span class="pre">0.2.0</span></code>), there have been some significant changes and also some new features. Refer release notes in <a class="reference external" href="https://github.com/abranjith/pybrowser/blob/master/README.md">github</a> to know more before upgrading.</p>
 </div>
 <div class="section" id="about-the-project">
 <h2><strong>About the project</strong><a class="headerlink" href="#about-the-project" title="Permalink to this headline">¶</a></h2>
@@ -132,6 +132,7 @@ To use as a typical browser,</p>
 <li><code class="docutils literal"><span class="pre">driver_path</span></code> - If you already have drivers downloaded, just provide the path (directory and not file)</li>
 <li><code class="docutils literal"><span class="pre">firefox_binary_path</span></code> - Applicable only for firefox. If not present, default firefox in system is used</li>
 <li><code class="docutils literal"><span class="pre">firefox_profile_path</span></code> - Applicable only for firefox. If not present, default firefox profile is used</li>
+<li><code class="docutils literal"><span class="pre">remote_url</span></code> - Remote URL where the hub is setup. Please note, setting up the Selenium grid isn&#8217;t supported by the API yet and needs to done explicitly. For more on Selenium grid setup, refer the <a class="reference external" href="https://www.seleniumhq.org/docs/07_selenium_grid.jsp">docs</a></li>
 </ul>
 <p>Below sections explain the functionalities exposed by Browser.</p>
 </div>
@@ -167,9 +168,9 @@ You can automate pretty much all of the activities you can do with you browser p
     <span class="n">rh</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">response_headers</span>
     <span class="n">re</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">response_encoding</span>
     <span class="c1">#content in bytes</span>
-    <span class="n">binary_content</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">binary_content</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">content</span>
     <span class="c1">#content in text</span>
-    <span class="n">text_content</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">text_content</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
 </li>
@@ -661,9 +662,9 @@ object which can be used to do anything HTTP.</p>
     <span class="c1">#this is a blocking call</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://url/&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;k&#39;</span><span class="p">:</span><span class="s1">&#39;v&#39;</span><span class="p">})</span>
     <span class="c1">#text (str)</span>
-    <span class="n">rt</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">rt</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
     <span class="c1">#bytes</span>
-    <span class="n">rb</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">rb</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
     <span class="c1">#if json</span>
     <span class="n">rj</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span>
     <span class="n">rh</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">response_headers</span>
@@ -672,12 +673,12 @@ object which can be used to do anything HTTP.</p>
     <span class="c1">#response object itself</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">response</span>
     <span class="c1">#non blocking, returns immediately</span>
-    <span class="n">rp</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://url/&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;d&#39;</span><span class="p">}</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;k&#39;</span><span class="p">:</span><span class="s1">&#39;v&#39;</span><span class="p">},</span> <span class="n">asynch</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">rp</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://url/&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;d&#39;</span><span class="p">},</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;k&#39;</span><span class="p">:</span><span class="s1">&#39;v&#39;</span><span class="p">},</span> <span class="n">asynch</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="c1">#non blocking</span>
     <span class="k">if</span> <span class="n">rp</span><span class="o">.</span><span class="n">is_request_done</span><span class="p">:</span>
         <span class="c1">#this is a blocking call on it&#39;s own</span>
-        <span class="n">rp</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">result</span>
-    <span class="n">rpt</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">content</span><span class="p">()</span>
+        <span class="n">rp</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">response</span>
+    <span class="n">rpc</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">content</span>
     <span class="c1">#and so on...</span>
 </pre></div>
 </div>

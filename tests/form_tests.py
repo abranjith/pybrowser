@@ -11,7 +11,7 @@ class FormTests(unittest.TestCase):
     def test_form(self):
         #bro = Browser(Browser.CHROME)
         form_data = [("username", "tomsmith"), ("password", "SuperSecretPassword!")]
-        with Browser(browser_name=Browser.CHROME) as b:
+        with Browser(browser_name=Browser.CHROME, headless=True) as b:
             b.goto("https://the-internet.herokuapp.com/login")
             b.form("login").fill_and_submit_form(form_data)
             cs = b.cookies

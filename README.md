@@ -4,6 +4,29 @@ For documentation, refer [here](https://pybrowser.readthedocs.io/en/latest/)
 
 ## Release Notes:
 
+**0.2.0**
+---------
+
+*   **Changes**
+
+    *   Changes in underlying `Browser.requests_session` object,
+
+        *   `requests_session.result` has been removed. There is just `requests_session.response` which is a blocking call (in case `asynch` flag is set). Also note, `requests_session.is_request_done` is still available to see if request is complete of not. There are no changes to other properties and are blocking in case of asynchronous call.
+
+        *   `requests_session.content()` method with options for bytes and text has been changed to properties, just like in underlying requests. That is now you call, `requests_session.content` for bytes and `requests_session.text` for text.
+
+        *   In context of above changes, `Browser` object also has below changes,
+
+            *   `Browser.get` and `Browser.post` now returns `requests_session` object (used to be `requests_session.response`).
+            *   `Browser.content()` has been changed to properties. That is now you call, `Browser.content` for bytes and `Browser.text` for text.
+
+*   **New features**
+
+    *   Support for remote url. Please note this requires [Selenium Grid](https://www.seleniumhq.org/docs/07_selenium_grid.jsp) to be setup explicitly. Once done use the URL here.
+
+    * Flags for Opera browser (`Browser.OPERA`). Webdriver executable needs to be present in `driver_path`.
+    Please note `EDGE` and `SAFARI` are also supported the same way. That is, webdriver isn't automatically downloaded, instead path needs to be provided.
+
 **0.1.0**
 ---------
 

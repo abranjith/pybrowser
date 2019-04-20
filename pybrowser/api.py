@@ -1,4 +1,5 @@
 import os
+import json
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 from selenium.webdriver.support.events import EventFiringWebDriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -31,10 +32,11 @@ class Browser(object):
     FIREFOX = "firefox"
     EDGE = "edge"
     SAFARI = "safari"
+    OPERA = "opera"
 
     def __init__(self, browser_name=None, incognito=False, headless=False, browser_options_dict=None, 
                  browser_options_args=None, http_proxy=None, screenshot_on_exception=True, silent_fail=False,
-                 firefox_binary_path=None, firefox_profile_path=None, driver_path=None, wait_time=10):
+                 firefox_binary_path=None, firefox_profile_path=None, driver_path=None, remote_url=None, wait_time=10):
         self.screenshot_on_exception = screenshot_on_exception
         #TODO: this currently has no effect. Once on_exception is handled in selenium api, will start to work
         self.silent_fail = silent_fail
@@ -51,6 +53,7 @@ class Browser(object):
         self.http_proxy = http_proxy
         self.content_hash = None
         self.wait_time = wait_time
+        self.remote_url = remote_url
         self.logger = get_logger()
         self._content_session = Requester()
         self._set_driver(browser_name, driver_path)
@@ -213,8 +216,7 @@ class Browser(object):
     def cookies(self):
         if self._driver:
             return self._driver.get_cookies()
-        if not self._content_session.response:
-            self._do_get()  # assuming get !
+        self._do_get(url=self._url)  # assuming get !
         resp = self._content_session.response
         cookies = []
         if resp:
@@ -264,7 +266,7 @@ class Browser(object):
         url2 = url or (self._driver.current_url if self._driver else self._url)
         if not url2:
             raise InvalidArgumentError("url is mandatory, please navigate to a url first or provide one")
-        if ((not self._content_session.response) or (self._url != url2)
+        if ((self._url != url2) or (not self._content_session.response) or (self._content_session._req_url != url2)
             or (self.content_hash != self._current_page_content_hash)):
             self._content_session.get(url=url2)
             self._set_url_and_hash(url=url2)
@@ -277,22 +279,32 @@ class Browser(object):
         return HTML(self._content_session.content(), url=self._url, print_style=print_style, 
                     print_js=print_js, remove_tags=remove_tags)
     
-    #TODO add encoding
-    def content(self, raw=False):
+    @property
+    def content(self):
+        if self._driver:
+            c = self._driver.page_source or b""
+            return c.encode(errors="ignore")
+        self._do_get(url=self._url)  # assuming get !
+        return self._content_session.content
+    
+    @property
+    def text(self):
         if self._driver:
             c = self._driver.page_source or ""
-            return c.encode(errors="ignore") if raw else c
-        if not self._content_session.response:
-            self._do_get()  # assuming get !
-        resp = self._content_session.response
-        if resp:
-            return resp.content if raw else resp.text
-        return None
+            return c
+        self._do_get(url=self._url)  # assuming get !
+        return self._content_session.text
     
     @property
     def json(self):
-        if not self._content_session.response:
-            self._do_get()  # assuming get !
+        if self._driver:
+            c = self._driver.page_source
+            try:
+                j = json.loads(c)
+                return j
+            except:
+                pass    # not json
+        self._do_get(url=self._url)  # assuming get !
         return self._content_session.json
 
     @property
@@ -304,8 +316,7 @@ class Browser(object):
             if resp:
                 return str(resp)
         '''
-        if not self._content_session.response:
-            self._do_get()  # assuming get !
+        self._do_get(url=self._url)  # assuming get !
         return self._content_session.response_headers
     
     @property
@@ -315,14 +326,12 @@ class Browser(object):
             resp = self.execute_script(script)
             if resp:
                 return int(resp)
-        if not self._content_session.response:
-            self._do_get()  # assuming get !
+        self._do_get(url=self._url)  # assuming get !
         return self._content_session.response_code
     
     @property
     def response_encoding(self):
-        if not self._content_session.response:
-            self._do_get()  # assuming get !
+        self._do_get(url=self._url)  # assuming get !
         return self._content_session.response_encoding
 
     def get(self, url=None, asynch=False, headers=None, cookies=None, **kwargs):

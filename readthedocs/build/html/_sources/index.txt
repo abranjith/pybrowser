@@ -10,7 +10,7 @@
    :maxdepth: 2
    :caption: Contents:
 
-.. warning:: Please note that if you are switching from previous version (``0.0.1``) to latest (``0.1.0``), there have been some significant changes and also some new features. Refer release notes in `github <https://github.com/abranjith/pybrowser/blob/master/README.md>`_ to know more before upgrading.
+.. warning:: Please note that if you are switching from previous version (``0.0.1``) to latest (``0.2.0``), there have been some significant changes and also some new features. Refer release notes in `github <https://github.com/abranjith/pybrowser/blob/master/README.md>`_ to know more before upgrading.
 
 **About the project**
 *********************
@@ -104,6 +104,7 @@ Browser supports multiple options as explained below,
 *   ``driver_path`` - If you already have drivers downloaded, just provide the path (directory and not file)
 *   ``firefox_binary_path`` - Applicable only for firefox. If not present, default firefox in system is used
 *   ``firefox_profile_path`` - Applicable only for firefox. If not present, default firefox profile is used
+*   ``remote_url`` - Remote URL where the hub is setup. Please note, setting up the Selenium grid isn't supported by the API yet and needs to done explicitly. For more on Selenium grid setup, refer the `docs <https://www.seleniumhq.org/docs/07_selenium_grid.jsp>`_
 
 Below sections explain the functionalities exposed by Browser.
 
@@ -143,9 +144,9 @@ You can automate pretty much all of the activities you can do with you browser p
             rh = b.response_headers
             re = b.response_encoding
             #content in bytes
-            binary_content = b.content(raw=True)
+            binary_content = b.content
             #content in text
-            text_content = b.content(raw=False)
+            text_content = b.text
 
 *   **More advanced actions on browser**
 
@@ -689,9 +690,9 @@ HTTP. So with that in mind, you can do the following with ``pybrowser``
             #this is a blocking call
             r = b.get(url="http://url/", headers={'k':'v'})
             #text (str)  
-            rt = r.content(raw=False)
+            rt = r.text
             #bytes
-            rb = r.content(raw=True)
+            rb = r.content
             #if json
             rj = r.json
             rh = r.response_headers
@@ -700,12 +701,12 @@ HTTP. So with that in mind, you can do the following with ``pybrowser``
             #response object itself
             obj = r.response
             #non blocking, returns immediately
-            rp = b.post(url="http://url/", body= {'b':'d'} headers={'k':'v'}, asynch=True)
+            rp = b.post(url="http://url/", body= {'b':'d'}, headers={'k':'v'}, asynch=True)
             #non blocking
             if rp.is_request_done:
                 #this is a blocking call on it's own
-                rp = rp.result
-            rpt = rp.content()
+                rp = rp.response
+            rpc = rp.content
             #and so on...
 
 **Environment variables**

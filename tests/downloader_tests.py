@@ -28,10 +28,11 @@ class DownloaderTests(unittest.TestCase):
         self.assertTrue(total_secs > 0)
     
     def test_download_url_sync(self):
-        url = "https://the-internet.herokuapp.com/download/logo.png"
+        fname = "some-file.txt"
+        url = f"https://the-internet.herokuapp.com/download/{fname}"
         home_dir = os.getenv('HOME') or os.path.expanduser(os.getenv('USERPROFILE'))
         to_dir = os.path.join(home_dir, "tmp")
-        f = os.path.join(to_dir, "logo.png")
+        f = os.path.join(to_dir, fname)
         #preset
         if file_exists(f):
             rm_files(f)

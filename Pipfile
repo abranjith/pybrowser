@@ -4,10 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-selenium = "*"
+selenium = "==3.141.0"
 requests = "*"
-pyppeteer = "*"
-pyquery = "*"
+pyppeteer = "==0.0.25"
+pyquery = "==1.4.0"
 
 [dev-packages]
 sphinx = "*"

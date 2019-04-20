@@ -11,11 +11,11 @@ from setuptools import setup
 
 # Package meta-data.
 NAME = 'pybrowser'
-DESCRIPTION = 'Another Browser Automation API'
+DESCRIPTION = 'Selenium based, user friendly Browser Automation API'
 URL = 'https://github.com/abranjith/pybrowser'
 EMAIL = 'abranjith@gmail.com'
 AUTHOR = 'Ranjith'
-VERSION = '0.0.1'
+VERSION = '0.2.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
