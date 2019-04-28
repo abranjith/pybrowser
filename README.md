@@ -2,6 +2,18 @@
 
 For documentation, refer [here](https://pybrowser.readthedocs.io/en/latest/)
 
+Here is a quick example,
+
+```python
+from pybrowser import Browser 
+    with Browser(browser_name=Browser.CHROME) as b:
+        b.goto("https://www.google.com/")
+        b.input("name:=q").enter("news")
+        b.button("name:=btnK").click()
+        screenshot_path = b.take_screenshot()
+        print(b.html().elements.links())
+```
+
 ## Release Notes:
 
 **0.2.0**

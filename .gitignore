@@ -1,4 +1,7 @@
 *.log
 __pycache__/
 .vscode/
+dist/
+py_browser.egg-info/
+build/
 reqs.txt

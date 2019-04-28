@@ -12,6 +12,7 @@ pyquery = "==1.4.0"
 [dev-packages]
 sphinx = "*"
 pylint = "*"
+twine = "*"
 
 [requires]
 python_version = "3.7"

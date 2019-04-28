@@ -10,12 +10,13 @@ import os
 from setuptools import setup
 
 # Package meta-data.
-NAME = 'pybrowser'
+NAME = 'py-browser'
 DESCRIPTION = 'Selenium based, user friendly Browser Automation API'
 URL = 'https://github.com/abranjith/pybrowser'
 EMAIL = 'abranjith@gmail.com'
-AUTHOR = 'Ranjith'
+AUTHOR = 'ranjith'
 VERSION = '0.2.0'
+README_CONTENT_TYPE = 'text/markdown'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -25,22 +26,21 @@ REQUIRED = [
 #here = os.path.abspath(os.path.dirname(__file__))
 
 # Import the README and use it as the long-description.
-# Note: this will only work if 'README.rst' is present in your MANIFEST.in file!
-#with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
-#   long_description = '\n' + f.read()
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 # Where the magic happens:
 setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
-    long_description=DESCRIPTION,
+    long_description=long_description,
+    long_description_content_type=README_CONTENT_TYPE,
     author=AUTHOR,
     author_email=EMAIL,
     url=URL,
     python_requires='>=3.7.0',
     # If your package is a single module, use this instead of 'packages':
-    #py_modules=['pybrowser'],
     packages=['pybrowser', 'pybrowser.elements', 'pybrowser.external'],
     install_requires=REQUIRED,
     include_package_data=True,
