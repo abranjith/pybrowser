@@ -53,19 +53,27 @@ much simpler in terms of design as well as usage ! It is also lighweight and doe
 
 **Installation**
 ----------------
-**pybrowser** is not in pypi (the cheeseshop!) yet. 
+With pip,
+
+.. code-block:: bash
+
+    # To get latest version from pypi:
+    pip install get-pybrowser
+
+    # To get latest version from git:
+    pip install git+https://github.com/abranjith/pybrowser#egg=pybrowser
 
 If you use `pipenv <https://pipenv.readthedocs.io/en/latest/>`_ , it can be installed with below command,
 
-``pipenv install -e git+https://github.com/abranjith/pybrowser.git#egg=pybrowser``
+.. code-block:: bash
 
-With pip,
+    # To get latest version from pypi:
+    pipenv install get-pybrowser
 
-``pip install git+https://github.com/abranjith/pybrowser#egg=pybrowser``
+    # To get latest version from git:
+    pipenv install -e git+https://github.com/abranjith/pybrowser.git#egg=pybrowser
 
-`Virtualenv <https://docs.python.org/3/library/venv.html>`_ is highly recommended. Note that, if you are using pipenv, it takes care
-of creating virtualenv for you.
-Feel free to clone/ fork and play around.
+.. note:: `Virtualenv <https://docs.python.org/3/library/venv.html>`_ is highly recommended. Note that if you are using pipenv, it takes care of creating virtualenv for you. Feel free to clone/ fork and play around.
 
 **Requirements**
 ----------------

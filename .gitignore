@@ -2,6 +2,6 @@
 __pycache__/
 .vscode/
 dist/
-py_browser.egg-info/
+get_pybrowser.egg-info/
 build/
 reqs.txt

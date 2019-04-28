@@ -87,14 +87,26 @@ much simpler in terms of design as well as usage ! It is also lighweight and doe
 </ul>
 <div class="section" id="installation">
 <h3><strong>Installation</strong><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<p><strong>pybrowser</strong> is not in pypi (the cheeseshop!) yet.</p>
-<p>If you use <a class="reference external" href="https://pipenv.readthedocs.io/en/latest/">pipenv</a> , it can be installed with below command,</p>
-<p><code class="docutils literal"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">git+https://github.com/abranjith/pybrowser.git#egg=pybrowser</span></code></p>
 <p>With pip,</p>
-<p><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/abranjith/pybrowser#egg=pybrowser</span></code></p>
-<p><a class="reference external" href="https://docs.python.org/3/library/venv.html">Virtualenv</a> is highly recommended. Note that, if you are using pipenv, it takes care
-of creating virtualenv for you.
-Feel free to clone/ fork and play around.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># To get latest version from pypi:</span>
+pip install get-pybrowser
+
+<span class="c1"># To get latest version from git:</span>
+pip install git+https://github.com/abranjith/pybrowser#egg<span class="o">=</span>pybrowser
+</pre></div>
+</div>
+<p>If you use <a class="reference external" href="https://pipenv.readthedocs.io/en/latest/">pipenv</a> , it can be installed with below command,</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># To get latest version from pypi:</span>
+pipenv install get-pybrowser
+
+<span class="c1"># To get latest version from git:</span>
+pipenv install -e git+https://github.com/abranjith/pybrowser.git#egg<span class="o">=</span>pybrowser
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference external" href="https://docs.python.org/3/library/venv.html">Virtualenv</a> is highly recommended. Note that if you are using pipenv, it takes care of creating virtualenv for you. Feel free to clone/ fork and play around.</p>
+</div>
 </div>
 <div class="section" id="requirements">
 <h3><strong>Requirements</strong><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>

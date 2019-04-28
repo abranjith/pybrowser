@@ -10,7 +10,7 @@ import os
 from setuptools import setup
 
 # Package meta-data.
-NAME = 'py-browser'
+NAME = 'get-pybrowser'
 DESCRIPTION = 'Selenium based, user friendly Browser Automation API'
 URL = 'https://github.com/abranjith/pybrowser'
 EMAIL = 'abranjith@gmail.com'
